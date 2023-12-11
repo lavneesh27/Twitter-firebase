@@ -37,10 +37,14 @@ export class CardComponent implements OnInit {
     this.user = await this.data.getUser(this.tweet.userId);
     if (this.user?.image) {
       this.userURL = 'data:image/jpeg;base64,' + this.user.image;
+
     }
 
-    if (this.tweet.image) {
-      this.dataURL = 'data:image/jpeg;base64,' + this.tweet.image;
+    if (this.tweet.image?.length) {
+      const base64String = btoa(
+        String.fromCharCode.apply(null, Array.from(this.tweet.image))
+      );
+      this.dataURL = 'data:image/jpeg;base64,' + base64String;
     }
 
   }
@@ -57,6 +61,7 @@ export class CardComponent implements OnInit {
   //     });
   //   }
   // }
+
 
   plusLike(tweet: Tweet) {
     let val = (tweet.likes! += 1);

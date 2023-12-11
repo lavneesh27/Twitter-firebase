@@ -7,6 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user.model';
 import {Location} from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'app-create',
@@ -25,17 +26,18 @@ export class CreateComponent implements OnInit {
     image: []
   };
   uploadForm!: FormGroup;
-  user!: User;
+  user!: any;
 
   constructor(
     private service: MainService,
     private route: Router,
     private fb: FormBuilder,
     private _location: Location,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private data:DataService
   ) {}
   ngOnInit(): void {
-    if(!localStorage.getItem('user') && !sessionStorage.getItem('user')){
+    if(!localStorage.getItem('token') && !sessionStorage.getItem('token')){
       this.route.navigate(['login']);
       return;
     }
@@ -85,9 +87,8 @@ export class CreateComponent implements OnInit {
 
   upload() {
     this.tweet.content = this.uploadForm.get('content')?.value.toString();
-    this.user = jwtDecode(sessionStorage['user'])
-    // this.tweet.userId = this.user.id;
-    this.service.upload(this.tweet).subscribe(()=>{
+    this.tweet.userId = localStorage.getItem('token')!;
+    this.data.addTweet(this.tweet).then(()=>{
       this.route.navigate(["home"]);
       this.toastr.success('uploaded');
     })

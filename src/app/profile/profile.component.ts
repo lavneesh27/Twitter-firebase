@@ -97,7 +97,6 @@ export class ProfileComponent {
     try {
       this.data.updateUser(this.user);
       this.toastr.success('Profile Updated');
-      
     } catch (err) {
       this.toastr.error('Some error occurred');
     }

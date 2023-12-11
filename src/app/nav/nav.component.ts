@@ -28,22 +28,21 @@ export class NavComponent implements OnInit {
       // this.user = jwtDecode(userToken);
       // this.imgUrl += this.user.image;
       // Assuming `this.user.image` is your Uint8Array containing image data
-      const uints = new Uint8Array(this.user.image);
-      const binary = uints.reduce((acc, byte) => acc + String.fromCharCode(byte), '');
-      const base64 = btoa(binary);
-
-      this.imgUrl = 'data:image/jpeg;base64,' + base64;
+      const base64String = btoa(
+        String.fromCharCode.apply(null, Array.from(this.user.image))
+      );
+      this.imgUrl = 'data:image/jpeg;base64,' + base64String;
     }
   }
   
-  // bytesToBase64(bytes: any) {
-  //   const byteArray = new Uint8Array(bytes);
-  //   let binary = '';
-  //   for (let i = 0; i < byteArray.byteLength; i++) {
-  //     binary += String.fromCharCode(byteArray[i]);
-  //   }
-  //   return window.btoa(binary);
-  // }
+  bytesToBase64(bytes: any) {
+    const byteArray = new Uint8Array(bytes);
+    let binary = '';
+    for (let i = 0; i < byteArray.byteLength; i++) {
+      binary += String.fromCharCode(byteArray[i]);
+    }
+    return window.btoa(binary);
+  }
 
   logout() {
     sessionStorage.clear();

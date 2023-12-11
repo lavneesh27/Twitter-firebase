@@ -1,0 +1,39 @@
+form{
+    width: 100%;
+}
+.register{
+    width: 628px;
+    border: 1px solid rgba(230, 230, 230,0.5);
+    height: calc(100vh-50px);
+}
+
+.btn{
+    border-radius: 50px;
+    background-color: #1D9BF0 !important;
+    border:none;
+    color: white;
+}
+.btn:hover{
+    background-color: #3096DB !important;
+}
+.header{
+    width: 628px;
+    height: 50px;
+    z-index: 3;
+    /* align-items: center; */
+}
+.back{
+    text-decoration: none;
+    color: black;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    /* background-color: aquamarine; */
+    transition: all 0.5s;
+}
+.back:hover{
+    background-color: rgb(230, 230, 230);
+}

@@ -1,0 +1,15 @@
+<div class="header d-flex align-items-center px-3 ">
+    <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3 '></i></a>
+    <h5>Bookmarks</h5>
+</div>
+<div class="container bookmark p-3">
+    <ul class="list-group d-flex justify-content-center" *ngIf="tweets?.length">
+        <li class="list-group-item d-flex justify-content-center p-0" *ngFor="let tweet of tweets"><app-card
+                (likeEvent)="ngOnInit()" [tweet]="tweet"></app-card></li>
+    </ul>
+    <div class="no-data text-center" *ngIf="!tweets?.length">
+        <i class='bx bx-unlink fs-1 mb-3'></i>
+        <h2>Save Tweets for later</h2>
+        <p>Don’t let the good ones fly away! Bookmark Tweets to <br> easily find them again in the future.</p>
+      </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="create container p-3">
+  <div class="header d-flex align-items-center my-4 ">
+    <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3'></i></a>
+      <h5>Tweet</h5>
+    </div>
+  <form (submit)="upload()" [formGroup]="uploadForm" class="text-center">
+      <div class="my-3">
+          <textarea type="text" class="form-control" formControlName="content" id="content" aria-describedby="emailHelp" style="resize:none" placeholder="What's happening?"></textarea>
+      </div>
+      <div
+      class="invalid-feedback"
+      *ngIf="uploadForm.get('content')!.invalid"
+    >
+      Content should not be empty and atleast 5 characters in length
+    </div>
+      <div class="my-3">
+          <label for="image" class="btn btn-outline-primary w-25 d-flex justify-content-center" >
+              <i class="bx bx-upload"></i> &nbsp; Upload Image
+            </label>
+            <input type="file" class="d-none" [(ngModel)]="image" accept="image/*" formControlName="image" id="image" (change)="onFileSelected($event)">
+      </div>
+      <button type="submit" class="btn" [disabled]="uploadForm.invalid">Tweet</button>
+
+      <img *ngIf="dataURL" class="img-thumbnail my-4" [src]='dataURL' alt="image">
+  </form>
+</div>

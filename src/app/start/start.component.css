@@ -1,0 +1,38 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+.grp button{
+    width: 400px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    border: 1.5px solid rgba(0, 0, 0, 0.3);
+}
+
+.left{
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #179CF0;
+}
+.right{
+    padding-left: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: flex-start;
+    height: 100vh;
+}
+
+.modal-content{
+    padding: 80px;
+}

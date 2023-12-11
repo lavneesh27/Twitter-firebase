@@ -1,0 +1,102 @@
+<div class="header d-flex align-items-center px-3">
+    <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3 '></i></a>
+    <h5>Register</h5>
+</div>
+<div class="register p-3">
+    <form class="container px-4" [formGroup]="registerForm" (ngSubmit)="register()">
+        <div class="row mb-3">
+            <div class="col">
+                <label for="exampleInputEmail1" class="form-label">First Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="firstName" formControlName="firstName" [ngClass]="
+                (submitted || registerForm.get('firstName')!.touched) && registerForm.get('firstName')!.invalid
+                  ? 'is-invalid'
+                  : ''
+              " />
+                <div class="invalid-feedback"
+                    *ngIf="(submitted || registerForm.get('firstName')!.touched) && registerForm.get('firstName')!.invalid">
+                    First Name should not be empty
+                </div>
+            </div>
+            <div class="col">
+                <label for="exampleInputEmail1" class="form-label">Last Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="lastName" formControlName="lastName" [ngClass]="
+                (submitted || registerForm.get('lastName')!.touched) && registerForm.get('lastName')!.invalid ? 'is-invalid' : ''
+              " />
+                <div class="invalid-feedback"
+                    *ngIf="(submitted || registerForm.get('lastName')!.touched) && registerForm.get('lastName')!.invalid">
+                    Last Name should not be empty
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address <span class="text-danger">*</span></label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" formControlName="email"
+                [ngClass]="
+                (submitted || registerForm.get('email')!.touched) && registerForm.get('email')!.invalid ? 'is-invalid' : ''
+            " />
+            <div class="invalid-feedback"
+                *ngIf="(submitted || registerForm.get('email')!.touched) && registerForm.get('email')!.invalid">
+                Please enter a valid email address.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">DOB</label>
+            <input type="date" class="form-control" id="dob" formControlName="dob">
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">User Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="userName" formControlName="userName" [ngClass]="
+            (submitted || registerForm.get('userName')!.touched) && registerForm.get('userName')!.invalid ? 'is-invalid' : ''
+              " />
+            <div class="invalid-feedback"
+                *ngIf="(submitted || registerForm.get('userName')!.touched) && registerForm.get('userName')!.invalid">
+                UserName should not be empty
+            </div>
+        </div>
+
+
+        <div class="row mb-3">
+            <div class="col">
+                <label for="exampleInputPassword1" class="form-label">Password <span
+                        class="text-danger">*</span></label>
+                <input type="password" class="form-control" id="password" formControlName="password" [ngClass]="
+                (submitted || registerForm.get('password')!.touched) && registerForm.get('password')!.invalid ? 'is-invalid' : ''
+              " />
+                <div class="invalid-feedback"
+                    *ngIf="(submitted || registerForm.get('password')!.touched) && registerForm.get('password')!.invalid">
+                    Password must contain at least 1 capital letter, 1 small letter, 1
+                    number, and 1 special character.
+                </div>
+            </div>
+            <div class="col">
+                <label for="exampleInputPassword2" class="form-label">Repeat Password <span
+                        class="text-danger">*</span></label>
+                <input type="password" class="form-control" id="rPassword" formControlName="rPassword" [ngClass]="
+                (submitted || registerForm.get('rPassword')!.touched) && registerForm.get('rPassword')!.invalid ? 'is-invalid' : ''
+              " />
+                <div class="invalid-feedback"
+                    *ngIf="(submitted || registerForm.get('rPassword')!.touched) && registerForm.get('rPassword')!.invalid">
+                    Passwords do not match!
+                </div>
+            </div>
+
+        </div>
+        <div class="col">
+            <label for="image" class="form-label">Upload Image</label>
+            <input type="file" class="form-control" id="image" accept="image/*" formControlName="image"
+                (change)="onFileSelected($event)" />
+        </div>
+        <div class="text-center mt-3">
+            <button type="submit" class="mx-auto btn btn-primary" [disabled]="registerForm.invalid">
+                Register
+            </button>
+        </div>
+        <div class="justify-content-center d-flex w-100 mt-4" *ngIf="dataURL">
+            <div class="rounded-circle me-3 overflow-hidden text-center" style="width:300px;height:300px"><img
+                     [src]="dataURL" style="width:100%;height:100%"></div>
+        </div>
+
+
+    </form>
+</div>

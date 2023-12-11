@@ -1,0 +1,99 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid d-flex flex-column">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-column">
+        <li class="nav-brand mb-3">
+          <a class="nav-link d-flex active" aria-current="page" routerLink="/home"><i
+              class='bx bxl-twitter fs-1 logo' ></i></a>
+        </li>
+        <li class="nav-item mb-3" *ngIf="user">
+          <a class="nav-link d-flex" aria-current="page" routerLink="/home" routerLinkActive="active"><i
+              class='bx bxs-home fs-3'></i>&nbsp; Home</a>
+        </li>
+        <li class="nav-item mb-3" *ngIf="!user">
+          <a class="nav-link d-flex" aria-current="page" routerLink="/login" routerLinkActive="active"><i
+              class='bx bxs-key fs-3'></i>&nbsp; Login</a>
+        </li>
+        <li class="nav-item mb-3">
+          <a class="nav-link d-flex" aria-current="page" routerLink="/register" routerLinkActive="active"><i
+              class='bx bxs-user-plus fs-3'></i>&nbsp; Register</a>
+        </li>
+        <li class="nav-item mb-3" *ngIf="user">
+          <a class="nav-link d-flex" aria-current="page" routerLink="/bookmark" routerLinkActive="active"><i
+              class='bx bxs-bookmark fs-3'></i>&nbsp; Bookmarks</a>
+        </li>
+        <li class="nav-item mb-3" *ngIf="user">
+          <a class="nav-link d-flex" aria-current="page" routerLink="/profile" routerLinkActive="active"><i
+              class='bx bxs-user fs-3'></i>&nbsp; Profile</a>
+        </li>
+        <li class="mb-3 d-flex justify-content-center" *ngIf="user">
+          <a class="btn btn-dark mb-3 float-end tweet" routerLink="/create">Post</a>
+        </li>
+
+        <li *ngIf="user" class="nav-item dropup" style="width: 275px;">
+          <a class="nav-link btn-profile" role="button" aria-expanded="false">
+            <div class="d-flex align-items-center">
+              <div class="rounded-circle me-3 overflow-hidden" style="width:40px;height:40px">
+                <img [src]="'data:image/jpeg;base64,' + user.image" *ngIf="user.image" alt=""
+                  style="width:100%;height:100%">
+                <span class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light"
+                  style="width:40px;height:40px">
+                  {{ user?.firstName?.charAt(0) }}
+                </span>
+              </div>
+              <div>
+                <h5 class="mb-0">{{ user?.firstName }} {{ user?.lastName }}</h5>
+                <h6 class="text-muted">&#64;{{ user?.userName }}</h6>
+              </div>
+              <div style="position: absolute; right: 20px;">&#8230;</div>
+            </div>
+          </a>
+
+          <ul class="dropdown-menu">
+            <li *ngIf="user">
+              <a class="dropdown-item nav-link btn-profile" routerLink="/profile">
+                <div class="d-flex align-items-center">
+                  <div class="rounded-circle me-3 overflow-hidden" style="width: 40px; height: 40px">
+                    <img [src]="'data:image/jpeg;base64,' + user.image" *ngIf="user.image" alt="" style="width: 100%; height: 100%">
+                    <span class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light"
+                      style="width: 40px; height: 40px">
+                      {{ user?.firstName?.charAt(0) }}
+                    </span>
+                  </div>
+                  <div>
+                    <h5 class="mb-0">{{ user.firstName }} {{ user.lastName }}</h5>
+                    <h6 class="text-muted">&#64;{{ user.userName }}</h6>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li (click)="user ? open(content) : login()">
+              <a class="dropdown-item text-center fw-bold text-muted">
+                {{ user ? "Log out" : "Login" }}
+                <h6 class="text-muted text-center"><i class='bx bx-exit fs-4'></i> &nbsp;&#64;{{ user?.userName }}</h6>
+              </a>
+            </li>
+          </ul>
+          
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<ng-template #content let-modal >
+  <div class="modal-body p-4">
+    <div class="text-center"><i class="bx bxl-twitter text-center fs-1 mb-3"></i></div>
+    <h3>Log out of Twitter?</h3>
+    <p>You can always log back in at any
+      time. If you just want to switch
+      accounts, you can do that by
+      adding an existing account.</p>
+    <div class="d-flex flex-column">
+      <button class="btn btn-dark mb-2" (click)="logout()">Log out</button>
+      <button class="btn btn-outline-dark" (click)="modal.dismiss()">Cancel</button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+@font-face {
+  font-family: 'TwitterChirp';
+  src: url('assets/fonts/chirp-medium-web.woff');
+}
+body {
+  font-size: 90%;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "TwitterChirp", sans-serif;
+}
+
+.toast-container .ngx-toastr {
+  background-color:  rgb(33,37,41);
+}
+.btn{
+  transition: all 0.3s;
+  border-radius: 30px !important;
+}
+
+.btn-primary{
+  background-color: #1d9bf0 !important;
+  border: none;
+}

@@ -1,0 +1,53 @@
+<div class="container d-flex">
+    <div class="left">
+        <img src="assets/images/logo_white.png" alt="" style="width: 350px;">
+    </div>
+    <div class="right">
+        <img src="assets/images/logo.png" style="width: 50px;margin-bottom: 50px;margin-top: 50px;" alt="">
+
+        <div>
+            <h1 style="font-size: 70px;font-weight: bold;" class="my-3">Happening now</h1>
+            <h3 class="my-3 fw-bold">Join Twitter today.</h3>
+            <div class="grp d-flex flex-column my-3">
+                <button class="btn btn-outline-dark mb-2"><i class='bx bxl-google fs-3'></i> &nbsp; Sign up with
+                    Google</button>
+                <button class="btn btn-outline-dark mb-2"><i class='bx bxl-apple fs-3'></i> &nbsp; Sign up with
+                    Apple</button>
+                <button class="btn btn-outline-dark mb-2">Sign up with phone or email</button>
+            </div>
+
+            <p>By signing up, you agree to the <a href="javascript:void(0)">Terms of Service</a> and <a href="javascript:void(0)">Privacy<br> Policy</a>,
+                including <a href="javascript:void(0)">Cookie Use</a>.</p>
+            &nbsp;
+            <p>Already have an account? <a href="javascript:void(0)"   (click)="onImport(login)">Login</a></p>
+
+        </div>
+    </div>
+</div>
+
+
+<ng-template #login let-modal>
+    <div id="login" class="container my-3">
+      <div class="mb-3 text-center">
+        <h3>Login</h3>
+      </div>
+      <div class="login p-3">
+        <form class="container px-4" [formGroup]="loginForm">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" formControlName="email" />
+          </div>
+          <div class="mb-3">
+            <label for="pwd" class="form-label">Password</label>
+            <input type="password" class="form-control" id="pwd" formControlName="pwd" />
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="rem" formControlName="rem" />
+            <label class="form-check-label" for="rem">Remember Me</label>
+          </div>
+          <button type="submit" class="d-block mx-auto btn btn-outline-dark p-2" [disabled]="loginForm.invalid">Login</button>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+  

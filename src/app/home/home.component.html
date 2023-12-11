@@ -1,0 +1,68 @@
+<div class="header d-flex align-items-center px-3 ">
+  <h5>Home</h5>
+</div>
+<div class="container home p-3">
+  <div class="my-3">
+    <form (submit)="upload()">
+      <div class="d-flex">
+        <div class="rounded-circle me-3 overflow-hidden" style="width:45px;height:45px">
+          <img [src]="'data:image/jpeg;base64,' + user.image" alt="" *ngIf="user && user.image"
+            style="width: 100%; height: 100%">
+          <span class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-3"
+            style="width:45px;height:45px">{{ user?.firstName?.charAt(0) }}</span>
+        </div>
+        <input type="text" class="input" [(ngModel)]="uploadForm.content" id="content" name="content"
+          placeholder="What's happening?!" required>
+      </div>
+      <hr class="line">
+      <div class="d-flex px-4 justify-content-between align-items-center">
+        <div>
+          <label for="image" class='image'>
+            <i class="bx bx-image fs-5"></i>
+          </label>
+          <input type="file" class="d-none" accept="image/*" [(ngModel)]="uploadForm.image" name="image" id="image"
+            (change)="onFileSelected($event)">
+          <label for="git" class='image ms-3' (click)="onImport(gifModal)">
+            <i class="bx bxs-file-gif fs-5"></i>
+          </label>
+          <input type="file" class="d-none" accept="image/*">
+        </div>
+    
+        <button class="btn btn-primary tweet" type="submit" >
+          Tweet
+        </button>
+      </div>
+    
+      <div class="text-center" style="position: relative;">
+        <img *ngIf="dataURL" class="img-thumbnail my-4" [src]='dataURL' style="width: 300px; height: 300px;" alt="image">
+        <i *ngIf="dataURL" (click)="clearImage()" class='cross bx bx-x-circle fs-3'></i>
+      </div>
+    </form>
+    
+  </div>
+  <ul *ngIf="tweets?.length" class="list-group d-flex justify-content-center">
+    <li class="list-group-item d-flex justify-content-center p-0" *ngFor="let tweet of tweets"><app-card
+        (likeEvent)="ngOnInit()" [tweet]="tweet"></app-card></li>
+  </ul>
+</div>
+<div class="no-data" *ngIf="!tweets?.length">
+  <i class='bx bx-unlink fs-1 mb-3'></i>
+  <h4>No tweets to show</h4>
+  <p>add some tweets</p>
+</div>
+
+<ng-template  #gifModal let-modal>
+  <div id="gifModal" class="container my-3 text-center">
+    <div class="mb-3">
+      <h3>Choose a GIF</h3>
+    </div>
+    <div class="input">
+      <input type="text" class="form-control mb-3" #gif  placeholder="Search for GIF" (keyup.enter)="searchGif(gif.value)">
+    </div>
+    <div class="gifs">
+      <div class="gif" *ngFor="let gif of gifs">
+        <img [src]="gif.images.fixed_width_downsampled.url" (click)="selectGif(gif)" alt="image">
+      </div>
+    </div>
+  </div>
+</ng-template>

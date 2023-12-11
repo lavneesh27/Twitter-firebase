@@ -1,0 +1,101 @@
+<div class="header d-flex align-items-center px-3">
+    <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3'></i></a>
+    <div > 
+        <h5 class="m-0">{{user.firstName}} {{user.lastName}}</h5>
+        <p class="m-0">{{tweets.length}} Tweets</p>
+    </div>
+</div>
+<div class="container profile ">
+    <div class="flex flex-column">
+        <div class="banner">
+            <img src="assets/images/banner.jpg">
+            <div class="rounded-circle me-3 overflow-hidden text-center dp my-3" style="width:120px;height:120px">
+                <img *ngIf="user.image" [src]='"data:image/jpeg;base64,"+this.user.image' alt=""
+                    style="width: 100%;height: 100%;">
+              <!--  <span
+                    class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-1"
+                    style="width:100px;height:100px">{{
+                    user.firstName.charAt(0) }}</span> -->
+            </div>
+        </div>
+        <div class="flex flex-column info px-3">
+            <h4>{{user.firstName}} {{user.lastName}}</h4>
+            <h6 class="text-muted text-sm">&#64;{{user.userName}}</h6>
+            <h6 class="text-muted text-sm"><i class='bx bx-calendar'></i> Joined {{user.createdAt | date}}</h6>
+            <h6 class="text-muted text-sm"><span class="fw-bold">26</span> Following &nbsp; <span
+                    class="fw-bold">33</span> Follower</h6>
+        </div>
+        <button id="edit" class="btn btn-outline-dark rounded-pill edit-btn " data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop" data-bs-transition-duration="500">Edit
+            Profile</button>
+
+    </div>
+    
+    <div class="px-3">
+        
+        <h5 class="mt-4">Tweets</h5>
+        <ul *ngIf="tweets?.length" class="list-group d-flex justify-content-center mt-4">
+            <li class="list-group-item d-flex justify-content-center p-0" *ngFor="let tweet of tweets"><app-card
+                    (likeEvent)="ngOnInit()" [tweet]="tweet"></app-card></li>
+        </ul>
+        
+        <div class="no-data text-center" *ngIf="!tweets?.length">
+            <h2>@{{user.userName}} <br> hasn't tweeted</h2>
+            <p>When they do, their Tweets will show up here.</p>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg"  >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit profile</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body overflow-y-scroll">
+                <div class="flex flex-column">
+                    <div class="banner" style="width: 100%;">
+                        <img src="assets/images/banner.jpg" style="width: 100%;">
+                        <div class="rounded-circle me-3 overflow-hidden text-center my-3 d-flex edit-pic"
+                            style="width:125px;height:125px;position: absolute;top: 135px;left: 35px;">
+                            <img *ngIf="user.image" [src]='"data:image/jpeg;base64,"+this.user.image' alt=""
+                                style="width: 100%;height: 100%;">
+                           <!--<span
+                                class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-1"
+                                style="width:100px;height:100px">{{ 
+                                user.firstName.charAt(0)  }}</span> -->
+
+                            <div class="rounded-circle d-flex justify-content-center align-items-center"
+                                style="background-color: rgba(128, 128, 128, 0.486);position: absolute;left: 45px;top: 45px; width: 40px;height: 40px;">
+                                <i class='bx bx-camera fs-3' style="color: white;"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                    <form class="d-flex flex-column" style="margin-top: 5rem;" [formGroup]="updateForm"
+                        (ngSubmit)="update()">
+                        <label for="FirstName" class="form-label">First Name</label>
+                        <input id="FirstName" type="text" class="form-control mb-3" formControlName="firstName">
+                        <label for="LastName" class="form-label">Last Name</label>
+                        <input id="LastName" type="text" class="form-control mb-3" formControlName="lastName">
+                        <label for="Email" class="form-label">Email</label>
+                        <input id="Email" type="email" class="form-control mb-3" formControlName="email">
+                        <label for="UserName" class="form-label">User Name</label>
+                        <input id="UserName" type="text" class="form-control mb-3" formControlName="userName">
+                        <label for="DOB" class="form-label">DOB</label>
+                        <input id="DOB" type="date" class="form-control mb-3" formControlName="dob">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark  rounded-pill" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary rounded-pill" data-bs-dismiss="modal">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

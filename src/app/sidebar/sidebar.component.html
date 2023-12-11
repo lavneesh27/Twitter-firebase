@@ -1,0 +1,34 @@
+<div class="sidebar"  *ngIf="user">
+    <input type="text" class="form-control" id="user" name="user" placeholder="Search" [(ngModel)]="inputUser" (ngModelChange)="filter(inputUser)">
+
+    <div class="my-4 people p-3">
+        <h5 class="my-3">Who to follow</h5>
+        <ul class="list-group" *ngFor="let people of peoples">
+            <li class="list-group-item border-0">
+                <div class="d-flex align-items-start profile"  (click)="NavigateToProfile(people)">
+                    <div class="rounded-circle me-3 overflow-hidden" style="width:40px;height:40px" ><img *ngIf="people.image" [src]="'data:image/jpeg;base64,' + people.image" alt="" style="width:100%;height:100%"> <span *ngIf="!people.image" class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light" style="width:40px;height:40px">{{
+                        people?.firstName?.charAt(0) }}</span></div>
+                   
+                    <div class="d-flex  flex-column" >
+                        <h6 class="text-strong" >{{people.firstName}} {{people.lastName}}</h6>
+                        <p class="text-muted">&#64;{{people.userName}}</p>
+                    </div>
+                    <button class="btn btn-dark float-end"  style="cursor:not-allowed">Follow</button>
+                </div>
+            </li>
+        </ul>
+        <p *ngIf="!peoples?.length" class="text-center">No one found</p>
+    </div>
+    <footer>
+        <div class="d-flex flex-column text-center">
+            <div class="d-flex flex-wrap gap-3 text-center justify-content-center mb-2">
+                <a href="javascript:void(0)" class="text-muted">Terms of Service</a>
+                <a href="javascript:void(0)" class="text-muted">Privacy Policy</a>
+                <a href="javascript:void(0)" class="text-muted">Cookie Policy</a>
+                <a href="javascript:void(0)" class="text-muted">Accessibility</a>
+                <a href="javascript:void(0)" class="text-muted">Ads Info</a>
+            </div>
+            <p class="text-muted"> © 2023 Twitter, Inc.</p>
+        </div>
+    </footer>
+</div>

@@ -18,7 +18,7 @@ export class ProfileComponent {
   user!: any;
   tweets: Tweet[] = [];
   updateForm!: FormGroup;
-  @Input() userNav: any;
+  isAdmin: boolean = false;
 
   constructor(
     private service: MainService,
@@ -29,16 +29,26 @@ export class ProfileComponent {
     private toastr: ToastrService
   ) {}
   async ngOnInit() {
-    const uid =
-      localStorage.getItem('token') ?? sessionStorage.getItem('token');
-    if (uid) {
-      this.user = await this.data.getUser(uid);
-    } else {
-      this.router.navigate(['login']);
-      return;
-    }
     if (history?.state?.people) {
       this.user = history?.state?.people;
+      console.log(this.user)
+      return;
+    } else {
+      this.isAdmin = true;
+      const uid =
+        localStorage.getItem('token') ?? sessionStorage.getItem('token');
+      if (uid) {
+        this.user = await this.data.getUser(uid);
+      } else {
+        this.router.navigate(['login']);
+        return;
+      }
+    }
+    if (this.user && this.user.image.length) {
+      const base64String = btoa(
+        String.fromCharCode.apply(null, Array.from(this.user.image))
+      );
+      this.user.image = 'data:image/jpeg;base64,' + base64String;
     }
 
     this.updateForm = this.fb.group({

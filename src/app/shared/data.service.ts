@@ -30,11 +30,11 @@ export class DataService {
       if (doc.exists) {
         return doc.data();
       } else {
-        return null; // or handle the absence of the document as needed
+        return null;
       }
     } catch (error) {
       console.error('There was an error getting your document:', error);
-      throw error; // or handle the error as needed
+      throw error; 
     }
   }
 

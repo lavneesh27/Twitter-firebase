@@ -43,6 +43,7 @@ export class BookmarkComponent implements OnInit {
         }
       ).forEach(async (element: any) => {
         let tweet = await this.data.getTweet(element.tweetId);
+        console.log(tweet)
         this.tweets.push(tweet);
       });
     });

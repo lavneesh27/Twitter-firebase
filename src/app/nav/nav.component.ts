@@ -24,10 +24,7 @@ export class NavComponent implements OnInit {
       this.user = await  this.data.getUser(uid);
     }
 
-    if (this.user) {
-      // this.user = jwtDecode(userToken);
-      // this.imgUrl += this.user.image;
-      // Assuming `this.user.image` is your Uint8Array containing image data
+    if (this.user && this.user.image.length) {
       const base64String = btoa(
         String.fromCharCode.apply(null, Array.from(this.user.image))
       );

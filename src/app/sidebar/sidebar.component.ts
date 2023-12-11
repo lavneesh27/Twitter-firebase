@@ -33,6 +33,12 @@ export class SidebarComponent implements OnInit {
               (e: any) => {
                 const data = e.payload.doc.data();
                 data.id = e.payload.doc.id;
+                if (data.image.length) {
+                  const base64String = btoa(
+                    String.fromCharCode.apply(null, Array.from(data.image))
+                  );
+                  data.image = 'data:image/jpeg;base64,' + base64String;
+                }
                 return data;
               },
               (err: any) => {

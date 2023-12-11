@@ -61,6 +61,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     let userToken =
       localStorage.getItem('token') ?? sessionStorage.getItem('token');
     this.user = await this.dataService.getUser(userToken!);
+    const base64String = btoa(
+      String.fromCharCode.apply(null, Array.from(this.user.image))
+    );
+    this.user.image = 'data:image/jpeg;base64,' + base64String;
 
     this.isLoading = true;
     this.dataService.getAllTweets().subscribe((res: any) => {

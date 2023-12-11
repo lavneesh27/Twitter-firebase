@@ -36,7 +36,10 @@ export class CardComponent implements OnInit {
     this.loginUser = await this.data.getUser(this.tweet.userId);
     this.user = await this.data.getUser(this.tweet.userId);
     if (this.user?.image) {
-      this.userURL = 'data:image/jpeg;base64,' + this.user.image;
+      const base64String = btoa(
+        String.fromCharCode.apply(null, Array.from(this.user.image))
+      );
+      this.userURL = 'data:image/jpeg;base64,' +base64String;
 
     }
 

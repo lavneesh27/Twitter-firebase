@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
   async ngOnInit() {
-    if (!localStorage.getItem('token') && !sessionStorage.getItem('token')) {
+    if (!localStorage.getItem('token')) {
       this.router.navigate(['login']);
       return;
     }

@@ -13,12 +13,12 @@
       {{user?.firstName}} {{user?.lastName}}&nbsp; <span class="text-muted fw-normal">&#64;{{user?.userName}} .
         {{tweet.createdAt | date:"dd MMM"}}</span>
     </div>
-    <h5 class="card-text my-3">{{tweet.content}}</h5>
-    <div class="img-container mb-3" *ngIf="dataURL">
+    <h6 class="card-text ms-4  my-2">{{tweet.content}}</h6>
+    <div class="img-container mb-3 ms-3" *ngIf="dataURL">
       <img class="img-thumbnail" [src]="dataURL" alt="image" (click)="onClick($event)" data-toggle="modal"
         data-target="#myModal">
     </div>
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between px-4">
       <div>
         <a class="btn p-0 me-2" href="javascript:void(0)" style="cursor: not-allowed;"><i class='bx bx-comment'></i></a>
         <span>{{1}}</span>

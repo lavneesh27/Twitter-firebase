@@ -96,11 +96,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     uploadBytes(storageRef, file)
       .then((snapshot) => {
-        // Get the download URL after the file is uploaded
         return getDownloadURL(snapshot.ref);
       })
       .then((downloadURL) => {
-        // Store the download URL in your Firestore document
         this.tweet.image = downloadURL;
         this.dataURL = downloadURL;
       })
@@ -140,7 +138,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
   selectGif(gif: any) {
-    console.log(gif)
     this.tweet.image=gif.images.original.url;
     this.dataURL=gif.images.original.url;
 

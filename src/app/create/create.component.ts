@@ -16,7 +16,6 @@ import { getStorage, ref, uploadBytes, getDownloadURL  } from 'firebase/storage'
   styleUrls: ['./create.component.css'],
 })
 export class CreateComponent implements OnInit {
-  image: Uint8Array | null = null;
   dataURL: string = '';
   tweet: Tweet = {
     id: '',
@@ -64,11 +63,9 @@ export class CreateComponent implements OnInit {
   
     uploadBytes(storageRef, file)
       .then(snapshot => {
-        // Get the download URL after the file is uploaded
         return getDownloadURL(snapshot.ref);
       })
       .then(downloadURL => {
-        // Store the download URL in your Firestore document
         this.tweet.image = downloadURL;
         this.dataURL=downloadURL
       })

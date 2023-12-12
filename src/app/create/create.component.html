@@ -17,7 +17,7 @@
           <label for="image" class="btn btn-outline-primary w-25 d-flex justify-content-center" >
               <i class="bx bx-upload"></i> &nbsp; Upload Image
             </label>
-            <input type="file" class="d-none" [(ngModel)]="image" accept="image/*" formControlName="image" id="image" (change)="onFileSelected($event)">
+            <input type="file" class="d-none"  accept="image/*" formControlName="image" id="image" (change)="onFileSelected($event)">
       </div>
       <button type="submit" class="btn" [disabled]="uploadForm.invalid">Tweet</button>
 

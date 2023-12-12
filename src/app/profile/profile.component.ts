@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../shared/data.service';
-import { NgxUiLoaderService } from "ngx-ui-loader"; 
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 @Component({
@@ -33,46 +33,22 @@ export class ProfileComponent {
   ) {}
   async ngOnInit() {
     this.ngxService.start();
+
     if (history?.state?.people) {
       this.user = history?.state?.people;
-      return;
+      this.initializeForm();
     } else {
-      this.isAdmin = true;
-      const uid =
-        sessionStorage.getItem('token') ?? sessionStorage.getItem('token');
+      const uid = sessionStorage.getItem('token') || '';
+
       if (uid) {
         this.user = await this.data.getUser(uid);
+        this.isAdmin=true;
+        this.initializeForm();
       } else {
         this.router.navigate(['login']);
         return;
       }
     }
-
-    this.updateForm = this.fb.group({
-      firstName: [
-        this.user.firstName,
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.pattern('[a-zA-Z].*'),
-        ],
-      ],
-      lastName: [
-        this.user.lastName,
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.pattern('[a-zA-Z].*'),
-        ],
-      ],
-      email: [this.user.email, [Validators.required, Validators.email]],
-      dob: [this.user.dob],
-      userName: [
-        this.user.userName,
-        [Validators.required, Validators.minLength(2)],
-      ],
-      image: [this.user.image],
-    });
 
     this.data.getAllTweets().subscribe((res: any) => {
       this.tweets = res
@@ -89,11 +65,13 @@ export class ProfileComponent {
         .filter((tweet: Tweet) => {
           return tweet.userId == this.user.id;
         });
-        this.tweets.sort((a, b) => ( new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1));
+      this.tweets.sort((a, b) =>
+        new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+      );
     });
     this.ngxService.stop();
     setTimeout(() => {
-      this.isLoading=false;
+      this.isLoading = false;
     }, 500);
   }
   goBack() {
@@ -117,6 +95,33 @@ export class ProfileComponent {
     }
   }
 
+  initializeForm() {
+    this.updateForm = this.fb.group({
+      firstName: [
+        this.user.firstName,
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern('[a-zA-Z].*'),
+        ],
+      ],
+      lastName: [
+        this.user.lastName,
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern('[a-zA-Z].*'),
+        ],
+      ],
+      email: [this.user.email, [Validators.required, Validators.email]],
+      dob: [this.user.dob],
+      userName: [
+        this.user.userName,
+        [Validators.required, Validators.minLength(2)],
+      ],
+    });
+  }
+
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (!file) {
@@ -132,24 +137,13 @@ export class ProfileComponent {
 
     uploadBytes(storageRef, file)
       .then((snapshot) => {
-        // Get the download URL after the file is uploaded
         return getDownloadURL(snapshot.ref);
       })
       .then((downloadURL) => {
-        // Store the download URL in your Firestore document
-        this.user.image = downloadURL;  
+        this.user.image = downloadURL;
       })
       .catch((error) => {
         console.error('Error uploading image:', error);
       });
-  }
-
-  base64ToBytes(base64: string): Uint8Array {
-    const byteCharacters = atob(base64.split(',')[1]);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    return new Uint8Array(byteNumbers);
   }
 }

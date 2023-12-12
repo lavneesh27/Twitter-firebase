@@ -24,11 +24,6 @@ export class AuthService {
         const userDoc = this.afs.collection('/Users').doc(res.user!.uid).get();
         sessionStorage.setItem('token', String(res.user?.uid));
 
-        // if(res.user?.emailVerified==true){
-        //   this.router.navigate(['dashboard']);
-        // }else{
-        //   this.router.navigate(['/verify']);
-        // }
         this.router.navigate(['/home']);
         setTimeout(() => {
           window.location.reload();
@@ -44,9 +39,8 @@ export class AuthService {
       .createUserWithEmailAndPassword(user.email, user.password)
       .then(
         (res) => {
-          alert('Registration Successful');
+          this.toastr.success('Registration Successful');
           this.router.navigate(['login']);
-          this.sendEmailVerification(res.user);
           user.id = res.user!.uid;
           user.createdAt =  new Date().toLocaleDateString();
           this.data.addUser(user);
@@ -70,27 +64,6 @@ export class AuthService {
     );
   }
 
-  sendEmailVerification(user: any) {
-    user.sendEmailVerification().then(
-      () => {
-        this.router.navigate(['/verify']);
-      },
-      (err: any) => {
-        alert('Something went wrong');
-      }
-    );
-  }
-
-  forgotPassword(email: string) {
-    this.fireAuth.sendPasswordResetEmail(email).then(
-      () => {
-        this.router.navigate(['/verify']);
-      },
-      (err) => {
-        alert('Something went wrong');
-      }
-    );
-  }
 
   googleSignIn() {
     return this.fireAuth.signInWithPopup(new GoogleAuthProvider()).then(

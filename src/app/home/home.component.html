@@ -1,11 +1,11 @@
 <div class="header d-flex align-items-center px-3 ">
   <h5>Home</h5>
 </div>
-<div class="container home p-3">
+<div class="container home">
   <div class="my-3">
     <form (submit)="upload()">
-      <div class="d-flex">
-        <div class="rounded-circle me-3 overflow-hidden" style="width:45px;height:45px">
+      <div class="d-flex px-4">
+        <div class="rounded-circle me-3  overflow-hidden" style="width:45px;height:45px">
           <img [src]="user.image" alt="" *ngIf="user && user.image" style="width: 100%; height: 100%">
           <span class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-4"
             style="width:45px;height:45px">{{ user?.firstName?.charAt(0) }}</span>
@@ -19,12 +19,11 @@
           <label for="image" class='image'>
             <i class="bx bx-image fs-5"></i>
           </label>
-          <input type="file" class="d-none" accept="image/*" [(ngModel)]="uploadForm.image" name="image" id="image"
+          <input type="file"  class="d-none" accept="image/*" [(ngModel)]="uploadForm.image" name="image" id="image"
             (change)="onFileSelected($event)">
-          <label for="git" class='image ms-3' (click)="onImport(gifModal)">
+          <label  class='image ms-3' (click)="onImport(gifModal)">
             <i class="bx bxs-file-gif fs-5"></i>
           </label>
-          <input type="file" class="d-none" accept="image/*">
         </div>
 
         <button class="btn btn-primary tweet" type="submit" [disabled]="uploadForm.content==''">

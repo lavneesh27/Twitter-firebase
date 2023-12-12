@@ -21,8 +21,6 @@ import { StartComponent } from './start/start.component';
 import { FirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
-import { VerifyComponent } from './verify/verify.component';
-import { ForgotComponent } from './forgot/forgot.component';
 import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
 
 
@@ -69,9 +67,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     SidebarComponent,
     ProfileComponent,
     BookmarkComponent,
-    StartComponent,
-    VerifyComponent,
-    ForgotComponent,
+    StartComponent
     
   ],
   imports: [

@@ -17,7 +17,6 @@ export class CardComponent implements OnInit {
   imgSrc: string = '';
   userURL?: string;
   like: boolean = false;
-  @Output() likeEvent = new EventEmitter<string>();
 
   constructor(
     private toastr: ToastrService,

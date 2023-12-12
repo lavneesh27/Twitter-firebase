@@ -9,9 +9,9 @@ import { MainService } from '../shared/main.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { ToastrService } from 'ngx-toastr';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { AuthService } from '../shared/auth.service';
-import { getStorage, ref, uploadBytes, getDownloadURL  } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 @Component({
   selector: 'app-register',
@@ -24,11 +24,9 @@ export class RegisterComponent implements OnInit {
   submitted: boolean = false;
   constructor(
     private fb: FormBuilder,
-    private service: MainService,
-    private route: Router,
     private toastr: ToastrService,
     private _location: Location,
-    private auth:AuthService
+    private auth: AuthService
   ) {}
   ngOnInit(): void {
     this.registerForm = this.fb.group(
@@ -56,7 +54,8 @@ export class RegisterComponent implements OnInit {
           '',
           [
             Validators.required,
-           
+            Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).*$'),
+            Validators.minLength(6),
           ],
         ],
         rPassword: ['', Validators.required],
@@ -88,12 +87,10 @@ export class RegisterComponent implements OnInit {
       password: this.Password.value,
       dob: this.DOB.value.toString(),
       userName: this.UserName.value,
-      image: this.image?this.image:'',
-      createdAt:'',
+      image: this.image ? this.image : '',
+      createdAt: '',
     };
     this.auth.register(user);
-    this.registerForm.reset();
-      
   }
 
   onFileSelected(event: any) {
@@ -105,24 +102,23 @@ export class RegisterComponent implements OnInit {
       alert('Please select only image files.');
       return;
     }
-  
+
     const storage = getStorage();
     const storageRef = ref(storage, 'images/' + file.name);
-  
+
     uploadBytes(storageRef, file)
-      .then(snapshot => {
+      .then((snapshot) => {
         return getDownloadURL(snapshot.ref);
       })
-      .then(downloadURL => {
+      .then((downloadURL) => {
         this.image = downloadURL;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error uploading image:', error);
       });
-
   }
 
-  goBack(){
+  goBack() {
     this._location.back();
   }
 

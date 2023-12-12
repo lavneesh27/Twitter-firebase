@@ -20,6 +20,12 @@
   /* border: 1px solid rgba(230, 230, 230, 0.5); */
   padding: 0;
 }
+.file{
+  position: absolute;
+  top: 50px;
+  left: 0;
+  z-index: 0;
+}
 .text-sm {
   font-size: 15px;
   font-weight: 400;
@@ -62,7 +68,7 @@
 }
 
 .dp {
-  /* z-index: 5; */
+  z-index: 5;
   position: absolute;
   top: 145px;
   left: 25px;

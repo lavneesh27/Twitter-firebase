@@ -2,18 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainService } from '../shared/main.service';
 import { Tweet } from '../models/tweet.model';
 import { Router } from '@angular/router';
+import { NgxUiLoaderService } from "ngx-ui-loader"; 
 import {
   FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
 } from '@angular/forms';
-import { User } from '../models/user.model';
 import { ToastrService } from 'ngx-toastr';
-import { jwtDecode } from 'jwt-decode';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subscription } from 'rxjs';
 import { DataService } from '../shared/data.service';
+import { getStorage, ref, uploadBytes, getDownloadURL  } from 'firebase/storage';
 
 @Component({
   selector: 'app-home',
@@ -22,9 +18,8 @@ import { DataService } from '../shared/data.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   tweets: Tweet[] = [];
-  imgUrl: any;
   dataURL: string = '';
-  isLoading: boolean = false;
+  isLoading: boolean = true;
   tweet: Tweet = {
     id: '',
     content: '',
@@ -46,7 +41,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private modalService: NgbModal,
-    private dataService: DataService
+    private dataService: DataService,
+    private ngxService: NgxUiLoaderService
   ) {}
   ngOnDestroy(): void {
     if (this.subscription) {
@@ -54,17 +50,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
   async ngOnInit() {
-    if (!localStorage.getItem('token')) {
+    this.ngxService.start();
+    if (!sessionStorage.getItem('token')) {
       this.router.navigate(['login']);
       return;
     }
     let userToken =
-      localStorage.getItem('token') ?? sessionStorage.getItem('token');
+      sessionStorage.getItem('token') ?? sessionStorage.getItem('token');
     this.user = await this.dataService.getUser(userToken!);
-    const base64String = btoa(
-      String.fromCharCode.apply(null, Array.from(this.user.image))
-    );
-    this.user.image = 'data:image/jpeg;base64,' + base64String;
 
     this.isLoading = true;
     this.dataService.getAllTweets().subscribe((res: any) => {
@@ -79,8 +72,13 @@ export class HomeComponent implements OnInit, OnDestroy {
           alert('Error while fetching tweets');
         }
       );
+      // this.tweets.reverse();
+      this.tweets.sort((a, b) => ( new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1));
     });
-    this.tweets.sort((a, b) => ( new Date(a.createdAt) < new Date(b.createdAt) ? -1 : 1));
+    this.ngxService.stop();
+    setTimeout(() => {
+      this.isLoading=false;
+    }, 500);
   }
 
   onFileSelected(event: any) {
@@ -92,43 +90,36 @@ export class HomeComponent implements OnInit, OnDestroy {
       alert('Please select only image files.');
       return;
     }
-    const reader = new FileReader();
-    let image: Uint8Array | null;
-    reader.onload = () => {
-      const base64 = reader.result as string;
-      image = this.base64ToBytes(base64);
-      this.tweet.image = Array.from(image);
-    };
-    reader.readAsDataURL(file);
+  
+    const storage = getStorage();
+    const storageRef = ref(storage, 'images/' + file.name);
+  
+    uploadBytes(storageRef, file)
+      .then(snapshot => {
+        // Get the download URL after the file is uploaded
+        return getDownloadURL(snapshot.ref);
+      })
+      .then(downloadURL => {
+        // Store the download URL in your Firestore document
+        this.tweet.image = downloadURL;
+        this.dataURL=downloadURL
+        console.log(this.tweet.image)
+      })
+      .catch(error => {
+        console.error('Error uploading image:', error);
+      });
 
-    setTimeout(() => {
-      if (image) {
-        const base64String = btoa(
-          String.fromCharCode.apply(null, Array.from(image))
-        );
-        this.dataURL = 'data:image/jpeg;base64,' + base64String;
-      }
-    }, 300);
   }
-  base64ToBytes(base64: string): Uint8Array {
-    const byteCharacters = atob(base64.split(',')[1]);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    return new Uint8Array(byteNumbers);
-  }
+  
 
   upload() {
     this.tweet.content = this.uploadForm.content.toString();
+    this.tweet.userId = this.user.id;
     this.uploadForm.image = '';
     this.uploadForm.content = '';
-    this.tweet.userId = this.user.id;
     this.dataService.addTweet(this.tweet);
     this.toastr.success('uploaded');
-    this.dataURL = '';
-    this.imgUrl = '';
-    this.tweet.image = [];
+    this.clearImage();
     this.ngOnInit();
   }
   clearImage() {
@@ -164,7 +155,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             );
             this.dataURL = 'data:image/jpeg;base64,' + base64String;
           }
-        }, 600);
+        }, 300);
       });
   }
 }

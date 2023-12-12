@@ -8,9 +8,9 @@ li app-card {
   position: relative;
   top: 50px;
 }
+
 li {
   border: none;
-  width: 600px;
 }
 .header {
   width: 628px;

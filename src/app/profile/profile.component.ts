@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../shared/data.service';
+import { NgxUiLoaderService } from "ngx-ui-loader"; 
 
 @Component({
   selector: 'app-profile',
@@ -19,24 +20,25 @@ export class ProfileComponent {
   tweets: Tweet[] = [];
   updateForm!: FormGroup;
   isAdmin: boolean = false;
-
+  isLoading: boolean = true;
   constructor(
     private service: MainService,
     private _location: Location,
     private router: Router,
     private fb: FormBuilder,
     private data: DataService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private ngxService: NgxUiLoaderService
   ) {}
   async ngOnInit() {
+    this.ngxService.start();
     if (history?.state?.people) {
       this.user = history?.state?.people;
-      console.log(this.user)
       return;
     } else {
       this.isAdmin = true;
       const uid =
-        localStorage.getItem('token') ?? sessionStorage.getItem('token');
+        sessionStorage.getItem('token') ?? sessionStorage.getItem('token');
       if (uid) {
         this.user = await this.data.getUser(uid);
       } else {
@@ -92,7 +94,12 @@ export class ProfileComponent {
         .filter((tweet: Tweet) => {
           return tweet.userId == this.user.id;
         });
+        this.tweets.sort((a, b) => ( new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1));
     });
+    this.ngxService.stop();
+    setTimeout(() => {
+      this.isLoading=false;
+    }, 500);
   }
   goBack() {
     this._location.back();
@@ -104,11 +111,43 @@ export class ProfileComponent {
     this.user.userName = this.updateForm.get('userName')?.value;
     this.user.email = this.updateForm.get('email')?.value;
 
+    console.log(this.user.image)
+
     try {
       this.data.updateUser(this.user);
       this.toastr.success('Profile Updated');
     } catch (err) {
       this.toastr.error('Some error occurred');
     }
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (!file) {
+      return;
+    }
+    if (!file.type.startsWith('image/')) {
+      alert('Please select only image files.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = reader.result as string;
+      console.log("before", this.user.image)
+      // this.user.image = this.base64ToBytes(base64);
+      this.user.image = base64;
+      console.log("after", this.user.image)
+
+    };
+    reader.readAsDataURL(file);
+  }
+
+  base64ToBytes(base64: string): Uint8Array {
+    const byteCharacters = atob(base64.split(',')[1]);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    return new Uint8Array(byteNumbers);
   }
 }

@@ -22,7 +22,7 @@ export class AuthService {
     this.fireAuth.signInWithEmailAndPassword(email, password).then(
       (res) => {
         const userDoc = this.afs.collection('/Users').doc(res.user!.uid).get();
-        localStorage.setItem('token', String(res.user?.uid));
+        sessionStorage.setItem('token', String(res.user?.uid));
 
         // if(res.user?.emailVerified==true){
         //   this.router.navigate(['dashboard']);

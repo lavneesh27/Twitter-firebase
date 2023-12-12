@@ -73,6 +73,7 @@ export class DataService {
 
   addBookmark(bookmark: Bookmark) {
     bookmark.id = this.afs.createId();
+    
     return this.afs.collection('/Bookmarks').add(bookmark);
   }
   getAllBookmarks(id: number) {

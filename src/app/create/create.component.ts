@@ -37,7 +37,7 @@ export class CreateComponent implements OnInit {
     private data:DataService
   ) {}
   ngOnInit(): void {
-    if(!localStorage.getItem('token') && !sessionStorage.getItem('token')){
+    if(!sessionStorage.getItem('token')){
       this.route.navigate(['login']);
       return;
     }
@@ -87,7 +87,7 @@ export class CreateComponent implements OnInit {
 
   upload() {
     this.tweet.content = this.uploadForm.get('content')?.value.toString();
-    this.tweet.userId = localStorage.getItem('token')!;
+    this.tweet.userId = sessionStorage.getItem('token')!;
     this.data.addTweet(this.tweet).then(()=>{
       this.route.navigate(["home"]);
       this.toastr.success('uploaded');

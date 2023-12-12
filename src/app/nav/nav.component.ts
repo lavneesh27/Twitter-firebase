@@ -19,26 +19,10 @@ export class NavComponent implements OnInit {
 
   constructor(private router: Router, private toastr:ToastrService,private data:DataService) {}
   async ngOnInit()  {
-    let uid = localStorage.getItem('token') ?? sessionStorage.getItem('token');
+    let uid = sessionStorage.getItem('token') ?? sessionStorage.getItem('token');
     if(uid){
       this.user = await  this.data.getUser(uid);
     }
-
-    if (this.user && this.user.image.length) {
-      const base64String = btoa(
-        String.fromCharCode.apply(null, Array.from(this.user.image))
-      );
-      this.imgUrl = 'data:image/jpeg;base64,' + base64String;
-    }
-  }
-  
-  bytesToBase64(bytes: any) {
-    const byteArray = new Uint8Array(bytes);
-    let binary = '';
-    for (let i = 0; i < byteArray.byteLength; i++) {
-      binary += String.fromCharCode(byteArray[i]);
-    }
-    return window.btoa(binary);
   }
 
   logout() {
@@ -48,7 +32,7 @@ export class NavComponent implements OnInit {
     this.router.navigate(['/login']).then(() => {
       setTimeout(() => {
         window.location.reload();
-      }, 500);
+      }, 300);
       this.toastr.success('Logout Successful');
     });
   }

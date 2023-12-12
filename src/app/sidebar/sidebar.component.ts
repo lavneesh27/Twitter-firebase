@@ -12,7 +12,6 @@ import { DataService } from '../shared/data.service';
 })
 export class SidebarComponent implements OnInit {
   constructor(
-    private service: MainService,
     private router: Router,
     private data: DataService
   ) {}
@@ -21,7 +20,7 @@ export class SidebarComponent implements OnInit {
   user: any;
   async ngOnInit() {
     const userToken =
-      localStorage.getItem('token') ?? sessionStorage.getItem('token');
+      sessionStorage.getItem('token');
 
     if (userToken) {
       this.user = await this.data.getUser(userToken);
@@ -33,12 +32,7 @@ export class SidebarComponent implements OnInit {
               (e: any) => {
                 const data = e.payload.doc.data();
                 data.id = e.payload.doc.id;
-                if (data.image.length) {
-                  const base64String = btoa(
-                    String.fromCharCode.apply(null, Array.from(data.image))
-                  );
-                  data.image = 'data:image/jpeg;base64,' + base64String;
-                }
+                
                 return data;
               },
               (err: any) => {
@@ -58,6 +52,7 @@ export class SidebarComponent implements OnInit {
           (e: any) => {
             const data = e.payload.doc.data();
             data.id = e.payload.doc.id;
+            
             return data;
           },
           (err: any) => {
@@ -66,7 +61,8 @@ export class SidebarComponent implements OnInit {
         )
         .filter((user: User) => {
           return (
-            user.firstName.toLowerCase().includes(searchText.toLowerCase()) &&
+            (user.firstName.toLowerCase().includes(searchText.toLowerCase()) ||
+              user.userName.toLowerCase().includes(searchText.toLowerCase())) &&
             user.userName !== this.user.userName
           );
         });

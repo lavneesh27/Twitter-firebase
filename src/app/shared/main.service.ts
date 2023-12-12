@@ -11,7 +11,7 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 })
 export class MainService {
   baseUrl = 'https://localhost:7247/api/';
-  userToken = localStorage.getItem('user') ?? sessionStorage.getItem('user');
+  userToken = sessionStorage.getItem('user') ?? sessionStorage.getItem('user');
   headers = new HttpHeaders({
     // 'Content-Type': 'text/plain',
     Authorization: `Bearer ${this.userToken}`,

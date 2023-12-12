@@ -3,7 +3,7 @@
   <h5>Login</h5>
 </div>
 <div class="login p-3">
-  <form class="container px-4">
+  <form class="container px-4" (submit)="login()">
     <div class="mb-3">
       <label for="email" class="form-label">Email address</label>
       <input type="email" class="form-control" id="email" name="email"  [(ngModel)]="email"/>
@@ -17,7 +17,7 @@
       <label class="form-check-label" for="exampleCheck1" >Remember Me</label>
     </div> -->
 
-    <button type="button" class="d-block mx-auto btn" (click)="login()">
+    <button type="submit" class="d-block mx-auto btn">
       Login
     </button>
   </form>

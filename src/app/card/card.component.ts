@@ -1,9 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Tweet } from '../models/tweet.model';
-import { User } from '../models/user.model';
-import { MainService } from '../shared/main.service';
 import { Bookmark } from '../models/bookmark.model';
-import { jwtDecode } from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../shared/data.service';
 
@@ -23,31 +20,18 @@ export class CardComponent implements OnInit {
   @Output() likeEvent = new EventEmitter<string>();
 
   constructor(
-    private service: MainService,
     private toastr: ToastrService,
     private afs: DataService,
     private data: DataService
   ) {}
   async ngOnInit() {
-    // const userToken = localStorage.getItem('token') ?? sessionStorage.getItem('token');
-    // if (userToken) {
-    //   this.loginUser = this.data.getUser(userToken)
-    // }
-    this.loginUser = await this.data.getUser(this.tweet.userId);
-    this.user = await this.data.getUser(this.tweet.userId);
-    if (this.user?.image) {
-      const base64String = btoa(
-        String.fromCharCode.apply(null, Array.from(this.user.image))
-      );
-      this.userURL = 'data:image/jpeg;base64,' +base64String;
-
+    const userToken = sessionStorage.getItem('token');
+    if (userToken) {
+      this.loginUser = await this.data.getUser(userToken)
     }
-
+    this.user = await this.data.getUser(this.tweet.userId);
     if (this.tweet.image?.length) {
-      const base64String = btoa(
-        String.fromCharCode.apply(null, Array.from(this.tweet.image))
-      );
-      this.dataURL = 'data:image/jpeg;base64,' + base64String;
+      this.dataURL = this.tweet.image;
     }
 
   }

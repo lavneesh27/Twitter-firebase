@@ -7,6 +7,6 @@ export interface User {
   email: string;
   password: string;
   userName: string;
-  image?:Uint8Array | number[]|null;
+  image?:any;
   createdAt?:string;
 }

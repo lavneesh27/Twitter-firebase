@@ -19,9 +19,8 @@ import { AuthService } from '../shared/auth.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
-  image: Uint8Array|null=null;
+  image: any;
   submitted: boolean = false;
-  dataURL: string = '';
   constructor(
     private fb: FormBuilder,
     private service: MainService,
@@ -88,7 +87,7 @@ export class RegisterComponent implements OnInit {
       password: this.Password.value,
       dob: this.DOB.value.toString(),
       userName: this.UserName.value,
-      image: this.image?Array.from(this.image):null,
+      image: this.image?this.image:'',
       createdAt:'',
     };
 
@@ -109,28 +108,11 @@ export class RegisterComponent implements OnInit {
     const reader = new FileReader();
     reader.onload = () => {
       const base64 = reader.result as string;
-      this.image = this.base64ToBytes(base64);
+      this.image = base64;
     };
     reader.readAsDataURL(file);
-
-    setTimeout(() => {
-      if (this.image) {
-        const base64String = btoa(
-          String.fromCharCode.apply(null, Array.from(this.image))
-        );
-        this.dataURL = 'data:image/jpeg;base64,' + base64String;
-      }
-    }, 300);
   }
 
-  base64ToBytes(base64: string): Uint8Array {
-    const byteCharacters = atob(base64.split(',')[1]);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    return new Uint8Array(byteNumbers);
-  }
   goBack(){
     this._location.back();
   }

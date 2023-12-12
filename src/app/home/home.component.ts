@@ -140,19 +140,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
   selectGif(gif: any) {
-    this.service
-      .getGifByteArray(gif.images.fixed_width_small.url)
-      .subscribe((res) => {
-        this.tweet.image = res;
-        this.modalService.dismissAll();
-        setTimeout(() => {
-          if (res) {
-            const base64String = btoa(
-              String.fromCharCode.apply(null, Array.from(res))
-            );
-            this.dataURL = 'data:image/jpeg;base64,' + base64String;
-          }
-        }, 300);
-      });
+    console.log(gif)
+    this.tweet.image=gif.images.original.url;
+    this.dataURL=gif.images.original.url;
+
+    this.modalService.dismissAll();
   }
 }

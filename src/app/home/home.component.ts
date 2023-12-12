@@ -2,14 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainService } from '../shared/main.service';
 import { Tweet } from '../models/tweet.model';
 import { Router } from '@angular/router';
-import { NgxUiLoaderService } from "ngx-ui-loader"; 
-import {
-  FormBuilder,
-} from '@angular/forms';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from '../shared/data.service';
-import { getStorage, ref, uploadBytes, getDownloadURL  } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 @Component({
   selector: 'app-home',
@@ -73,11 +71,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       );
       // this.tweets.reverse();
-      this.tweets.sort((a, b) => ( new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1));
+      this.tweets.sort((a, b) =>
+        new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+      );
     });
     this.ngxService.stop();
     setTimeout(() => {
-      this.isLoading=false;
+      this.isLoading = false;
     }, 500);
   }
 
@@ -90,27 +90,25 @@ export class HomeComponent implements OnInit, OnDestroy {
       alert('Please select only image files.');
       return;
     }
-  
+
     const storage = getStorage();
     const storageRef = ref(storage, 'images/' + file.name);
-  
+
     uploadBytes(storageRef, file)
-      .then(snapshot => {
+      .then((snapshot) => {
         // Get the download URL after the file is uploaded
         return getDownloadURL(snapshot.ref);
       })
-      .then(downloadURL => {
+      .then((downloadURL) => {
         // Store the download URL in your Firestore document
         this.tweet.image = downloadURL;
-        this.dataURL=downloadURL
-        console.log(this.tweet.image)
+        this.dataURL = downloadURL;
+        console.log(this.tweet.image);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error uploading image:', error);
       });
-
   }
-  
 
   upload() {
     this.tweet.content = this.uploadForm.content.toString();

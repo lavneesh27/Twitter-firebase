@@ -66,7 +66,9 @@ export class DataService {
       email: user.email,
       userName: user.userName,
       dob: user.dob,
-    });
+      image:user.image
+    })
+   
   }
 
   //bookmarks

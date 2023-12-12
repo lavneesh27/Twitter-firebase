@@ -11,6 +11,7 @@ import { User } from '../models/user.model';
 import { ToastrService } from 'ngx-toastr';
 import {Location} from '@angular/common';
 import { AuthService } from '../shared/auth.service';
+import { getStorage, ref, uploadBytes, getDownloadURL  } from 'firebase/storage';
 
 @Component({
   selector: 'app-register',
@@ -90,7 +91,7 @@ export class RegisterComponent implements OnInit {
       image: this.image?this.image:'',
       createdAt:'',
     };
-
+    console.log(user.image);
     this.auth.register(user);
     this.registerForm.reset();
       
@@ -105,12 +106,21 @@ export class RegisterComponent implements OnInit {
       alert('Please select only image files.');
       return;
     }
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = reader.result as string;
-      this.image = base64;
-    };
-    reader.readAsDataURL(file);
+  
+    const storage = getStorage();
+    const storageRef = ref(storage, 'images/' + file.name);
+  
+    uploadBytes(storageRef, file)
+      .then(snapshot => {
+        return getDownloadURL(snapshot.ref);
+      })
+      .then(downloadURL => {
+        this.image = downloadURL;
+      })
+      .catch(error => {
+        console.error('Error uploading image:', error);
+      });
+
   }
 
   goBack(){

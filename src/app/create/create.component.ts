@@ -8,6 +8,7 @@ import { User } from '../models/user.model';
 import {Location} from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../shared/data.service';
+import { getStorage, ref, uploadBytes, getDownloadURL  } from 'firebase/storage';
 
 @Component({
   selector: 'app-create',
@@ -57,32 +58,24 @@ export class CreateComponent implements OnInit {
       alert('Please select only image files.');
       return;
     }
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = reader.result as string;
-      this.image = this.base64ToBytes(base64);
-      this.tweet.image = Array.from(this.image);
-    };
-    reader.readAsDataURL(file);
-    
-    setTimeout(() => {
-      if (this.image) {
-        const base64String = btoa(
-          String.fromCharCode.apply(null, Array.from(this.image))
-        );
-        this.dataURL = 'data:image/jpeg;base64,' + base64String;
-      }
-    }, 300);
-    
-  }
+  
+    const storage = getStorage();
+    const storageRef = ref(storage, 'images/' + file.name);
+  
+    uploadBytes(storageRef, file)
+      .then(snapshot => {
+        // Get the download URL after the file is uploaded
+        return getDownloadURL(snapshot.ref);
+      })
+      .then(downloadURL => {
+        // Store the download URL in your Firestore document
+        this.tweet.image = downloadURL;
+        this.dataURL=downloadURL
+      })
+      .catch(error => {
+        console.error('Error uploading image:', error);
+      });
 
-  base64ToBytes(base64: string): Uint8Array {
-    const byteCharacters = atob(base64.split(',')[1]);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    return new Uint8Array(byteNumbers);
   }
 
   upload() {

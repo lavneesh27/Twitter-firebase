@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../shared/data.service';
 import { NgxUiLoaderService } from "ngx-ui-loader"; 
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 @Component({
   selector: 'app-profile',
@@ -45,12 +46,6 @@ export class ProfileComponent {
         this.router.navigate(['login']);
         return;
       }
-    }
-    if (this.user && this.user.image.length) {
-      const base64String = btoa(
-        String.fromCharCode.apply(null, Array.from(this.user.image))
-      );
-      this.user.image = 'data:image/jpeg;base64,' + base64String;
     }
 
     this.updateForm = this.fb.group({
@@ -115,7 +110,10 @@ export class ProfileComponent {
 
     try {
       this.data.updateUser(this.user);
-      this.toastr.success('Profile Updated');
+      setTimeout(() => {
+        this.toastr.success('Profile Updated');
+        window.location.reload();
+      }, 500);
     } catch (err) {
       this.toastr.error('Some error occurred');
     }
@@ -130,16 +128,22 @@ export class ProfileComponent {
       alert('Please select only image files.');
       return;
     }
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = reader.result as string;
-      console.log("before", this.user.image)
-      // this.user.image = this.base64ToBytes(base64);
-      this.user.image = base64;
-      console.log("after", this.user.image)
 
-    };
-    reader.readAsDataURL(file);
+    const storage = getStorage();
+    const storageRef = ref(storage, 'images/' + file.name);
+
+    uploadBytes(storageRef, file)
+      .then((snapshot) => {
+        // Get the download URL after the file is uploaded
+        return getDownloadURL(snapshot.ref);
+      })
+      .then((downloadURL) => {
+        // Store the download URL in your Firestore document
+        this.user.image = downloadURL;  
+      })
+      .catch((error) => {
+        console.error('Error uploading image:', error);
+      });
   }
 
   base64ToBytes(base64: string): Uint8Array {

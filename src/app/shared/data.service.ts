@@ -60,6 +60,7 @@ export class DataService {
     }
   }
   updateUser(user: User) {
+    console.log(user)
     this.afs.collection('/Users').doc(user.id).update({
       firstName: user.firstName,
       lastName: user.lastName,
@@ -68,7 +69,6 @@ export class DataService {
       dob: user.dob,
       image:user.image
     })
-   
   }
 
   //bookmarks

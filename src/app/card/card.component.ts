@@ -53,9 +53,6 @@ export class CardComponent implements OnInit {
   plusLike(tweet: Tweet) {
     let val = (tweet.likes! += 1);
     this.afs.likeTweet(tweet.id, val);
-    // this.tweet.likes!++;
-
-    this.likeEvent.emit(this.like ? 'like' : 'unlike');
   }
   copy() {
     navigator.clipboard.writeText(window.location.href).then(() => {

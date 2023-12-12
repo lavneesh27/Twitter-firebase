@@ -91,7 +91,6 @@ export class RegisterComponent implements OnInit {
       image: this.image?this.image:'',
       createdAt:'',
     };
-    console.log(user.image);
     this.auth.register(user);
     this.registerForm.reset();
       

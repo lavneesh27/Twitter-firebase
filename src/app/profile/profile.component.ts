@@ -71,7 +71,7 @@ export class ProfileComponent {
         this.user.userName,
         [Validators.required, Validators.minLength(2)],
       ],
-      // image: [this.user.image],
+      image: [this.user.image],
     });
 
     this.data.getAllTweets().subscribe((res: any) => {
@@ -106,13 +106,11 @@ export class ProfileComponent {
     this.user.userName = this.updateForm.get('userName')?.value;
     this.user.email = this.updateForm.get('email')?.value;
 
-    console.log(this.user.image)
-
     try {
       this.data.updateUser(this.user);
       setTimeout(() => {
-        this.toastr.success('Profile Updated');
         window.location.reload();
+        this.toastr.success('Profile Updated');
       }, 500);
     } catch (err) {
       this.toastr.error('Some error occurred');

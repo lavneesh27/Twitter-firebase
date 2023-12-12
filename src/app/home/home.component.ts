@@ -103,7 +103,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         // Store the download URL in your Firestore document
         this.tweet.image = downloadURL;
         this.dataURL = downloadURL;
-        console.log(this.tweet.image);
       })
       .catch((error) => {
         console.error('Error uploading image:', error);

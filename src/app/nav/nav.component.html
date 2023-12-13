@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg ">
   <div class="container-fluid d-flex flex-column">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-column">
@@ -23,7 +23,7 @@
               class='bx bxs-bookmark fs-3'></i>&nbsp; Bookmarks</a>
         </li>
         <li class="nav-item mb-3" *ngIf="user">
-          <a class="nav-link d-flex" aria-current="page" routerLink="/profile" routerLinkActive="active"><i
+          <a class="nav-link d-flex" aria-current="page" [routerLink]="['/profile/', user.id]"routerLinkActive="active"><i
               class='bx bxs-user fs-3'></i>&nbsp; Profile</a>
         </li>
         <li class="mb-3 d-flex justify-content-center" *ngIf="user">

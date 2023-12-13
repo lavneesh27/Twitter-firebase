@@ -8,5 +8,9 @@ export interface User {
   password: string;
   userName: string;
   image?:any;
+  banner?:any;
+  bio?:string;
+  location?:string;
+  website?:string;
   createdAt?:string;
 }

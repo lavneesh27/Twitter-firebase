@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { User } from '../models/user.model';
 import { MainService } from '../shared/main.service';
 import { jwtDecode } from 'jwt-decode';
@@ -23,26 +23,33 @@ export class ProfileComponent {
   isAdmin: boolean = false;
   isLoading: boolean = true;
   constructor(
-    private service: MainService,
     private _location: Location,
     private router: Router,
     private fb: FormBuilder,
     private data: DataService,
     private toastr: ToastrService,
-    private ngxService: NgxUiLoaderService
+    private ngxService: NgxUiLoaderService,
+    private aRoute:ActivatedRoute
   ) {}
   async ngOnInit() {
+    debugger;
     this.ngxService.start();
-
-    if (history?.state?.people) {
-      this.user = history?.state?.people;
+    let userId = this.aRoute.snapshot.params['uuid'];
+    console.log(userId)
+    this.aRoute.params.subscribe(params => {
+      const userId = params['uuid'];
+      console.log('User ID:', userId);
+    });
+    if (this.aRoute.snapshot.paramMap.get('uuid')) {
+      this.user = this.data.getUser(this.aRoute.snapshot.paramMap.get('uuid')!)
+      console.log(this.user);
       this.initializeForm();
     } else {
       const uid = sessionStorage.getItem('token') || '';
 
       if (uid) {
         this.user = await this.data.getUser(uid);
-        this.isAdmin=true;
+        this.isAdmin = true;
         this.initializeForm();
       } else {
         this.router.navigate(['login']);
@@ -83,6 +90,9 @@ export class ProfileComponent {
     this.user.dob = this.updateForm.get('dob')?.value;
     this.user.userName = this.updateForm.get('userName')?.value;
     this.user.email = this.updateForm.get('email')?.value;
+    this.user.bio = this.updateForm.get('bio')?.value;
+    this.user.location = this.updateForm.get('location')?.value;
+    this.user.website = this.updateForm.get('website')?.value;
 
     try {
       this.data.updateUser(this.user);
@@ -113,6 +123,9 @@ export class ProfileComponent {
           Validators.pattern('[a-zA-Z].*'),
         ],
       ],
+      bio: [this.user.bio],
+      location: [this.user.location],
+      website: [this.user.website],
       email: [this.user.email, [Validators.required, Validators.email]],
       dob: [this.user.dob],
       userName: [
@@ -122,8 +135,8 @@ export class ProfileComponent {
     });
   }
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
+  onFileSelected(event: any, type?: any) {
+    const file = event.target.files?.[0];
     if (!file) {
       return;
     }
@@ -140,10 +153,18 @@ export class ProfileComponent {
         return getDownloadURL(snapshot.ref);
       })
       .then((downloadURL) => {
-        this.user.image = downloadURL;
+        this.user[type === 'banner' ? 'banner' : 'image'] = downloadURL;
       })
       .catch((error) => {
         console.error('Error uploading image:', error);
       });
+  }
+  clearBanner() {
+    const storage = getStorage();
+    const storageRef = ref(storage, 'images/' + 'solid-color-image.png');
+
+    getDownloadURL(storageRef).then((downloadURL)=>{
+      this.user.banner=downloadURL;
+    })
   }
 }

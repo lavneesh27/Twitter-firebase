@@ -64,10 +64,13 @@ export class DataService {
     this.afs.collection('/Users').doc(user.id).update({
       firstName: user.firstName,
       lastName: user.lastName,
-      email: user.email,
+      bio:user.bio,
+      location:user.location,
+      website:user.website,
       userName: user.userName,
       dob: user.dob,
-      image:user.image
+      image:user.image,
+      banner:user.banner
     })
   }
 

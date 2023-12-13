@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Tweet } from '../models/tweet.model';
 import { Bookmark } from '../models/bookmark.model';
 import { ToastrService } from 'ngx-toastr';
@@ -32,7 +32,6 @@ export class CardComponent implements OnInit {
     if (this.tweet.image?.length) {
       this.dataURL = this.tweet.image;
     }
-
   }
 
   // plusLike(tweet: Tweet) {
@@ -50,8 +49,9 @@ export class CardComponent implements OnInit {
 
 
   plusLike(tweet: Tweet) {
-    let val = (tweet.likes! += 1);
-    this.afs.likeTweet(tweet.id, val);
+    tweet.likes = (tweet.likes || 0) + 1;
+
+    this.afs.likeTweet(tweet.id, tweet.likes);
   }
   copy() {
     navigator.clipboard.writeText(window.location.href).then(() => {

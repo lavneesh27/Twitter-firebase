@@ -79,10 +79,15 @@ export class RegisterComponent implements OnInit {
 
   register() {
     this.submitted = true;
+   
     let user: User = {
       id: '',
       firstName: this.FirstName.value,
       lastName: this.LastName.value,
+      bio:'',
+      website:'',
+      location:'',
+      banner:'',
       email: this.Email.value,
       password: this.Password.value,
       dob: this.DOB.value.toString(),
@@ -90,6 +95,12 @@ export class RegisterComponent implements OnInit {
       image: this.image ? this.image : '',
       createdAt: '',
     };
+    const storage = getStorage();
+    const storageRef = ref(storage, 'images/' + 'solid-color-image.png');
+
+    getDownloadURL(storageRef).then((downloadURL)=>{
+      user.banner=downloadURL;
+    })
     this.auth.register(user);
   }
 

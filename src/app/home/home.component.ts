@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { MainService } from '../shared/main.service';
 import { Tweet } from '../models/tweet.model';
 import { Router } from '@angular/router';

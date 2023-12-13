@@ -8,25 +8,50 @@
 <div class="container profile ">
     <div class="flex flex-column">
         <div class="banner">
-            <img src="assets/images/banner.jpg">
-            <div class="rounded-circle me-3 overflow-hidden text-center dp my-3" style="width:100px;height:100px">
-                <img *ngIf="user?.image" [src]='this.user.image' alt="" style="width: 100%;height: 100%;">
+            <img [src]='this.user?.banner'>
+            <div *ngIf="!this.user?.banner" style="background-color: #CFD9DE;width: 100%;"></div>
+            <div class="rounded-circle me-3 overflow-hidden text-center dp my-3"
+                style="width: 150px; height: 150px; border: 4px solid white; border-radius: 50%;">
+                <img *ngIf="user?.image" [src]="user.image" alt=""
+                    style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;">
                 <span
                     class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-1"
-                    style="width:100px;height:100px">{{
-                    user?.firstName.charAt(0) }}</span>
+                    style="width: 150px; height: 150px;">
+                    {{ user?.firstName.charAt(0) }}
+                </span>
             </div>
+
+
         </div>
         <div class="flex flex-column info px-3">
             <h4>{{user?.firstName}} {{user?.lastName}}</h4>
             <h6 class="text-muted text-sm">&#64;{{user?.userName}}</h6>
-            <h6 class="text-muted text-sm"><i class='bx bx-calendar'></i> Joined {{user?.createdAt | date}}</h6>
-            <h6 class="text-muted text-sm"><span class="fw-bold">26</span> Following &nbsp; <span
+            <h6>{{user?.bio}}</h6>
+            <div class="row text-muted mt-3">
+                <div class="col-2 d-flex align-items-center">
+                    <i class='bx bx-location-plus fs-5 me-1'></i>
+                    <h6 class="text-sm mb-0">{{user?.location }}</h6>
+                </div>
+                <div class="col d-flex align-items-center website">
+                    <i class='bx bx-link fs-5 me-1'></i>
+                    <h6 class="text-sm mb-0 "><a href="{{user?.website}}">{{user?.website }}</a></h6>
+                </div>
+                <div class="col d-flex align-items-center">
+                    <i class='bx bx-calendar fs-5 me-1'></i>
+                    <h6 class="text-sm mb-0">Joined {{user?.createdAt | date:"MMMM yyyy"}}</h6>
+                </div>
+            </div>
+
+
+
+            <h6 class="text-muted text-sm mt-3"><span class="fw-bold">26</span> Following &nbsp; <span
                     class="fw-bold">33</span> Follower</h6>
         </div>
         <button id="edit" *ngIf="isAdmin" class="btn btn-outline-dark rounded-pill edit-btn" data-bs-toggle="modal"
             data-bs-target="#staticBackdrop" data-bs-transition-duration="500">Edit
             Profile</button>
+        <button id="edit" *ngIf="!isAdmin" class="btn btn-dark rounded-pill px-3 edit-btn"
+            style="cursor:not-allowed">Follow</button>
 
     </div>
 
@@ -58,19 +83,32 @@
             <div class="modal-body overflow-y-scroll">
                 <div class="flex flex-column">
                     <div class="banner" style="width: 100%;">
-                        <img src="assets/images/banner.jpg" style="width: 100%; height: 100%;">
+                        <input type="file" class="d-none" accept="image/*" name="banner" id="banner"
+                            (change)="onFileSelected($event,'banner')" style="cursor: none;">
+                        <img [src]='this.user?.banner' style="width: 100%;">
+                        <label for="banner"
+                            class="rounded-circle d-flex justify-content-center align-items-center edit-pic"
+                            style="background-color: rgba(50, 50, 50, 0.7);position: absolute;left: 340px;top: 120px; width: 40px;height: 40px;cursor: pointer;">
+                            <i class='bx bx-camera fs-3' style="color: white;"></i>
+                        </label>
+                        <label
+                            class="rounded-circle d-flex justify-content-center align-items-center edit-pic"
+                            style="background-color: rgba(50, 50, 50, 0.7);position: absolute;left: 400px;top: 120px; width: 40px;height: 40px;cursor: pointer;" (click)="clearBanner()">
+                            <i class='bx bx-x fs-3' style="color: white;"></i>
+                        </label>
                         <div class="rounded-circle me-3 overflow-hidden text-center my-3 d-flex"
-                            style="width:100px;height:100px;position: absolute;top: 165px;left: 35px;">
+                            style="width:150px;height:150px;position: absolute;top: 150px;left: 35px;">
                             <input type="file" class="d-none" accept="image/*" name="image" id="image"
-                            (change)="onFileSelected($event)" style="cursor: none;">
+                                (change)="onFileSelected($event,'image')" style="cursor: none;">
                             <img *ngIf="user?.image" [src]='this.user.image' alt="" style="width: 100%;height: 100%;">
                             <span
                                 class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-1"
-                                style="width:100px;height:100px">{{
+                                style="width:150px;height:150px">{{
                                 user?.firstName.charAt(0) }}</span>
 
-                            <label for="image" class="rounded-circle d-flex justify-content-center align-items-center edit-pic"
-                                style="background-color: rgba(128, 128, 128, 0.486);position: absolute;left: 45px;top: 45px; width: 40px;height: 40px;cursor: pointer;">
+                            <label for="image"
+                                class="rounded-circle d-flex justify-content-center align-items-center edit-pic"
+                                style="background-color: rgba(50, 50, 50, 0.7);position: absolute;left: 55px;top: 60px; width: 40px;height: 40px;cursor: pointer;">
                                 <i class='bx bx-camera fs-3' style="color: white;"></i>
                             </label>
 
@@ -82,10 +120,13 @@
                         <input id="FirstName" type="text" class="form-control mb-3" formControlName="firstName">
                         <label for="LastName" class="form-label">Last Name</label>
                         <input id="LastName" type="text" class="form-control mb-3" formControlName="lastName">
-                        <label for="Email" class="form-label">Email</label>
-                        <input id="Email" type="email" class="form-control mb-3" formControlName="email">
-                        <label for="UserName" class="form-label">User Name</label>
-                        <input id="UserName" type="text" class="form-control mb-3" formControlName="userName">
+                        <label for="Bio" class="form-label">Bio</label>
+                        <textarea id="Bio" class="form-control mb-3" formControlName="bio"
+                            style="resize: none;"></textarea>
+                        <label for="Location" class="form-label">Location</label>
+                        <input id="Location" type="text" class="form-control mb-3" formControlName="location">
+                        <label for="Website" class="form-label">Website</label>
+                        <input id="Website" type="text" class="form-control mb-3" formControlName="website">
                         <label for="DOB" class="form-label">DOB</label>
                         <input id="DOB" type="date" class="form-control mb-3" formControlName="dob">
                         <div class="modal-footer">
@@ -98,7 +139,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                
+
             </div>
         </div>
     </div>

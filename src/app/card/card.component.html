@@ -19,19 +19,21 @@
         data-target="#myModal">
     </div>
     <div class="d-flex justify-content-between px-4">
-      <div>
-        <a class="btn p-0 me-2" href="javascript:void(0)" style="cursor: not-allowed;"><i class='bx bx-comment'></i></a>
+      <div class="d-flex align-items-center">
+        <a class="btn p-0 me-2 action" href="javascript:void(0)" style="cursor: not-allowed;"><i class='bx bx-comment'></i></a>
         <span>{{1}}</span>
       </div>
-      <div>
-        <a class="btn p-0 me-2" href="javascript:void(0)" style="cursor: not-allowed;"><i
+      <div class="d-flex align-items-center">
+        <a class="btn p-0 me-2 action" href="javascript:void(0)" style="cursor: not-allowed;"><i
             class='bx bx-git-compare'></i></a>
         <span>{{2}}</span>
       </div>
       <div class="d-flex align-items-center">
-        <input type="checkbox" name="like" [(ngModel)]="like" (change)="plusLike()" class="action"
-          [class]="like==false?'form-control bx bx-heart me-2':'form-control bx bxs-heart me-2'">
-        <span>{{tweet.likes.length?tweet.likes.length:''}}</span>
+        <input type="checkbox"  href="jinputvascript:void(0)" name="like" [(ngModel)]="like" (click)="plusLike()" class="action"
+          [class]="like==false?'form-control bx bx-heart':'form-control bx bxs-heart'">
+      
+        <span data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop" data-bs-transition-duration="500" style="cursor: pointer;">{{tweet.likes.length?tweet.likes.length:''}}</span>
       </div>
       <div class="dropdown">
         <a class="btn p-0 me-2" type="button" data-bs-toggle="dropdown" data-bs-toggle="dropdown"><i
@@ -59,4 +61,22 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Liked by</h1>
+                <button type="button" class="btn-close me-2" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                  <li *ngFor="let people of tweet.likes">{{getUser(people)}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>

@@ -83,4 +83,5 @@ export class CardComponent implements OnInit {
     var srcAttr = target.attributes.src;
     this.imgSrc = srcAttr.nodeValue;
   }
+
 }

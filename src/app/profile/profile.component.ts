@@ -29,57 +29,49 @@ export class ProfileComponent {
     private data: DataService,
     private toastr: ToastrService,
     private ngxService: NgxUiLoaderService,
-    private aRoute:ActivatedRoute
+    private aRoute: ActivatedRoute
   ) {}
   async ngOnInit() {
-    debugger;
     this.ngxService.start();
-    let userId = this.aRoute.snapshot.params['uuid'];
-    console.log(userId)
-    this.aRoute.params.subscribe(params => {
-      const userId = params['uuid'];
-      console.log('User ID:', userId);
-    });
-    if (this.aRoute.snapshot.paramMap.get('uuid')) {
-      this.user = this.data.getUser(this.aRoute.snapshot.paramMap.get('uuid')!)
-      console.log(this.user);
-      this.initializeForm();
-    } else {
-      const uid = sessionStorage.getItem('token') || '';
+    let userId;
+    this.aRoute.params.subscribe(async (params) => {
+      userId = params['uuid'];
 
-      if (uid) {
-        this.user = await this.data.getUser(uid);
-        this.isAdmin = true;
-        this.initializeForm();
-      } else {
+      const uid = userId || sessionStorage.getItem('token') || '';
+
+      if (!uid) {
         this.router.navigate(['login']);
         return;
       }
-    }
 
-    this.data.getAllTweets().subscribe((res: any) => {
-      this.tweets = res
-        .map(
-          (e: any) => {
-            const data = e.payload.doc.data();
-            data.id = e.payload.doc.id;
-            return data;
-          },
-          (err: any) => {
-            alert('Error while fetching tweets');
-          }
-        )
-        .filter((tweet: Tweet) => {
-          return tweet.userId == this.user.id;
-        });
-      this.tweets.sort((a, b) =>
-        new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
-      );
+      this.user = await this.data.getUser(uid);
+      this.isAdmin = userId == sessionStorage.getItem('token');
+      this.initializeForm();
+
+      this.data.getAllTweets().subscribe((res: any) => {
+        this.tweets = res
+          .map(
+            (e: any) => {
+              const data = e.payload.doc.data();
+              data.id = e.payload.doc.id;
+              return data;
+            },
+            (err: any) => {
+              alert('Error while fetching tweets');
+            }
+          )
+          .filter((tweet: Tweet) => {
+            return tweet.userId == this.user.id;
+          });
+        this.tweets.sort((a, b) =>
+          new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+        );
+      });
+      this.ngxService.stop();
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 500);
     });
-    this.ngxService.stop();
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 500);
   }
   goBack() {
     this._location.back();
@@ -163,8 +155,8 @@ export class ProfileComponent {
     const storage = getStorage();
     const storageRef = ref(storage, 'images/' + 'solid-color-image.png');
 
-    getDownloadURL(storageRef).then((downloadURL)=>{
-      this.user.banner=downloadURL;
-    })
+    getDownloadURL(storageRef).then((downloadURL) => {
+      this.user.banner = downloadURL;
+    });
   }
 }

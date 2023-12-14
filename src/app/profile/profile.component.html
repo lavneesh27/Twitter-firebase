@@ -28,11 +28,11 @@
             <h6 class="text-muted text-sm">&#64;{{user?.userName}}</h6>
             <h6>{{user?.bio}}</h6>
             <div class="row text-muted mt-3">
-                <div class="col-2 d-flex align-items-center">
+                <div class="col-2 d-flex align-items-center" *ngIf="user?.location">
                     <i class='bx bx-location-plus fs-5 me-1'></i>
                     <h6 class="text-sm mb-0">{{user?.location }}</h6>
                 </div>
-                <div class="col d-flex align-items-center website">
+                <div class="col d-flex align-items-center website" *ngIf="user?.website">
                     <i class='bx bx-link fs-5 me-1'></i>
                     <h6 class="text-sm mb-0 "><a href="{{user?.website}}">{{user?.website }}</a></h6>
                 </div>
@@ -41,8 +41,6 @@
                     <h6 class="text-sm mb-0">Joined {{user?.createdAt | date:"MMMM yyyy"}}</h6>
                 </div>
             </div>
-
-
 
             <h6 class="text-muted text-sm mt-3"><span class="fw-bold">26</span> Following &nbsp; <span
                     class="fw-bold">33</span> Follower</h6>

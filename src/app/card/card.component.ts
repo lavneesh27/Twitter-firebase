@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Tweet } from '../models/tweet.model';
 import { Bookmark } from '../models/bookmark.model';
 import { ToastrService } from 'ngx-toastr';
@@ -21,37 +28,39 @@ export class CardComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     private afs: DataService,
-    private data: DataService
+    private data: DataService,
+  
   ) {}
   async ngOnInit() {
     const userToken = sessionStorage.getItem('token');
     if (userToken) {
-      this.loginUser = await this.data.getUser(userToken)
+      this.loginUser = await this.data.getUser(userToken);
     }
     this.user = await this.data.getUser(this.tweet.userId);
     if (this.tweet.image?.length) {
       this.dataURL = this.tweet.image;
     }
+    this.like = this.isLiked();
   }
+  isLiked(): boolean {
+    const likes = this.tweet.likes;
+    const loginUser = this.loginUser;
+  
+    return !!likes && !!likes.length && !!loginUser && likes.includes(loginUser.id);
+  }
+  
+  likesCount(): number {
+    const likes = this.tweet.likes;
+    return likes ? likes.length : 0;
+  }
+  
 
-  // plusLike(tweet: Tweet) {
-  //   this.like = !this.like;
-  //   if (!this.like) {
-  //     this.service.likeTweet(tweet.id, false).subscribe((res) => {
-  //       this.tweet.likes! += 1;
-  //     });
-  //   } else {
-  //     this.service.likeTweet(tweet.id, true).subscribe((res) => {
-  //       this.tweet.likes! -= 1;
-  //     });
-  //   }
-  // }
-
-
-  plusLike(tweet: Tweet) {
-    tweet.likes = (tweet.likes || 0) + 1;
-
-    this.afs.likeTweet(tweet.id, tweet.likes);
+  plusLike() {
+    if (this.isLiked()) {
+      this.afs.unlikeTweet(this.tweet, this.loginUser.id);
+    } else {
+      this.afs.likeTweet(this.tweet, this.loginUser.id);
+    }
   }
   copy() {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -60,11 +69,11 @@ export class CardComponent implements OnInit {
   }
   bookmark() {
     let bookmark: Bookmark = {
-      id: "",
+      id: '',
       userId: this.loginUser!.id,
       tweetId: this.tweet.id,
     };
-    this.data.addBookmark(bookmark).then(()=>{
+    this.data.addBookmark(bookmark).then(() => {
       this.toastr.success('Bookmark Added');
     });
   }

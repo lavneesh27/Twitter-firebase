@@ -20,7 +20,7 @@ export class CreateComponent implements OnInit {
   tweet: Tweet = {
     id: '',
     content: '',
-    likes: 0,
+    likes: [],
     userId: '',
     createdAt: '',
     image: []

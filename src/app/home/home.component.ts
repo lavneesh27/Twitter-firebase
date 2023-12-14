@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   tweet: Tweet = {
     id: '',
     content: '',
-    likes: 0,
+    likes: [],
     userId: '',
     createdAt: '',
     image: [],

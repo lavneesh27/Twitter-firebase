@@ -32,3 +32,18 @@ input{
     border-radius: 15px;
     border: none;
 }
+
+.action{
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.action:hover{
+    background-color: rgb(230, 230, 230);
+}

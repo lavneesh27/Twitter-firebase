@@ -5,7 +5,6 @@ import { Tweet } from '../models/tweet.model';
 import { Bookmark } from '../models/bookmark.model';
 import { environment } from 'src/environments/environment.development';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 @Injectable({
   providedIn: 'root',
@@ -107,7 +106,6 @@ export class MainService {
     return this.gifs.asObservable();
   }
   getGifByteArray(gifUrl: string): Observable<Uint8Array> {
-    console.log(gifUrl)
     return this.http.get(gifUrl, { responseType: 'arraybuffer' })
       .pipe(
         map((gifData: ArrayBuffer) => {

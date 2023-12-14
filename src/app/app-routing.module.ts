@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'Login / Twitter' },
   { path: 'register', component: RegisterComponent, title: 'Register / Twitter'},
   { path: 'create', component: CreateComponent, title: 'Create / Twitter' },
-  { path: 'profile/:uuid?', component: ProfileComponent, title: 'Profile / Twitter'},
+  { path: 'profile/:uuid', component: ProfileComponent, title: 'Profile / Twitter'},
   { path: 'bookmark', component: BookmarkComponent, title: 'Bookmark / Twitter' },
 ];
 

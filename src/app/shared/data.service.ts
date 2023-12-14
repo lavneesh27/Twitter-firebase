@@ -19,8 +19,37 @@ export class DataService {
   getAllTweets() {
     return this.afs.collection('/Tweets').snapshotChanges();
   }
-  likeTweet(id: string, value: number) {
-    this.afs.collection('/Tweets').doc(id).update({ likes: value });
+  likeTweet(tweet: Tweet, userId: string) {
+    const postRef = this.afs.collection('/Tweets').doc(tweet.id).ref;
+
+    return this.afs.firestore.runTransaction(async (transaction) => {
+      const postDoc = await transaction.get(postRef);
+
+      if (!postDoc.exists) {
+        throw new Error('Post does not exist!');
+      }
+
+      const likes = postDoc.get('likes') || [];
+      likes.push(userId);
+
+      transaction.update(postRef, { likes });
+    });
+  }
+  unlikeTweet(tweet: Tweet, userId: string) {
+    const postRef = this.afs.collection('/Tweets').doc(tweet.id).ref;
+
+    return this.afs.firestore.runTransaction(async (transaction) => {
+      const postDoc = await transaction.get(postRef);
+
+      if (!postDoc.exists) {
+        throw new Error('Post does not exist!');
+      }
+
+      const likes = postDoc.get('likes') || [];
+      const updatedLikes = likes.filter((id: string) => id !== userId);
+
+      transaction.update(postRef, { likes: updatedLikes });
+    });
   }
 
   async getTweet(id: string): Promise<any> {
@@ -60,7 +89,6 @@ export class DataService {
     }
   }
   updateUser(user: User) {
-    console.log(user)
     this.afs.collection('/Users').doc(user.id).update({
       firstName: user.firstName,
       lastName: user.lastName,

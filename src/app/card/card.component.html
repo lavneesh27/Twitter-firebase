@@ -29,13 +29,13 @@
         <span>{{2}}</span>
       </div>
       <div class="d-flex align-items-center">
-        <input type="checkbox" name="like" [(ngModel)]="like" (change)="plusLike(tweet)"
+        <input type="checkbox" name="like" [(ngModel)]="like" (change)="plusLike()" class="action"
           [class]="like==false?'form-control bx bx-heart me-2':'form-control bx bxs-heart me-2'">
-        <span>{{tweet.likes!==0?tweet.likes:''}}</span>
+        <span>{{tweet.likes.length?tweet.likes.length:''}}</span>
       </div>
       <div class="dropdown">
         <a class="btn p-0 me-2" type="button" data-bs-toggle="dropdown" data-bs-toggle="dropdown"><i
-            class='bx bx-share'></i></a>
+            class='bx bx-share action'></i></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" (click)="copy()"><i class='bx bx-link'></i>&nbsp; Copy Link to Tweet</a></li>
           <li><a class="dropdown-item" (click)="bookmark()"><i class='bx bx-bookmark'></i>&nbsp; Bookmark</a></li>

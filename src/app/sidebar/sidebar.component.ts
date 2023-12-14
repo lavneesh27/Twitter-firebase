@@ -68,7 +68,7 @@ export class SidebarComponent implements OnInit {
         });
     });
   }
-  NavigateToProfile(data: any) {
-    this.router.navigate(['/profile'], { state: { people: data } });
+  navigateToProfile(userId: string): void {
+    this.router.navigate(['/profile', userId]);
   }
 }

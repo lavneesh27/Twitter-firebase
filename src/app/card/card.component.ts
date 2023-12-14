@@ -1,15 +1,14 @@
 import {
-  ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
   OnInit,
-  Output,
+  ViewChild,
 } from '@angular/core';
 import { Tweet } from '../models/tweet.model';
 import { Bookmark } from '../models/bookmark.model';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../shared/data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-card',

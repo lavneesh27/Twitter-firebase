@@ -83,8 +83,8 @@ export class CardComponent implements OnInit {
     this.imgSrc = srcAttr.nodeValue;
   }
 
-  async getUser(id:string){
-    return await  this.afs.getUser(id);
-  }
+  // async getUser(id:string){
+  //   return await  this.afs.getUser(id);
+  // }
  
 }

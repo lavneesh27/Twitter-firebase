@@ -11,16 +11,12 @@ import { DataService } from '../shared/data.service';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
-  constructor(
-    private router: Router,
-    private data: DataService
-  ) {}
+  constructor(private router: Router, private data: DataService) {}
   peoples: User[] = [];
   inputUser: string = '';
   user: any;
   async ngOnInit() {
-    const userToken =
-      sessionStorage.getItem('token');
+    const userToken = sessionStorage.getItem('token');
 
     if (userToken) {
       this.user = await this.data.getUser(userToken);
@@ -32,7 +28,7 @@ export class SidebarComponent implements OnInit {
               (e: any) => {
                 const data = e.payload.doc.data();
                 data.id = e.payload.doc.id;
-            
+
                 return data;
               },
               (err: any) => {
@@ -52,7 +48,7 @@ export class SidebarComponent implements OnInit {
           (e: any) => {
             const data = e.payload.doc.data();
             data.id = e.payload.doc.id;
-            
+
             return data;
           },
           (err: any) => {
@@ -68,7 +64,19 @@ export class SidebarComponent implements OnInit {
         });
     });
   }
+  isFollower(user:User): boolean {
+    const followers = user.followers;
+  
+    return !!followers && !!followers.length && !!this.user && followers.includes(this.user.id);
+  }
   navigateToProfile(userId: string): void {
     this.router.navigate(['/profile', userId]);
+  }
+
+  follow(userId: string) {
+    this.data.follow(this.user.id, userId);
+  }
+  unFollow(userId: string) {
+    this.data.unFollow(this.user.id, userId);
   }
 }

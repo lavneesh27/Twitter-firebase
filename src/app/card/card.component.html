@@ -1,17 +1,19 @@
 <div class="card">
   <div class="card-body ">
-    <div class="profile fw-bold d-flex align-items-center">
-      <div class="rounded-circle me-2 overflow-hidden" style="width:50px;height:50px">
+    <div class="profile fw-bold d-flex align-items-center" >
+      <div class="rounded-circle me-2 overflow-hidden" style="width:50px;height:50px;cursor: pointer;" (click)="navigateToProfile(user.id)">
         <img *ngIf="user && user.image" [src]="user.image" style="width:100%;height:100%">
         <span *ngIf="!user || !user.image"
           class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light"
           style="width:50px;height:50px">
           {{ user?.firstName?.charAt(0) }}
         </span>
+      </div > 
+      <div (click)="navigateToProfile(user.id)" style="cursor: pointer;">
+        {{user?.firstName}} {{user?.lastName}}&nbsp; <span class="text-muted fw-normal">&#64;{{user?.userName}} .
+          {{tweet.createdAt | date:"dd MMM"}}</span>
       </div>
-
-      {{user?.firstName}} {{user?.lastName}}&nbsp; <span class="text-muted fw-normal">&#64;{{user?.userName}} .
-        {{tweet.createdAt | date:"dd MMM"}}</span>
+     
     </div>
     <h6 class="card-text ms-4  my-2">{{tweet.content}}</h6>
     <div class="img-container mb-3 ms-3" *ngIf="dataURL">
@@ -20,29 +22,26 @@
     </div>
     <div class="d-flex justify-content-between px-4">
       <div class="d-flex align-items-center">
-        <a class="btn p-0 me-2 action" href="javascript:void(0)" style="cursor: not-allowed;"><i class='bx bx-comment'></i></a>
-      <div class="d-flex align-items-center">
-        <a class="btn p-0 me-2 action" href="javascript:void(0)" style="cursor: not-allowed;"><i class='bx bx-comment'></i></a>
+        <a class="btn p-0 me-2 action" href="javascript:void(0)" style="cursor: not-allowed;"><i class='bx bx-comment fs-5'></i></a>
         <span>{{1}}</span>
       </div>
       <div class="d-flex align-items-center">
         <a class="btn p-0 me-2 action" href="javascript:void(0)" style="cursor: not-allowed;"><i
-      <div class="d-flex align-items-center">
-        <a class="btn p-0 me-2 action" href="javascript:void(0)" style="cursor: not-allowed;"><i
-            class='bx bx-git-compare'></i></a>
+            class='bx bx-git-compare fs-5'></i></a>
         <span>{{2}}</span>
+    
       </div>
       <div class="d-flex align-items-center">
-        <input type="checkbox" name="like" [(ngModel)]="like" (change)="plusLike()" class="action"
-          [class]="like==false?'form-control bx bx-heart':'form-control bx bxs-heart'">
+        <input id="like" type="checkbox" name="like" [(ngModel)]="like" (change)="plusLike()" class="action"
+          [class]="like==false?'form-control bx bx-heart fs-5':'form-control bx bxs-heart fs-5'">
           <span  style="cursor: pointer;">{{tweet.likes.length?tweet.likes.length:''}}</span>
       </div>    
       <div class="dropdown">
         <a class="btn p-0 me-2" type="button" data-bs-toggle="dropdown" data-bs-toggle="dropdown"><i
-            class='bx bx-share action'></i></a>
+            class='bx bx-share action fs-5'></i></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" (click)="copy()"><i class='bx bx-link'></i>&nbsp; Copy Link to Tweet</a></li>
-          <li><a class="dropdown-item" (click)="bookmark()"><i class='bx bx-bookmark'></i>&nbsp; Bookmark</a></li>
+          <li><a class="dropdown-item" (click)="copy()"><i class='bx bx-link fs-5'></i>&nbsp; Copy Link to Tweet</a></li>
+          <li><a class="dropdown-item" (click)="bookmark()"><i class='bx bx-bookmark fs-5'></i>&nbsp; Bookmark</a></li>
         </ul>
       </div>
     </div>

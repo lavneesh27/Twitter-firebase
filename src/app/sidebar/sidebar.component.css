@@ -45,3 +45,9 @@ footer a{
 .profile{
   cursor: pointer;
 }
+
+.unfollow:hover{
+  border-color: #DC4C64;
+  color:#DC4C64;
+  background-color: transparent !important;
+}

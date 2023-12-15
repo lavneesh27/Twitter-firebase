@@ -13,4 +13,6 @@ export interface User {
   location?:string;
   website?:string;
   createdAt?:string;
+  followers:any;
+  following:any;
 }

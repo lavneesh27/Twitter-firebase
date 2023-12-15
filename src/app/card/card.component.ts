@@ -9,6 +9,7 @@ import { Bookmark } from '../models/bookmark.model';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../shared/data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -28,6 +29,7 @@ export class CardComponent implements OnInit {
     private toastr: ToastrService,
     private afs: DataService,
     private data: DataService,
+    private router:Router
   
   ) {}
   async ngOnInit() {
@@ -62,7 +64,7 @@ export class CardComponent implements OnInit {
     }
   }
   copy() {
-    navigator.clipboard.writeText(window.location.href).then(() => {
+    navigator.clipboard.writeText(window.location.href+'/'+this.tweet.id).then(() => {
       this.toastr.success('Copied to Clipboard');
     });
   }
@@ -81,6 +83,10 @@ export class CardComponent implements OnInit {
     var target = event.target || event.srcElement || event.currentTarget;
     var srcAttr = target.attributes.src;
     this.imgSrc = srcAttr.nodeValue;
+  }
+
+  navigateToProfile(userId: string): void {
+    this.router.navigate(['/profile', userId]);
   }
 
 }

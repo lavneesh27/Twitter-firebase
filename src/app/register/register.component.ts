@@ -94,6 +94,8 @@ export class RegisterComponent implements OnInit {
       userName: this.UserName.value,
       image: this.image ? this.image : '',
       createdAt: '',
+      followers:[],
+      following:[]
     };
     const storage = getStorage();
     const storageRef = ref(storage, 'images/' + 'solid-color-image.png');

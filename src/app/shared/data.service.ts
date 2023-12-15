@@ -81,11 +81,11 @@ export class DataService {
       if (doc.exists) {
         return doc.data();
       } else {
-        return null; // or handle the absence of the document as needed
+        return null; 
       }
     } catch (error) {
       console.error('There was an error getting your document:', error);
-      throw error; // or handle the error as needed
+      throw error; 
     }
   }
   updateUser(user: User) {
@@ -100,6 +100,50 @@ export class DataService {
       image:user.image,
       banner:user.banner
     })
+  }
+
+  follow(user1:string, user2:string){
+    const postRef = this.afs.collection('/Users').doc(user2).ref;
+    const postRef2 = this.afs.collection('/Users').doc(user1).ref;
+
+    return this.afs.firestore.runTransaction(async (transaction) => {
+      const postDoc = await transaction.get(postRef);
+      const postDoc2 = await transaction.get(postRef2);
+
+      if (!postDoc.exists) {
+        throw new Error('Post does not exist!');
+      }
+
+      const followers = postDoc.get('followers') || [];
+      const following = postDoc2.get('following') || [];
+      followers.push(user1);
+      following.push(user2);
+
+      transaction.update(postRef, { followers });
+      transaction.update(postRef2, { following });
+    });
+  }
+
+  unFollow(user1:string, user2:string) {
+    const postRef = this.afs.collection('/Users').doc(user2).ref;
+    const postRef2 = this.afs.collection('/Users').doc(user1).ref;
+
+    return this.afs.firestore.runTransaction(async (transaction) => {
+      const postDoc = await transaction.get(postRef);
+      const postDoc2 = await transaction.get(postRef2);
+
+      if (!postDoc.exists) {
+        throw new Error('Post does not exist!');
+      }
+
+      const followers = postDoc.get('followers') || [];
+      const following = postDoc2.get('following') || [];
+      const updatedFollowers = followers.filter((id: string) => id !== user1);
+      const updatedFollowings = following.filter((id: string) => id !== user2);
+
+      transaction.update(postRef, { followers: updatedFollowers });
+      transaction.update(postRef2, { following: updatedFollowings });
+    });
   }
 
   //bookmarks

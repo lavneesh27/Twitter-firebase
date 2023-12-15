@@ -42,14 +42,14 @@
                 </div>
             </div>
 
-            <h6 class="text-muted text-sm mt-3"><span class="fw-bold">26</span> Following &nbsp; <span
-                    class="fw-bold">33</span> Follower</h6>
+            <h6 class="text-muted text-sm mt-3"><span class="fw-bold">{{user?.following?.length || 0}}</span> Following &nbsp; <span
+                    class="fw-bold">{{user?.followers?.length || 0}}</span> Follower</h6>
         </div>
         <button id="edit" *ngIf="isAdmin" class="btn btn-outline-dark rounded-pill edit-btn" data-bs-toggle="modal"
             data-bs-target="#staticBackdrop" data-bs-transition-duration="500">Edit
             Profile</button>
         <button id="edit" *ngIf="!isAdmin" class="btn btn-dark rounded-pill px-3 edit-btn"
-            style="cursor:not-allowed">Follow</button>
+            style="cursor:not-allowed" >Follow</button>
 
     </div>
 

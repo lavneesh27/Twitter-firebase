@@ -22,6 +22,7 @@ export class ProfileComponent {
   updateForm!: FormGroup;
   isAdmin: boolean = false;
   isLoading: boolean = true;
+  loginUser:any;
   constructor(
     private _location: Location,
     private router: Router,
@@ -43,7 +44,7 @@ export class ProfileComponent {
         this.router.navigate(['login']);
         return;
       }
-
+      this.loginUser = await this.data.getUser(sessionStorage.getItem('token')!);
       this.user = await this.data.getUser(uid);
       this.isAdmin = userId == sessionStorage.getItem('token');
       this.initializeForm();
@@ -159,4 +160,5 @@ export class ProfileComponent {
       this.user.banner = downloadURL;
     });
   }
+  
 }

@@ -47,3 +47,13 @@ input{
 .action:hover{
     background-color: rgb(230, 230, 230);
 }
+#like:hover{
+    background-color: rgba(230, 150, 150, 0.5);
+}
+#like:focus{
+    border-color: inherit;
+    box-shadow: none;
+}
+.bxs-heart{
+    color: red !important;
+}

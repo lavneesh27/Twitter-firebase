@@ -1,6 +1,4 @@
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
-import { MainService } from '../shared/main.service';
-import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';

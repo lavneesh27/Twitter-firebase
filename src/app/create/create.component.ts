@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MainService } from '../shared/main.service';
 import { Router } from '@angular/router';
 import { Tweet } from '../models/tweet.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user.model';
 import {Location} from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -29,7 +27,6 @@ export class CreateComponent implements OnInit {
   user!: any;
 
   constructor(
-    private service: MainService,
     private route: Router,
     private fb: FormBuilder,
     private _location: Location,

@@ -28,15 +28,15 @@
             <h6 class="text-muted text-sm">&#64;{{user?.userName}}</h6>
             <h6>{{user?.bio}}</h6>
             <div class="row text-muted mt-3">
-                <div class="col-2 d-flex align-items-center" *ngIf="user?.location">
+                <div class="col-2 d-flex align-items-center me-4" *ngIf="user?.location">
                     <i class='bx bx-location-plus fs-5 me-1'></i>
                     <h6 class="text-sm mb-0">{{user?.location }}</h6>
                 </div>
-                <div class="col d-flex align-items-center website" *ngIf="user?.website">
+                <div class="col d-flex align-items-center website me-4" *ngIf="user?.website">
                     <i class='bx bx-link fs-5 me-1'></i>
                     <h6 class="text-sm mb-0 "><a href="{{user?.website}}">{{user?.website }}</a></h6>
                 </div>
-                <div class="col d-flex align-items-center">
+                <div class="col d-flex align-items-center me-4">
                     <i class='bx bx-calendar fs-5 me-1'></i>
                     <h6 class="text-sm mb-0">Joined {{user?.createdAt | date:"MMMM yyyy"}}</h6>
                 </div>
@@ -48,8 +48,8 @@
         <button id="edit" *ngIf="isAdmin" class="btn btn-outline-dark rounded-pill edit-btn" data-bs-toggle="modal"
             data-bs-target="#staticBackdrop" data-bs-transition-duration="500">Edit
             Profile</button>
-        <button id="edit" *ngIf="!isAdmin" class="btn btn-dark rounded-pill px-3 edit-btn"
-            style="cursor:not-allowed" >Follow</button>
+        <button id="edit" *ngIf="!isAdmin" [class]="isFollower()?'btn btn-outline-dark float-end unfollow':'btn btn-dark float-end'" class="btn btn-dark rounded-pill px-3 edit-btn"
+            style="cursor:pointer" (click)="isFollower()?unFollow():follow()">Follow</button>
 
     </div>
 

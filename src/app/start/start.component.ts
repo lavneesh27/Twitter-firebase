@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MainService } from '../shared/main.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -21,7 +20,6 @@ export class StartComponent {
   constructor(
     private modalService: NgbModal,
     private fb: FormBuilder,
-    private service: MainService,
     private toastr: ToastrService,
     private router: Router,
   ) {}
@@ -37,19 +35,19 @@ export class StartComponent {
     this.modalService.open(vitalSignsDataModal, { size: 'lg', centered: true });
   }
   login() {
-    this.service.loginUser(this.loginForm.get('email')!.value, this.loginForm.get('pwd')!.value).subscribe(
-      (res: any) => {
-        this.remember
-          ? localStorage.setItem('user', res.toString())
-          : sessionStorage.setItem('user', res.toString());
+    // this.service.loginUser(this.loginForm.get('email')!.value, this.loginForm.get('pwd')!.value).subscribe(
+    //   (res: any) => {
+    //     this.remember
+    //       ? localStorage.setItem('user', res.toString())
+    //       : sessionStorage.setItem('user', res.toString());
 
-        this.router.navigate(['home']);
-        this.toastr.success('Login Successful!');
-      },
-      () => {
-        this.toastr.warning('Invalid Credentials');
-      }
-    );
+    //     this.router.navigate(['home']);
+    //     this.toastr.success('Login Successful!');
+    //   },
+    //   () => {
+    //     this.toastr.warning('Invalid Credentials');
+    //   }
+    // );
   }
 
   get Email(): FormControl {

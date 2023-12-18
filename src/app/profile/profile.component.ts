@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { User } from '../models/user.model';
-import { MainService } from '../shared/main.service';
-import { jwtDecode } from 'jwt-decode';
 import { Tweet } from '../models/tweet.model';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -159,6 +157,17 @@ export class ProfileComponent {
     getDownloadURL(storageRef).then((downloadURL) => {
       this.user.banner = downloadURL;
     });
+  }
+  isFollower(user:User): boolean {
+    const followers = user.followers;
+  
+    return !!followers && !!followers.length && !!this.user && followers.includes(this.user.id);
+  }
+  follow(userId: string) {
+    this.data.follow(this.user.id, userId);
+  }
+  unFollow(userId: string) {
+    this.data.unFollow(this.user.id, userId);
   }
   
 }

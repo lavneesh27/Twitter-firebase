@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Tweet } from '../models/tweet.model';
-import { MainService } from '../shared/main.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
-import { jwtDecode } from 'jwt-decode';
 import { Location } from '@angular/common';
 import { DataService } from '../shared/data.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -18,7 +16,6 @@ export class BookmarkComponent implements OnInit {
   user!: any;
   isLoading: boolean = true;
   constructor(
-    private service: MainService,
     private router: Router,
     private _location: Location,
     private data: DataService,

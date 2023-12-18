@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MainService } from '../shared/main.service';
 import { User } from '../models/user.model';
-import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
 import { DataService } from '../shared/data.service';
 

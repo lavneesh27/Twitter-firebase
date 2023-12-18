@@ -4,7 +4,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-column">
         <li class="nav-brand mb-3">
           <a class="nav-link d-flex active" aria-current="page" routerLink="/home"><i
-              class='bx bxl-twitter fs-1 logo' ></i></a>
+              class='bx bxl-twitter fs-1 logo'></i></a>
         </li>
         <li class="nav-item mb-3" *ngIf="user">
           <a class="nav-link d-flex" aria-current="page" routerLink="/home" routerLinkActive="active"><i
@@ -23,8 +23,8 @@
               class='bx bxs-bookmark fs-3'></i>&nbsp; Bookmarks</a>
         </li>
         <li class="nav-item mb-3" *ngIf="user">
-          <a class="nav-link d-flex" aria-current="page" [routerLink]="['/profile', user.id]"routerLinkActive="active"><i
-              class='bx bxs-user fs-3'></i>&nbsp; Profile</a>
+          <a class="nav-link d-flex" aria-current="page" [routerLink]="['/profile', user.id]"
+            routerLinkActive="active"><i class='bx bxs-user fs-3'></i>&nbsp; Profile</a>
         </li>
         <li class="mb-3 d-flex justify-content-center" *ngIf="user">
           <a class="btn btn-dark mb-3 float-end tweet" routerLink="/create">Post</a>
@@ -34,9 +34,9 @@
           <a class="nav-link btn-profile" role="button" aria-expanded="false">
             <div class="d-flex align-items-center">
               <div class="rounded-circle me-3 overflow-hidden" style="width:50px;height:50px">
-                <img [src]="user.image" *ngIf="user.image" alt=""
-                  style="width:100%;height:100%">
-                <span class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-4"
+                <img [src]="user.image" *ngIf="user.image" alt="" style="width:100%;height:100%">
+                <span
+                  class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-4"
                   style="width:50px;height:50px">
                   {{ user?.firstName?.charAt(0) }}
                 </span>
@@ -51,11 +51,12 @@
 
           <ul class="dropdown-menu">
             <li *ngIf="user">
-              <a class="dropdown-item nav-link btn-profile" routerLink="/profile">
+              <a class="dropdown-item nav-link btn-profile" [routerLink]="['/profile', user.id]">
                 <div class="d-flex align-items-center">
                   <div class="rounded-circle me-3 overflow-hidden" style="width: 50px; height: 50px">
                     <img [src]="user.image" *ngIf="user.image" alt="" style="width: 100%; height: 100%">
-                    <span class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-4"
+                    <span
+                      class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-4"
                       style="width: 50px; height: 50px">
                       {{ user?.firstName?.charAt(0) }}
                     </span>
@@ -74,16 +75,14 @@
               </a>
             </li>
           </ul>
-          
+
         </li>
-
-
       </ul>
     </div>
   </div>
 </nav>
 
-<ng-template #content let-modal >
+<ng-template #content let-modal>
   <div class="modal-body p-4">
     <div class="text-center"><i class="bx bxl-twitter text-center fs-1 mb-3"></i></div>
     <h3>Log out of Twitter?</h3>

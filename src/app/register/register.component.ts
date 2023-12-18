@@ -5,7 +5,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MainService } from '../shared/main.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { ToastrService } from 'ngx-toastr';

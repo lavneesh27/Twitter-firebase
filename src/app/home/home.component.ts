@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { MainService } from '../shared/main.service';
 import { Tweet } from '../models/tweet.model';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -8,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from '../shared/data.service';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { MainService } from '../shared/main.service';
 
 @Component({
   selector: 'app-home',
@@ -34,13 +34,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   gifs: any[] = [];
   subscription: any;
   constructor(
-    private service: MainService,
     private router: Router,
     private fb: FormBuilder,
     private toastr: ToastrService,
     private modalService: NgbModal,
     private dataService: DataService,
-    private ngxService: NgxUiLoaderService
+    private ngxService: NgxUiLoaderService,
+    private service: MainService
   ) {}
   ngOnDestroy(): void {
     if (this.subscription) {

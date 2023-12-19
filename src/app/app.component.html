@@ -1,7 +1,7 @@
-<app-start *ngIf="user"></app-start>
+<app-start *ngIf="!user"></app-start>
+<router-outlet></router-outlet>
 
-<div class="d-flex">
+<div class="d-flex" *ngIf="user">
     <app-nav></app-nav>
-    <router-outlet></router-outlet>
     <app-sidebar></app-sidebar>
 </div>

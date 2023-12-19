@@ -48,8 +48,8 @@
         <button id="edit" *ngIf="isAdmin" class="btn btn-outline-dark rounded-pill edit-btn" data-bs-toggle="modal"
             data-bs-target="#staticBackdrop" data-bs-transition-duration="500">Edit
             Profile</button>
-        <button id="edit" *ngIf="!isAdmin" [class]="isFollower()?'btn btn-outline-dark float-end unfollow':'btn btn-dark float-end'" class="btn btn-dark rounded-pill px-3 edit-btn"
-            style="cursor:pointer" (click)="isFollower()?unFollow():follow()">Follow</button>
+        <button id="edit" *ngIf="!isAdmin" class="btn btn-dark rounded-pill px-3 edit-btn"
+            style="cursor:pointer" >Follow</button>
 
     </div>
 

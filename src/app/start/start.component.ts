@@ -8,6 +8,7 @@ import {
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-start',
@@ -22,32 +23,31 @@ export class StartComponent {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
+    private auth: AuthService
   ) {}
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       pwd: ['', Validators.required],
-      rem: [false],
     });
   }
   onImport(vitalSignsDataModal: any) {
     this.modalService.dismissAll();
     this.modalService.open(vitalSignsDataModal, { size: 'lg', centered: true });
   }
-  login() {
-    // this.service.loginUser(this.loginForm.get('email')!.value, this.loginForm.get('pwd')!.value).subscribe(
-    //   (res: any) => {
-    //     this.remember
-    //       ? localStorage.setItem('user', res.toString())
-    //       : sessionStorage.setItem('user', res.toString());
+  lo() {
+    if (this.loginForm.get('email')!.value == '') {
+      alert('Please enter email');
+      return;
+    }
 
-    //     this.router.navigate(['home']);
-    //     this.toastr.success('Login Successful!');
-    //   },
-    //   () => {
-    //     this.toastr.warning('Invalid Credentials');
-    //   }
-    // );
+    if (this.loginForm.get('email')!.value== '') {
+      alert('Please enter password');
+      return;
+    }
+
+    this.auth.login(this.loginForm.get('email')!.value, this.loginForm.get('pwd')!.value);
+    this.loginForm.reset();
   }
 
   get Email(): FormControl {
@@ -55,5 +55,10 @@ export class StartComponent {
   }
   get PWD(): FormControl {
     return this.loginForm.get('pwd') as FormControl;
+  }
+
+
+  googleSignIn(){
+    return this.auth.googleSignIn();
   }
 }

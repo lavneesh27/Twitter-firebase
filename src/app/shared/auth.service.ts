@@ -66,14 +66,6 @@ export class AuthService {
 
 
   googleSignIn() {
-    return this.fireAuth.signInWithPopup(new GoogleAuthProvider()).then(
-      (res) => {
-        this.router.navigate(['/home']);
-        localStorage.setItem('token', JSON.stringify(res.user?.uid));
-      },
-      (err) => {
-        alert(err.message);
-      }
-    );
+    return this.fireAuth.signInWithRedirect(new GoogleAuthProvider());
   }
 }

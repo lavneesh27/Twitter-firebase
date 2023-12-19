@@ -111,3 +111,11 @@
 .website a:hover{
   text-decoration:underline;
 } 
+
+.chat-btn{
+  position: absolute;
+  right: 125px;
+  top: 230px;
+  font-weight: bold;
+  border: 1px solid rgba(145, 145, 145, 0.5);
+}

@@ -42,14 +42,17 @@
                 </div>
             </div>
 
-            <h6 class="text-muted text-sm mt-3"><span class="fw-bold">{{user?.following?.length || 0}}</span> Following &nbsp; <span
-                    class="fw-bold">{{user?.followers?.length || 0}}</span> Follower</h6>
+            <h6 class="text-muted text-sm mt-3"><span class="fw-bold">{{user?.following?.length || 0}}</span> Following
+                &nbsp; <span class="fw-bold">{{user?.followers?.length || 0}}</span> Follower</h6>
         </div>
+
         <button id="edit" *ngIf="isAdmin" class="btn btn-outline-dark rounded-pill edit-btn" data-bs-toggle="modal"
             data-bs-target="#staticBackdrop" data-bs-transition-duration="500">Edit
             Profile</button>
         <button id="edit" *ngIf="!isAdmin" class="btn btn-dark rounded-pill px-3 edit-btn"
-            style="cursor:pointer" >Follow</button>
+            style="cursor:pointer">Follow</button>
+        <button id="chat" class="btn btn-dark rounded-pill px-3 chat-btn" [routerLink]="['/chat', user?.id]" routerLinkActive="router-link-active"  style="cursor:pointer">Chat</button>
+
 
     </div>
 
@@ -62,7 +65,7 @@
         </ul>
         <ngx-ui-loader [bgsPosition]="'bottom-center'"></ngx-ui-loader>
         <div class="no-data text-center" *ngIf="!isLoading && !tweets?.length">
-            <h2>@{{user?.userName}} <br> hasn't tweeted</h2>
+            <h2>&#64;{{user?.userName}} <br> hasn't tweeted</h2>
             <p>When they do, their Tweets will show up here.</p>
         </div>
     </div>
@@ -89,9 +92,9 @@
                             style="background-color: rgba(50, 50, 50, 0.7);position: absolute;left: 340px;top: 120px; width: 40px;height: 40px;cursor: pointer;">
                             <i class='bx bx-camera fs-3' style="color: white;"></i>
                         </label>
-                        <label
-                            class="rounded-circle d-flex justify-content-center align-items-center edit-pic"
-                            style="background-color: rgba(50, 50, 50, 0.7);position: absolute;left: 400px;top: 120px; width: 40px;height: 40px;cursor: pointer;" (click)="clearBanner()">
+                        <label class="rounded-circle d-flex justify-content-center align-items-center edit-pic"
+                            style="background-color: rgba(50, 50, 50, 0.7);position: absolute;left: 400px;top: 120px; width: 40px;height: 40px;cursor: pointer;"
+                            (click)="clearBanner()">
                             <i class='bx bx-x fs-3' style="color: white;"></i>
                         </label>
                         <div class="rounded-circle me-3 overflow-hidden text-center my-3 d-flex"

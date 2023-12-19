@@ -1,0 +1,30 @@
+<!-- <div class="header d-flex align-items-center px-3 ">
+    <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3'></i></a>
+      <h5>Chat</h5>
+  </div>
+<div class="chat-container">
+    <div class="messages">
+        <div *ngFor="let message of messages">
+            <div class="message">
+                {{ message.text }}
+            </div>
+        </div>
+    </div>
+    <div class="input-container">
+        <input type="text" [(ngModel)]="message" (keydown.enter)="sendMessage()">
+        <button (click)="sendMessage()">Send</button>
+    </div>
+</div> -->
+<div class="create container p-3">
+    <div class="header d-flex align-items-center my-4 ">
+        <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3'></i></a>
+        <div class="col">
+            <h5 class="m-0">{{reciever?.firstName}}</h5>
+            <p class="text-muted"> &#64;{{reciever?.userName}}</p>
+        </div>
+    </div>
+    <div class="input-container">
+        <input type="text" [(ngModel)]="message" (keydown.enter)="sendMessage()">
+        <button (click)="sendMessage()" class="px-3 py-2">Send</button>
+    </div>
+</div>  

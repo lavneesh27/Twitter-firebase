@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { CreateComponent } from './create/create.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BookmarkComponent } from './bookmark/bookmark.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'create', component: CreateComponent, title: 'Create / Twitter' },
   { path: 'profile/:uuid', component: ProfileComponent, title: 'Profile / Twitter'},
   { path: 'bookmark', component: BookmarkComponent, title: 'Bookmark / Twitter' },
+  { path: 'chat/:uuid', component: ChatComponent, title: 'Chat / Twitter' },
 ];
 
 @NgModule({

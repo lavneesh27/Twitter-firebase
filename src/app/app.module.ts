@@ -22,6 +22,8 @@ import { FirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
 import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
+import { authInstance$ } from '@angular/fire/auth';
+import { ChatComponent } from './chat/chat.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -67,7 +69,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     SidebarComponent,
     ProfileComponent,
     BookmarkComponent,
-    StartComponent
+    StartComponent,
+    ChatComponent
     
   ],
   imports: [

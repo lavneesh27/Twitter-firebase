@@ -26,6 +26,10 @@
           <a class="nav-link d-flex" aria-current="page" [routerLink]="['/profile', user.id]"
             routerLinkActive="active"><i class='bx bxs-user fs-3'></i>&nbsp; Profile</a>
         </li>
+        <li class="nav-item mb-3" *ngIf="user">
+          <a class="nav-link d-flex" aria-current="page" [routerLink]="['/messages']"
+            routerLinkActive="active"><i class='bx bxs-chat fs-3'></i>&nbsp; Messages</a>
+        </li>
         <li class="mb-3 d-flex justify-content-center" *ngIf="user">
           <a class="btn btn-dark mb-3 float-end tweet" routerLink="/create">Post</a>
         </li>

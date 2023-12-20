@@ -1,37 +1,27 @@
-<!-- <div class="header d-flex align-items-center px-3 ">
+<div class="header d-flex align-items-center px-3">
     <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3'></i></a>
-      <h5>Chat</h5>
-  </div>
-<div class="chat-container">
-    <div class="messages">
-        <div *ngFor="let message of messages">
-            <div class="message">
-                {{ message.text }}
-            </div>
+    <div class="d-flex align-items-start profile">
+        <div class="rounded-circle me-3 overflow-hidden" style="width:50px;height:50px"
+            (click)="navigateToProfile(reciever.id)"><img *ngIf="reciever?.image" [src]="reciever?.image" alt=""
+                style="width:100%;height:100%"> <span *ngIf="!reciever?.image"
+                class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-4"
+                style="width:50px;height:50px;">{{
+                reciever?.firstName?.charAt(0) }}</span></div>
+
+        <div class="d-flex flex-column" (click)="navigateToProfile(reciever.id)">
+            <h6 class="text-strong m-0 mt-2">{{reciever?.firstName}} {{reciever?.lastName}}</h6>
+            <p class="text-muted m-0">&#64;{{reciever?.userName}}</p>
         </div>
     </div>
-    <div class="input-container">
-        <input type="text" [(ngModel)]="message" (keydown.enter)="sendMessage()">
-        <button (click)="sendMessage()">Send</button>
-    </div>
-</div> -->
-<div class="create">
-    <div class="header d-flex align-items-center px-3">
-        <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3'></i></a>
-        <div>
-            <h5 class="m-0">{{reciever?.firstName}} {{reciever?.lastName}}</h5>
-            <p class="m-0 text-muted">&#64;{{reciever?.userName}}</p>
-        </div>
-    </div>
-    <div class="body">
-        <ul *ngIf="messages?.length" >
-            <li class="py-2 px-3 msg" *ngFor="let msg of messages" [class.right]="msg.senderId === user.id">{{msg.text}}
-            </li>
-          </ul>
-    </div>
-    <div class="input-container">
-        <input type="text" class="py-2 px-3 shadow-sm form-control" [(ngModel)]="message" (keydown.enter)="sendMessage()" placeholder="Message...">
-        <button (click)="sendMessage()" class="px-3 py-2 btn btn-dark">Send</button>
-    </div>
-    
-</div>  
+</div>
+<div class="body">
+    <ul #chatBody *ngIf="messages?.length">
+        <li class="py-2 px-3 msg" *ngFor="let msg of messages" [class.right]="msg.senderId === user.id">{{msg.text}}
+        </li>
+    </ul>
+</div>
+<div class="input-container">
+    <input type="text" class="py-2 px-3 shadow-sm form-control" [(ngModel)]="message" (keydown.enter)="sendMessage()"
+        placeholder="Message...">
+    <button (click)="sendMessage()" class="px-3 py-2 btn btn-dark" [disabled]="!message.length">Send</button>
+</div>

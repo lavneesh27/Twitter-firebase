@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { ChatService } from '../shared/chat.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../shared/data.service';
@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
   styleUrl: './chat.component.css',
 })
 export class ChatComponent {
+  @ViewChild('chatBody') myDiv: ElementRef | undefined;
   message = '';
   messages: any[] = [];
   reciever: any;
@@ -24,7 +25,7 @@ export class ChatComponent {
     private route: Router
   ) {}
   async ngOnInit() {
-    this.messages=[]
+    this.messages = [];
     this.aRoute.params.subscribe(async (params) => {
       this.reciever = await this.data.getUser(params['uuid']);
     });
@@ -48,14 +49,27 @@ export class ChatComponent {
           (msg.recieverId === this.user.id && msg.senderId === this.reciever.id)
         );
       });
+      setTimeout(() => {
+        if (this.myDiv) {
+          this.myDiv!.nativeElement.scrollTop =
+            this.myDiv!.nativeElement.scrollHeight;
+        }
+      }, 50);
     });
   }
 
   sendMessage() {
+    if (this.message == '') {
+      alert('Please enter some message');
+      return;
+    }
     this.chatService.sendMessage(this.message, this.reciever.id);
     this.message = '';
   }
   goBack() {
     this._location.back();
+  }
+  navigateToProfile(userId: string): void {
+    this.route.navigate(['/profile', userId]);
   }
 }

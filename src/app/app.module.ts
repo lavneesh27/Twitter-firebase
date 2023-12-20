@@ -24,6 +24,8 @@ import { environment } from '../environments/environment';
 import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
 import { authInstance$ } from '@angular/fire/auth';
 import { ChatComponent } from './chat/chat.component';
+import { CommonModule } from '@angular/common'
+import { MessagesComponent } from './messages/messages.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -70,7 +72,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ProfileComponent,
     BookmarkComponent,
     StartComponent,
-    ChatComponent
+    ChatComponent,
+    MessagesComponent
     
   ],
   imports: [
@@ -88,6 +91,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NgbModalModule,
     AngularFireModule.initializeApp(environment.firebase),
     FirestoreModule,
+    CommonModule
   ],
   providers: [ToastrService],
   bootstrap: [AppComponent],

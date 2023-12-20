@@ -11,11 +11,23 @@
         <div class="d-flex flex-column" (click)="navigateToProfile(reciever.id)">
             <h6 class="text-strong m-0 mt-2">{{reciever?.firstName}} {{reciever?.lastName}}</h6>
             <p class="text-muted m-0">&#64;{{reciever?.userName}}</p>
+
         </div>
     </div>
+    <div class="btn-group dropstart ms-auto">
+        <button type="button" class="btn dots" data-bs-toggle="dropdown" aria-expanded="false"><i
+                class='bx bx-dots-vertical-rounded fs-4'></i></button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" (click)="open(content)" style="cursor: pointer;"><i
+                        class='bx bx-brush fs-5'></i>&nbsp; Clear Chat</a></li>
+        </ul>
+
+    </div>
+
 </div>
+
 <div class="body">
-    <ul #chatBody *ngIf="messages?.length">
+    <ul #chatBody *ngIf="messages?.length" class="chats">
         <li class="py-2 px-3 msg" *ngFor="let msg of messages" [class.right]="msg.senderId === user.id">{{msg.text}}
         </li>
     </ul>
@@ -25,3 +37,16 @@
         placeholder="Message...">
     <button (click)="sendMessage()" class="px-3 py-2 btn btn-dark" [disabled]="!message.length">Send</button>
 </div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-body p-4 text-center">
+      <div class="text-center"><i class="bx bxs-trash text-center fs-1 mb-3"></i></div>
+      <h3>Clear Chat?</h3>
+      <p>This operation cannot be undone!</p>
+      <div class="d-flex flex-column">
+        <button class="btn btn-dark mb-2" (click)="clear()">Clear</button>
+        <button class="btn btn-outline-dark" (click)="modal.dismiss()">Cancel</button>
+      </div>
+    </div>
+  </ng-template>

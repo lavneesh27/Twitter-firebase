@@ -51,7 +51,7 @@
             Profile</button>
         <button id="edit" *ngIf="!isAdmin" class="btn btn-dark rounded-pill px-3 edit-btn"
             style="cursor:pointer">Follow</button>
-        <button id="chat" *ngIf="user.id!=loginUser.id" class="btn btn-outline-dark rounded-pill px-3 chat-btn" [routerLink]="['/chat', user?.id]" routerLinkActive="router-link-active"  style="cursor:pointer">Message</button>
+        <button id="chat" *ngIf="user?.id!=loginUser?.id" class="btn btn-outline-dark rounded-pill px-3 chat-btn" [routerLink]="['/chat', user?.id]" routerLinkActive="router-link-active"  style="cursor:pointer">Message</button>
 
 
     </div>

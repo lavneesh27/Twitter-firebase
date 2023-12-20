@@ -13,7 +13,7 @@ export class ChatService {
     senderId: '',
     recieverId: '',
     text: '',
-    createdAt:''
+    createdAt: '',
   };
   sendMessage(text: string, reciever: string) {
     this.chat.text = text;
@@ -21,9 +21,33 @@ export class ChatService {
     this.chat.senderId = sessionStorage.getItem('token')!;
     this.chat.recieverId = reciever;
     this.chat.createdAt = new Date().toString();
-    this.db.collection('/messages').add(this.chat);
+    this.db.collection('/messages').doc(this.chat.id).set(this.chat);
   }
   getMessages() {
     return this.db.collection('/messages').valueChanges();
   }
+
+  deleteMessage(chatId: string) {
+    this.db.collection('/messages').doc(chatId).delete()
+      .then(() => {
+        console.log('Message deleted successfully.');
+      })
+      .catch((error) => {
+        console.error('Error deleting message: ', error);
+      });
+  }
+
+  clearMessages(chatArray:any) {
+    chatArray.forEach((element:any) => {
+      this.db.collection('/messages').doc(element.id).delete()
+      .then(() => {
+        console.log('Message deleted successfully.');
+      })
+      .catch((error) => {
+        console.error('Error deleting message: ', error);
+      });
+    });
+   
+  }
+  
 }

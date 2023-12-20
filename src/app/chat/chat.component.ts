@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, TemplateRef, ViewChild, inject } from '@angular/core';
 import { ChatService } from '../shared/chat.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../shared/data.service';
 import { Location } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-chat',
@@ -11,6 +12,7 @@ import { Location } from '@angular/common';
   styleUrl: './chat.component.css',
 })
 export class ChatComponent {
+  private modalService = inject(NgbModal);
   @ViewChild('chatBody') myDiv: ElementRef | undefined;
   message = '';
   messages: any[] = [];
@@ -72,4 +74,15 @@ export class ChatComponent {
   navigateToProfile(userId: string): void {
     this.route.navigate(['/profile', userId]);
   }
+  clear(){
+    this.chatService.clearMessages(this.messages);
+    this.modalService.dismissAll();
+  }
+
+  deleteMsg(chatId:string){
+    this.chatService.deleteMessage(chatId);
+  }
+  open(content: TemplateRef<any>) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title',centered: true, size:'sm',windowClass: 'dark-modal'})
+	}
 }

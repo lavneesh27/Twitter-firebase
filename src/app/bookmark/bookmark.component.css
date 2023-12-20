@@ -4,7 +4,7 @@ li app-card{
 .bookmark{
     position: relative;
     top: 50px;
-    width: 628px;
+    width: 642px;
     height: calc(100vh-50px);
     border: 1px solid rgba(230, 230, 230,0.5);
     padding:0;
@@ -14,7 +14,7 @@ li{
     width: 600px;
 }
 .header{
-    width: 628px;
+    width: 642px;
     height: 50px;
     position: fixed;
     top:0;
@@ -40,7 +40,7 @@ li{
 }
 .no-data{
     height: 60vh;
-    width: 628px;
+    width: 642px;
     display: flex;
     justify-content: center;
     position: relative;

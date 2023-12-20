@@ -2,7 +2,7 @@ li app-card {
   width: 600px;
 }
 .home {
-  width: 628px;
+  width: 642px;
   border: 1px solid rgba(230, 230, 230, 0.5);
   padding: 0;
   position: relative;
@@ -13,7 +13,7 @@ li {
   border: none;
 }
 .header {
-  width: 628px;
+  width: 642px;
   height: 50px;
   position: fixed;
   top: 0;
@@ -75,7 +75,7 @@ li {
 
 .no-data{
   height: 60vh;
-  width: 628px;
+  width: 642px;
   display: flex;
   justify-content: center;
   position: relative;

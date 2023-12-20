@@ -14,31 +14,40 @@ export class ChatComponent {
   message = '';
   messages: any[] = [];
   reciever: any;
-  user:any;
+  user: any;
 
   constructor(
     private chatService: ChatService,
     private aRoute: ActivatedRoute,
     private data: DataService,
     private _location: Location,
-    private route:Router
+    private route: Router
   ) {}
   async ngOnInit() {
+    this.messages=[]
     this.aRoute.params.subscribe(async (params) => {
       this.reciever = await this.data.getUser(params['uuid']);
     });
+
     this.user = await this.data.getUser(sessionStorage.getItem('token')!);
 
-    if(!this.user){
+    if (!this.user) {
       this.route.navigate(['login']);
     }
 
     this.chatService.getMessages().subscribe((res) => {
       this.messages = res;
       this.messages.sort((a, b) =>
-      new Date(a.createdAt) < new Date(b.createdAt) ? -1 : 1
-    );
-      console.log(this.messages);
+        new Date(a.createdAt) < new Date(b.createdAt) ? -1 : 1
+      );
+
+      this.messages = this.messages.filter((msg) => {
+        return (
+          (msg.recieverId === this.reciever.id &&
+            msg.senderId === this.user.id) ||
+          (msg.recieverId === this.user.id && msg.senderId === this.reciever.id)
+        );
+      });
     });
   }
 

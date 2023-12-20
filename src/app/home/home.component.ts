@@ -70,9 +70,12 @@ export class HomeComponent implements OnInit, OnDestroy {
           alert('Error while fetching tweets');
         }
       );
-      // this.tweets.reverse();
+      this.tweets = this.tweets.filter((tweet) => {
+          return this.user.following.includes(tweet.userId);
+      });
+   
       this.tweets.sort((a, b) =>
-        new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+            new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
       );
     });
     this.ngxService.stop();

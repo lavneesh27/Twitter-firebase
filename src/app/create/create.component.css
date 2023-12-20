@@ -1,5 +1,5 @@
 .create{
-    width: 628px;
+    width: 642px;
     border: 1px solid rgba(230, 230, 230,0.5);
     padding:0;
     height: 100vh;
@@ -21,7 +21,7 @@
     background-color: #3096DB !important;
 }
 .header{
-    width: 628px;
+    width: 642px;
     height: 50px;
     z-index: 3;
 }

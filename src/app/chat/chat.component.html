@@ -15,16 +15,23 @@
         <button (click)="sendMessage()">Send</button>
     </div>
 </div> -->
-<div class="create container p-3">
-    <div class="header d-flex align-items-center my-4 ">
+<div class="create">
+    <div class="header d-flex align-items-center px-3">
         <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3'></i></a>
-        <div class="col">
-            <h5 class="m-0">{{reciever?.firstName}}</h5>
-            <p class="text-muted"> &#64;{{reciever?.userName}}</p>
+        <div>
+            <h5 class="m-0">{{reciever?.firstName}} {{reciever?.lastName}}</h5>
+            <p class="m-0 text-muted">&#64;{{reciever?.userName}}</p>
         </div>
     </div>
-    <div class="input-container">
-        <input type="text" [(ngModel)]="message" (keydown.enter)="sendMessage()">
-        <button (click)="sendMessage()" class="px-3 py-2">Send</button>
+    <div class="body">
+        <ul *ngIf="messages?.length" >
+            <li class="py-2 px-3 msg" *ngFor="let msg of messages" [class.right]="msg.senderId === user.id">{{msg.text}}
+            </li>
+          </ul>
     </div>
+    <div class="input-container">
+        <input type="text" class="py-2 px-3 shadow-sm form-control" [(ngModel)]="message" (keydown.enter)="sendMessage()" placeholder="Message...">
+        <button (click)="sendMessage()" class="px-3 py-2 btn btn-dark">Send</button>
+    </div>
+    
 </div>  

@@ -1,33 +1,52 @@
 import { Component } from '@angular/core';
 import { ChatService } from '../shared/chat.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../shared/data.service';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
-  standalone: false ,
+  standalone: false,
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.css'
+  styleUrl: './chat.component.css',
 })
 export class ChatComponent {
   message = '';
   messages: any[] = [];
-  reciever:any;
-  
-  constructor(private chatService: ChatService, private aRoute: ActivatedRoute, private data:DataService,  private _location: Location,) {}
-  ngOnInit() {
+  reciever: any;
+  user:any;
+
+  constructor(
+    private chatService: ChatService,
+    private aRoute: ActivatedRoute,
+    private data: DataService,
+    private _location: Location,
+    private route:Router
+  ) {}
+  async ngOnInit() {
     this.aRoute.params.subscribe(async (params) => {
       this.reciever = await this.data.getUser(params['uuid']);
-      console.log(this.reciever)
+    });
+    this.user = await this.data.getUser(sessionStorage.getItem('token')!);
+
+    if(!this.user){
+      this.route.navigate(['login']);
+    }
+
+    this.chatService.getMessages().subscribe((res) => {
+      this.messages = res;
+      this.messages.sort((a, b) =>
+      new Date(a.createdAt) < new Date(b.createdAt) ? -1 : 1
+    );
+      console.log(this.messages);
     });
   }
-  
+
   sendMessage() {
-    this.chatService.sendMessage(this.message,this.reciever.id);
+    this.chatService.sendMessage(this.message, this.reciever.id);
     this.message = '';
   }
-  goBack(){
+  goBack() {
     this._location.back();
   }
 }

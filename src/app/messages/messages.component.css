@@ -4,7 +4,7 @@
 
 .header {
   width: 659px;
-  height: 50px;
+  height: 70px;
   position: fixed;
   top: 0;
   z-index: 3;
@@ -33,8 +33,13 @@
 }
 li{
     padding: 15px;
-    border-radius: 20px;
+    /* border-radius: 20px; */
     transition: all 0.5s;
+    margin-bottom: 1px;
+    border-radius: 5px;
+}
+li{
+  border: 0.5px solid rgba(230, 230, 230, 0.5) !important;
 }
 li:hover {
   background-color: rgb(240 , 240, 240) !important;
@@ -44,7 +49,7 @@ ul {
   height: 610px;
   overflow-y: auto;
   padding: 15px;
-  width: 659px;
+  margin-top: 10px;
 }
 ul::-webkit-scrollbar {
   width: 8px;

@@ -3,13 +3,13 @@
     <div class="d-flex align-items-start profile">
         <div class="rounded-circle me-3 overflow-hidden" style="width:50px;height:50px"
             (click)="navigateToProfile(reciever.id)"><img *ngIf="reciever?.image" [src]="reciever?.image" alt=""
-                style="width:100%;height:100%"> <span *ngIf="!reciever?.image"
+                style="width:100%;height:100%;object-fit: cover; border-radius: inherit;"> <span *ngIf="!reciever?.image"
                 class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-4"
                 style="width:50px;height:50px;">{{
                 reciever?.firstName?.charAt(0) }}</span></div>
 
         <div class="d-flex flex-column" (click)="navigateToProfile(reciever.id)">
-            <h6 class="text-strong m-0 mt-2">{{reciever?.firstName}} {{reciever?.lastName}}</h6>
+            <h6 class="text-strong m-0 mt-2 d-flex align-items-center" >{{reciever?.firstName}} {{reciever?.lastName}} <img *ngIf="reciever?.userName=='lavneesh27'" src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" width="20px" alt="verified" title="verified"></h6>
             <p class="text-muted m-0">&#64;{{reciever?.userName}}</p>
 
         </div>
@@ -39,7 +39,7 @@
     
 </div>
 <div class="input-container ">
-    <label for="image" class='image mx-2 p-2'>
+    <label for="image" class='image mx-2 p-2' style="cursor: pointer;">
         <i class="bx bx-image fs-5"></i>
     </label>
     <input type="file" class="d-none" accept="image/*" name="image" id="image" (change)="onFileSelected($event)">

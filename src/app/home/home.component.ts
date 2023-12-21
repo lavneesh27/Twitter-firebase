@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       );
       this.tweets = this.tweets.filter((tweet) => {
-          return this.user.following.includes(tweet.userId);
+          return this.user.following.includes(tweet.userId) ||  this.user.id==tweet.userId;
       });
    
       this.tweets.sort((a, b) =>

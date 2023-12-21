@@ -1,4 +1,4 @@
-<div class="header d-flex align-items-center px-3">
+<div class="header shadow-sm d-flex align-items-center px-3">
     <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3'></i></a>
     <div>
         <h5 class="m-0">Messages</h5>
@@ -6,20 +6,26 @@
     </div>
 </div>
 <div class="body">
-    <ul #chatBody >
-        <li class="border-0" *ngFor="let u of users" style="cursor: pointer;" (click)="navigateToChat(u.id)">
+    <ul #chatBody class="list-group">
+        <li class="border-0 list-group-item" *ngFor="let u of users" style="cursor: pointer;"
+            (click)="navigateToChat(u.id)">
             <div class="d-flex align-items-center profile">
-                <div class="rounded-circle me-4 overflow-hidden" style="width:50px;height:50px"
-                    ><img *ngIf="u.image" [src]="u.image" alt=""
-                        style="width:100%;height:100%"> <span *ngIf="!u.image"
+                <div class="rounded-circle me-4 overflow-hidden" style="width:60px;height:60px"><img *ngIf="u.image"
+                        [src]="u.image" alt=""
+                        style="width:100%;height:100%;object-fit: cover; border-radius: inherit;"> <span
+                        *ngIf="!u.image"
                         class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-4"
-                        style="width:50px;height:50px;">{{
+                        style="width:60px;height:60px;">{{
                         u?.firstName?.charAt(0) }}</span></div>
+                <div class="d-flex flex-column">
+                    <h6 class="text-strong d-flex align-items-center">{{u.firstName}} <img
+                            *ngIf="u?.userName=='lavneesh27'"
+                            src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg"
+                            width="20px" alt="verified" title="verified">&nbsp; <span
+                            class="text-muted">&#64;{{u.userName}}</span></h6>
 
-
-                <h6 class="text-strong">{{u.firstName}} {{u.lastName}}</h6>
-
-
+                    <p class="text-muted">some message</p>
+                </div>
             </div>
         </li>
     </ul>

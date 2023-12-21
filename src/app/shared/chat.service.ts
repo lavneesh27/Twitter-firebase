@@ -29,16 +29,6 @@ export class ChatService {
     return this.db.collection('/messages').valueChanges();
   }
 
-  deleteMessage(chatId: string) {
-    this.db.collection('/messages').doc(chatId).delete()
-      .then(() => {
-        console.log('Message deleted successfully.');
-      })
-      .catch((error) => {
-        console.error('Error deleting message: ', error);
-      });
-  }
-
   clearMessages(chatArray:any) {
     chatArray.forEach((element:any) => {
       this.db.collection('/messages').doc(element.id).delete()
@@ -49,7 +39,6 @@ export class ChatService {
         console.error('Error deleting message: ', error);
       });
     });
-   
   }
   
 }

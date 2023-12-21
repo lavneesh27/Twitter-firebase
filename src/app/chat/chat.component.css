@@ -36,7 +36,7 @@
 
 .header {
   width: 659px;
-  height: 50px;
+  height: 70px;
   position: fixed;
   top: 0;
   z-index: 3;
@@ -59,7 +59,7 @@
 
 .body {
   position: absolute;
-  top: 50px;
+  top: 70px;
   width: 659px;
 }
 

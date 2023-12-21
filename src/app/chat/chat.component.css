@@ -73,10 +73,10 @@
   position: relative;
   height: auto;
   white-space: pre-line;
-  background-color: #1d9bf0;
-  border-radius: 0 20px 20px 20px;
+  background-color: rgb(230, 230, 230);
+  border-radius: 20px 20px 20px 0px;
   margin: 10px;
-  color: white;
+  color: black;
   width: fit-content;
   max-width: 50%;
   word-wrap: break-word;
@@ -84,9 +84,9 @@
 
 .right {
   margin-left: auto;
-  background-color: rgb(230, 230, 230);
-  border-radius: 20px 0 20px 20px;
-  color: black;
+  background-color: #1d9bf0;
+  border-radius: 20px 20px 0px 20px;
+  color: white;
 }
 .chats::-webkit-scrollbar {
   width: 8px;
@@ -104,10 +104,10 @@
 .chats:hover::-webkit-scrollbar-thumb {
   background-color: #777;
 }
-.profile{
+.profile {
   cursor: pointer;
 }
-.dots{
+.dots {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -117,6 +117,18 @@
   border-radius: 999px;
   /* background-color: rgba(200, 200, 200, 0.5); */
 }
-.dots:hover{
+.dots:hover {
   background-color: rgba(200, 200, 200, 0.5);
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+}
+.image:hover {
+  background-color: #e3e3e3;
 }

@@ -14,13 +14,15 @@ export class ChatService {
     recieverId: '',
     text: '',
     createdAt: '',
+    attachment: ''
   };
-  sendMessage(text: string, reciever: string) {
-    this.chat.text = text;
+  sendMessage(chat: Chat, reciever: string) {
+    this.chat.text =chat.text;
     this.chat.id = this.db.createId();
     this.chat.senderId = sessionStorage.getItem('token')!;
     this.chat.recieverId = reciever;
     this.chat.createdAt = new Date().toString();
+    this.chat.attachment = chat.attachment;
     this.db.collection('/messages').doc(this.chat.id).set(this.chat);
   }
   getMessages() {

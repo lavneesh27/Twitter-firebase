@@ -3,5 +3,6 @@ export interface Chat {
   senderId: string;
   recieverId: string;
   text: string;
-  createdAt:string;
+  createdAt: string;
+  attachment: string;
 }

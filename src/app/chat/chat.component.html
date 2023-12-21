@@ -1,4 +1,4 @@
-<div class="header d-flex align-items-center px-3">
+<div class="header shadow-sm d-flex align-items-center px-3">
     <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3'></i></a>
     <div class="d-flex align-items-start profile">
         <div class="rounded-circle me-3 overflow-hidden" style="width:50px;height:50px"
@@ -17,7 +17,7 @@
     <div class="btn-group dropstart ms-auto">
         <button type="button" class="btn dots" data-bs-toggle="dropdown" aria-expanded="false"><i
                 class='bx bx-dots-vertical-rounded fs-4'></i></button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu shadow" style="border: none;">
             <li><a class="dropdown-item" (click)="open(content)" style="cursor: pointer;"><i
                         class='bx bx-brush fs-5'></i>&nbsp; Clear Chat</a></li>
         </ul>
@@ -28,25 +28,35 @@
 
 <div class="body">
     <ul #chatBody *ngIf="messages?.length" class="chats">
-        <li class="py-2 px-3 msg" *ngFor="let msg of messages" [class.right]="msg.senderId === user.id">{{msg.text}}
-        </li>
+        <ng-container *ngFor="let msg of messages">
+            <li class="py-2 px-3 msg" [class.right]="msg.senderId === user.id">
+                {{msg.text}}
+                <img [src]="msg.attachment" alt="img" *ngIf="msg.attachment" style="max-width: 250px; border-radius: 15px;">
+            </li>
+            <p class="text-muted" style="font-size: smaller;" [class]="msg.senderId === user.id?'text-end me-3':'text-start ms-3'">{{msg.createdAt | date:'hh:mm a'}}</p>
+        </ng-container>
     </ul>
+    
 </div>
-<div class="input-container">
-    <input type="text" class="py-2 px-3 shadow-sm form-control" [(ngModel)]="message" (keydown.enter)="sendMessage()"
-        placeholder="Message...">
-    <button (click)="sendMessage()" class="px-3 py-2 btn btn-dark" [disabled]="!message.length">Send</button>
+<div class="input-container ">
+    <label for="image" class='image mx-2 p-2'>
+        <i class="bx bx-image fs-5"></i>
+    </label>
+    <input type="file" class="d-none" accept="image/*" name="image" id="image" (change)="onFileSelected($event)">
+    <input type="text" class="py-2 px-3 shadow-sm form-control" [(ngModel)]="message!.text"
+        (keydown.enter)="sendMessage()" placeholder="Message...">
+    <button (click)="sendMessage()" class="px-3 py-2 btn btn-dark" [disabled]="!message">Send</button>
 </div>
 
 
 <ng-template #content let-modal>
     <div class="modal-body p-4 text-center">
-      <div class="text-center"><i class="bx bxs-trash text-center fs-1 mb-3"></i></div>
-      <h3>Clear Chat?</h3>
-      <p>This operation cannot be undone!</p>
-      <div class="d-flex flex-column">
-        <button class="btn btn-dark mb-2" (click)="clear()">Clear</button>
-        <button class="btn btn-outline-dark" (click)="modal.dismiss()">Cancel</button>
-      </div>
+        <div class="text-center"><i class="bx bxs-trash text-center fs-1 mb-3"></i></div>
+        <h3>Clear Chat?</h3>
+        <p>This operation cannot be undone!</p>
+        <div class="d-flex flex-column">
+            <button class="btn btn-dark mb-2" (click)="clear()">Clear</button>
+            <button class="btn btn-outline-dark" (click)="modal.dismiss()">Cancel</button>
+        </div>
     </div>
-  </ng-template>
+</ng-template>

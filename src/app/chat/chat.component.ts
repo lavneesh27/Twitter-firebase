@@ -1,9 +1,18 @@
-import { AfterViewInit, Component, ElementRef, TemplateRef, ViewChild, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  TemplateRef,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { ChatService } from '../shared/chat.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../shared/data.service';
 import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { Chat } from '../models/chat.model';
 
 @Component({
   selector: 'app-chat',
@@ -14,7 +23,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ChatComponent {
   private modalService = inject(NgbModal);
   @ViewChild('chatBody') myDiv: ElementRef | undefined;
-  message = '';
+  message: Chat = {
+    id: '',
+    senderId: '',
+    recieverId: '',
+    text: '',
+    createdAt: '',
+    attachment: '',
+  };
   messages: any[] = [];
   reciever: any;
   user: any;
@@ -61,12 +77,19 @@ export class ChatComponent {
   }
 
   sendMessage() {
-    if (this.message == '') {
+    if (this.message!.text == '' && this.message!.attachment=='') {
       alert('Please enter some message');
       return;
     }
     this.chatService.sendMessage(this.message, this.reciever.id);
-    this.message = '';
+    this.message = {
+      id: '',
+      senderId: '',
+      recieverId: '',
+      text: '',
+      createdAt: '',
+      attachment: '',
+    };
   }
   goBack() {
     this._location.back();
@@ -74,15 +97,45 @@ export class ChatComponent {
   navigateToProfile(userId: string): void {
     this.route.navigate(['/profile', userId]);
   }
-  clear(){
+  clear() {
     this.chatService.clearMessages(this.messages);
     this.modalService.dismissAll();
   }
 
-  deleteMsg(chatId:string){
+  deleteMsg(chatId: string) {
     this.chatService.deleteMessage(chatId);
   }
   open(content: TemplateRef<any>) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title',centered: true, size:'sm',windowClass: 'dark-modal'})
-	}
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      centered: true,
+      size: 'sm',
+      windowClass: 'dark-modal',
+    });
+  }
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (!file) {
+      return;
+    }
+    if (!file.type.startsWith('image/')) {
+      alert('Please select only image files.');
+      return;
+    }
+
+    const storage = getStorage();
+    const storageRef = ref(storage, 'images/' + file.name);
+
+    uploadBytes(storageRef, file)
+      .then((snapshot) => {
+        return getDownloadURL(snapshot.ref);
+      })
+      .then((downloadURL) => {
+        this.message!.attachment = downloadURL;
+        this.sendMessage();
+      })
+      .catch((error) => {
+        console.error('Error uploading image:', error);
+      });
+  }
 }

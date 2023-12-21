@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Tweet } from '../models/tweet.model';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -71,11 +76,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       );
       this.tweets = this.tweets.filter((tweet) => {
-          return this.user.following.includes(tweet.userId) ||  this.user.id==tweet.userId;
+        return (
+          this.user.following.includes(tweet.userId) ||
+          this.user.id == tweet.userId
+        );
       });
-   
+
       this.tweets.sort((a, b) =>
-            new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+        new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
       );
     });
     this.ngxService.stop();
@@ -141,8 +149,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
   selectGif(gif: any) {
-    this.tweet.image=gif.images.original.url;
-    this.dataURL=gif.images.original.url;
+    this.tweet.image = gif.images.original.url;
+    this.dataURL = gif.images.original.url;
 
     this.modalService.dismissAll();
   }

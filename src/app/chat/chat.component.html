@@ -54,7 +54,7 @@
     <div class='image  me-2 p-2' (click)="onImport(gifModal)" style="cursor: pointer;">
         <i class="bx bxs-file-gif fs-5"></i>
     </div>
-    <input type="text" class="py-2 px-3 shadow-sm form-control" [(ngModel)]="message!.text"
+    <input #myInput type="text" class="py-2 px-3 shadow-sm form-control" [(ngModel)]="message!.text"
         (keydown.enter)="sendMessage()" placeholder="Message...">
     <button (click)="sendMessage()" class="px-3 py-2 btn btn-dark" [disabled]="!message">Send</button>
 </div>

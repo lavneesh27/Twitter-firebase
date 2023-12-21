@@ -24,6 +24,8 @@ import { MainService } from '../shared/main.service';
 export class ChatComponent {
   private modalService = inject(NgbModal);
   @ViewChild('chatBody') myDiv: ElementRef | undefined;
+  @ViewChild('myInput') myInput: ElementRef | undefined;
+
   subscription: any;
   gifs: any[] = [];
   message: Chat = {
@@ -44,7 +46,7 @@ export class ChatComponent {
     private data: DataService,
     private _location: Location,
     private route: Router,
-    private service: MainService
+    private service: MainService,
   ) {}
   async ngOnInit() {
     this.messages = [];
@@ -57,7 +59,6 @@ export class ChatComponent {
     if (!this.user) {
       this.route.navigate(['login']);
     }
-
     this.chatService.getMessages().subscribe((res) => {
       this.messages = res;
       this.messages.sort((a, b) =>
@@ -78,6 +79,10 @@ export class ChatComponent {
         }
       }, 50);
     });
+    if(this.myInput){
+      this.myInput.nativeElement.focus();
+    }
+    
   }
 
   sendMessage() {

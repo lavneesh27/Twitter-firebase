@@ -61,7 +61,7 @@
         <h5 class="mt-4">Tweets</h5>
         <ul *ngIf="tweets?.length" class="list-group d-flex justify-content-center mt-4">
             <li class="list-group-item d-flex justify-content-center p-0" *ngFor="let tweet of tweets"><app-card
-                    (likeEvent)="ngOnInit()" [tweet]="tweet"></app-card></li>
+                     [tweet]="tweet"></app-card></li>
         </ul>
         <ngx-ui-loader [bgsPosition]="'bottom-center'"></ngx-ui-loader>
         <div class="no-data text-center" *ngIf="!isLoading && !tweets?.length">
@@ -79,14 +79,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit profile</h1>
-                <button type="button" class="btn-close me-2" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close me-2 p-3" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body overflow-y-scroll">
                 <div class="flex flex-column">
                     <div class="banner" style="width: 100%;">
                         <input type="file" class="d-none" accept="image/*" name="banner" id="banner"
                             (change)="onFileSelected($event,'banner')" style="cursor: none;">
-                        <img [src]='this.user?.banner' style="width: 100%;">
+                        <img [src]='this.user?.banner' style="width: 100%; object-fit: cover; border-radius: inherit;">
                         <label for="banner"
                             class="rounded-circle d-flex justify-content-center align-items-center edit-pic"
                             style="background-color: rgba(50, 50, 50, 0.7);position: absolute;left: 340px;top: 120px; width: 40px;height: 40px;cursor: pointer;">
@@ -101,7 +101,7 @@
                             style="width:150px;height:150px;position: absolute;top: 150px;left: 35px;">
                             <input type="file" class="d-none" accept="image/*" name="image" id="image"
                                 (change)="onFileSelected($event,'image')" style="cursor: none;">
-                            <img *ngIf="user?.image" [src]='this.user.image' alt="" style="width: 100%;height: 100%;">
+                            <img *ngIf="user?.image" [src]='this.user.image' alt="" style="width: 100%;height: 100%; object-fit: cover; border-radius: inherit;">
                             <span *ngIf="!user?.image"
                                 class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-1"
                                 style="width:150px;height:150px">{{
@@ -140,7 +140,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-
             </div>
         </div>
     </div>

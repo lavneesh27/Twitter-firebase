@@ -28,11 +28,11 @@
 
 .body {
   position: absolute;
-  top: 50px;
+  top: 60px;
   width: 659px;
 }
 li{
-    padding: 15px;
+    padding: 10px;
     /* border-radius: 20px; */
     transition: all 0.5s;
     margin-bottom: 1px;
@@ -46,7 +46,7 @@ li:hover {
 }
 ul {
   list-style: none;
-  height: 610px;
+  height: calc(100vh-70px);
   overflow-y: auto;
   padding: 15px;
   margin-top: 10px;

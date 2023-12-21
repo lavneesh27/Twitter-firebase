@@ -55,7 +55,7 @@
   <div id="gifModal" class="container my-3 text-center">
     <div class="modal-header">
       <h3>Choose a GIF</h3>
-      <button type="button" class="btn-close me-2" data-bs-dismiss="modal" aria-label="Close"></button>
+      <button type="button" class="btn-close me-2" (click)="modal.dismiss()" aria-label="Close"></button>
     </div>
     <div class="input">
       <input type="text" class="form-control mb-3" #gif placeholder="Search for GIF"

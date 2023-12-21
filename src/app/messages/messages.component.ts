@@ -20,7 +20,7 @@ export class MessagesComponent implements OnInit {
     private data: DataService,
     private chat: ChatService,
     private _location: Location,
-    private router:Router
+    private router: Router
   ) {}
   async ngOnInit() {
     const userToken = sessionStorage.getItem('token');

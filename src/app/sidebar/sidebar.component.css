@@ -47,8 +47,21 @@ footer a{
   cursor: pointer;
 }
 
+.unfollow{
+  border: 1px solid rgba(175, 175, 175,0.5);
+}
+
 .unfollow:hover{
   border-color: #DC4C64;
   color:#DC4C64;
   background-color: transparent !important;
+}
+
+img:hover{
+  filter: brightness(70%);
+  transition: 0.3s all;  
+}
+
+h6:hover{
+  text-decoration: underline;
 }

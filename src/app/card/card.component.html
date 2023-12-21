@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body ">
-    <div class="profile fw-bold d-flex align-items-center" >
+    <div class="profile  d-flex align-items-center" >
       <div class="rounded-circle me-2 overflow-hidden" style="width:50px;height:50px;cursor: pointer;" (click)="navigateToProfile(user.id)">
         <img *ngIf="user && user.image" [src]="user.image" style="width:100%;height:100%;object-fit: cover; border-radius: inherit; ">
         <span *ngIf="!user || !user.image"
@@ -10,7 +10,8 @@
         </span>
       </div > 
       <div (click)="navigateToProfile(user.id)" style="cursor: pointer;" class="d-flex align-items-center">
-        {{user?.firstName}} {{user?.lastName}}&nbsp;<img *ngIf="user?.userName=='lavneesh27'" src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" width="20px" alt="verified" title="verified"> <span class="text-muted fw-normal">&#64;{{user?.userName}} .
+        <span class="fs-6 name">{{user?.firstName}} {{user?.lastName}}</span>
+        &nbsp;<img *ngIf="user?.userName=='lavneesh27'" src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" width="20px" alt="verified" title="verified"> <span class="text-muted fw-normal">&#64;{{user?.userName}} .
           {{tweet.createdAt | date:"dd MMM"}}</span>
       </div>
      

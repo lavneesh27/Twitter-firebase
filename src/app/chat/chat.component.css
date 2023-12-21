@@ -65,7 +65,7 @@
 
 .chats {
   list-style: none;
-  height: 610px;
+  height:590px;
   overflow-y: auto;
 }
 
@@ -131,4 +131,21 @@
 }
 .image:hover {
   background-color: #e3e3e3;
+}
+#gifModal{
+  width: 100%;
+  height: 450px !important;
+  overflow-y: scroll;
+}
+
+.gifs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px; 
+  margin: 0 auto;
+  width: 100%;
+}
+
+.gif img {
+  max-width: 100%; 
 }

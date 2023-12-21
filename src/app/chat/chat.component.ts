@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { Chat } from '../models/chat.model';
+import { MainService } from '../shared/main.service';
 
 @Component({
   selector: 'app-chat',
@@ -23,6 +24,8 @@ import { Chat } from '../models/chat.model';
 export class ChatComponent {
   private modalService = inject(NgbModal);
   @ViewChild('chatBody') myDiv: ElementRef | undefined;
+  subscription: any;
+  gifs: any[] = [];
   message: Chat = {
     id: '',
     senderId: '',
@@ -40,7 +43,8 @@ export class ChatComponent {
     private aRoute: ActivatedRoute,
     private data: DataService,
     private _location: Location,
-    private route: Router
+    private route: Router,
+    private service: MainService
   ) {}
   async ngOnInit() {
     this.messages = [];
@@ -101,16 +105,20 @@ export class ChatComponent {
     this.chatService.clearMessages(this.messages);
     this.modalService.dismissAll();
   }
-
-  deleteMsg(chatId: string) {
-    this.chatService.deleteMessage(chatId);
-  }
   open(content: TemplateRef<any>) {
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       centered: true,
       size: 'sm',
       windowClass: 'dark-modal',
+    });
+  }
+  onImport(vitalSignsDataModal: any) {
+    this.modalService.dismissAll();
+    this.modalService.open(vitalSignsDataModal, { size: 'lg', centered: true });
+    this.service.getTrendingGifs();
+    this.subscription = this.service.getGifs().subscribe((res) => {
+      this.gifs = res;
     });
   }
   onFileSelected(event: any) {
@@ -137,5 +145,19 @@ export class ChatComponent {
       .catch((error) => {
         console.error('Error uploading image:', error);
       });
+  }
+
+  searchGif(searchTerm: any) {
+    if (searchTerm !== '') {
+      this.service.searchGifs(searchTerm);
+      this.subscription = this.service.getGifs().subscribe((res) => {
+        this.gifs = res;
+      });
+    }
+  }
+  selectGif(gif: any) {
+    this.message.attachment=gif.images.original.url;
+    this.sendMessage();
+    this.modalService.dismissAll();
   }
 }

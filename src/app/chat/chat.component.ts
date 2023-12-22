@@ -14,12 +14,21 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { Chat } from '../models/chat.model';
 import { MainService } from '../shared/main.service';
 import { ToastrService } from 'ngx-toastr';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-chat',
   standalone: false,
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
+  animations: [
+    trigger('fade', [
+      transition(':enter, :leave', [
+        style({ opacity: 0, transform: 'translateY(2px)' }),
+        animate('600ms ease-in-out', style({ opacity: 1, transform: 'translateY(0)' })),
+      ]),
+    ]),
+  ],
 })
 export class ChatComponent {
   private modalService = inject(NgbModal);
@@ -47,7 +56,7 @@ export class ChatComponent {
     private _location: Location,
     private route: Router,
     private service: MainService,
-    private toastr:ToastrService
+    private toastr: ToastrService
   ) {}
   async ngOnInit() {
     this.messages = [];
@@ -55,7 +64,9 @@ export class ChatComponent {
       this.reciever = await this.data.getUser(params['uuid']);
     });
 
-    this.user = await this.data.getUser(sessionStorage.getItem('token') || localStorage.getItem('token')!);
+    this.user = await this.data.getUser(
+      sessionStorage.getItem('token') || localStorage.getItem('token')!
+    );
 
     if (!this.user) {
       this.route.navigate(['login']);
@@ -80,14 +91,13 @@ export class ChatComponent {
         }
       }, 50);
     });
-    if(this.myInput){
+    if (this.myInput) {
       this.myInput.nativeElement.focus();
     }
-    
   }
 
   sendMessage() {
-    if (this.message!.text == '' && this.message!.attachment=='') {
+    if (this.message!.text == '' && this.message!.attachment == '') {
       alert('Please enter some message');
       return;
     }
@@ -163,7 +173,7 @@ export class ChatComponent {
     }
   }
   selectGif(gif: any) {
-    this.message.attachment=gif.images.original.url;
+    this.message.attachment = gif.images.original.url;
     this.sendMessage();
     this.modalService.dismissAll();
   }

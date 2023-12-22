@@ -84,7 +84,6 @@ export class ProfileComponent {
       .then((res) => res.json())
       .then((json) => {
         this.countries = Object.keys(json);
-        console.log(this.countries)
       });
   }
   goBack() {

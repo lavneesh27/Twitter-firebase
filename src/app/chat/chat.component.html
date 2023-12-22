@@ -34,7 +34,7 @@
 <div class="body">
     <ul #chatBody *ngIf="messages?.length" class="chats">
         <ng-container *ngFor="let msg of messages">
-            <li class="py-2 px-2 msg" [class.px-3]="msg.text"  [class.right]="msg.senderId === user.id">
+            <li @fade class="py-2 px-2 msg" [class.px-3]="msg.text"  [class.right]="msg.senderId === user.id">
                 {{msg.text}}
                 <img [src]="msg.attachment" alt="img" *ngIf="msg.attachment"
                     style="max-width: 250px; border-radius: 15px;">

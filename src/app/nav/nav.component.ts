@@ -14,12 +14,15 @@ export class NavComponent implements OnInit {
   imgUrl: any;
   private modalService = inject(NgbModal);
 
-
-  constructor(private router: Router, private toastr:ToastrService,private data:DataService) {}
-  async ngOnInit()  {
+  constructor(
+    private router: Router,
+    private toastr: ToastrService,
+    private data: DataService
+  ) {}
+  async ngOnInit() {
     let uid = sessionStorage.getItem('token') ?? localStorage.getItem('token');
-    if(uid){
-      this.user = await  this.data.getUser(uid);
+    if (uid) {
+      this.user = await this.data.getUser(uid);
     }
   }
 
@@ -38,7 +41,11 @@ export class NavComponent implements OnInit {
     this.router.navigate(['/login']);
   }
   open(content: TemplateRef<any>) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title',centered: true, size:'sm',windowClass: 'dark-modal'})
-	}
-  
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      centered: true,
+      size: 'sm',
+      windowClass: 'dark-modal',
+    });
+  }
 }

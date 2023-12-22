@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Tweet } from '../models/tweet.model';
 import { Router } from '@angular/router';
-import { User } from '../models/user.model';
 import { Location } from '@angular/common';
 import { DataService } from '../shared/data.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -23,7 +22,7 @@ export class BookmarkComponent implements OnInit {
   ) {}
   async ngOnInit() {
     const userToken =
-      sessionStorage.getItem('token') ?? sessionStorage.getItem('token');
+      sessionStorage.getItem('token') ?? localStorage.getItem('token');
     if (userToken) {
       this.user = await this.data.getUser(userToken);
     } else {
@@ -41,7 +40,7 @@ export class BookmarkComponent implements OnInit {
             data.id = e.payload.doc.id;
             return data;
           },
-          (err: any) => {
+          () => {
             alert('Error while fetching tweets');
           }
         )

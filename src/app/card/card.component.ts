@@ -2,13 +2,11 @@ import {
   Component,
   Input,
   OnInit,
-  ViewChild,
 } from '@angular/core';
 import { Tweet } from '../models/tweet.model';
 import { Bookmark } from '../models/bookmark.model';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../shared/data.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 @Component({
@@ -33,7 +31,7 @@ export class CardComponent implements OnInit {
   
   ) {}
   async ngOnInit() {
-    const userToken = sessionStorage.getItem('token');
+    const userToken = sessionStorage.getItem('token')|| localStorage.getItem('token');
     if (userToken) {
       this.loginUser = await this.data.getUser(userToken);
     }

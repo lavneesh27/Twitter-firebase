@@ -24,7 +24,10 @@
 
         </div>
         <div class="flex flex-column info px-3">
-            <h4 class="d-flex align-items-center">{{user?.firstName}} {{user?.lastName}}  <img *ngIf="user?.userName=='lavneesh27'" src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" width="25px" alt="verified" title="verified"></h4>
+            <h4 class="d-flex align-items-center">{{user?.firstName}} {{user?.lastName}} <img
+                    *ngIf="user?.userName=='lavneesh27'"
+                    src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" width="25px"
+                    alt="verified" title="verified"></h4>
             <h6 class="text-muted text-sm">&#64;{{user?.userName}}</h6>
             <h6>{{user?.bio}}</h6>
             <div class="col text-muted mt-3 justify-content-around" style="height: 100px;">
@@ -34,7 +37,8 @@
                 </div>
                 <div class="col d-flex align-items-center website mb-2" *ngIf="user?.website">
                     <i class='bx bx-link fs-5 me-1'></i>
-                    <h6 class="text-sm mb-0 "><a href="{{user?.website}}">{{user?.website }}</a></h6>
+                    <h6 class="text-sm mb-0 " [title]="user?.website"><a href="{{user?.website}}">{{user?.website }}</a>
+                    </h6>
                 </div>
                 <div class="col d-flex align-items-center me-4">
                     <i class='bx bx-calendar fs-5 me-1'></i>
@@ -51,7 +55,9 @@
             Profile</button>
         <button id="edit" *ngIf="!isAdmin" class="btn btn-dark rounded-pill px-3 edit-btn"
             style="cursor:pointer">Follow</button>
-        <button id="chat" *ngIf="user?.id!=loginUser?.id" class="btn btn-outline-dark rounded-pill px-3 chat-btn" [routerLink]="['/chat', user?.id]" routerLinkActive="router-link-active"  style="cursor:pointer">Message</button>
+        <button id="chat" *ngIf="user?.id!=loginUser?.id" class="btn btn-outline-dark rounded-pill px-3 chat-btn"
+            [routerLink]="['/chat', user?.id]" routerLinkActive="router-link-active"
+            style="cursor:pointer">Message</button>
 
 
     </div>
@@ -61,7 +67,7 @@
         <h5 class="mt-4">Tweets</h5>
         <ul *ngIf="tweets?.length" class="list-group d-flex justify-content-center mt-4">
             <li class="list-group-item d-flex justify-content-center p-0" *ngFor="let tweet of tweets"><app-card
-                     [tweet]="tweet"></app-card></li>
+                    [tweet]="tweet"></app-card></li>
         </ul>
         <ngx-ui-loader [bgsPosition]="'bottom-center'"></ngx-ui-loader>
         <div class="no-data text-center" *ngIf="!isLoading && !tweets?.length">
@@ -86,7 +92,7 @@
                     <div class="banner" style="width: 100%;">
                         <input type="file" class="d-none" accept="image/*" name="banner" id="banner"
                             (change)="onFileSelected($event,'banner')" style="cursor: none;">
-                        <img [src]='this.user?.banner' style="width: 100%; object-fit: cover; border-radius: inherit;">
+                        <img [src]='this.user?.banner' style="width: 100%;">
                         <label for="banner"
                             class="rounded-circle d-flex justify-content-center align-items-center edit-pic"
                             style="background-color: rgba(50, 50, 50, 0.7);position: absolute;left: 340px;top: 120px; width: 40px;height: 40px;cursor: pointer;">
@@ -98,10 +104,11 @@
                             <i class='bx bx-x fs-3' style="color: white;"></i>
                         </label>
                         <div class="rounded-circle me-3 overflow-hidden text-center my-3 d-flex"
-                            style="width:150px;height:150px;position: absolute;top: 150px;left: 35px;">
+                            style="width:150px;height:150px;position: absolute;top: 140px;left: 35px;">
                             <input type="file" class="d-none" accept="image/*" name="image" id="image"
                                 (change)="onFileSelected($event,'image')" style="cursor: none;">
-                            <img *ngIf="user?.image" [src]='this.user.image' alt="" style="width: 100%;height: 100%; object-fit: cover; border-radius: inherit;">
+                            <img *ngIf="user?.image" [src]='this.user.image' alt=""
+                                style="width: 100%;height: 100%; object-fit: cover; border-radius: inherit;">
                             <span *ngIf="!user?.image"
                                 class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-1"
                                 style="width:150px;height:150px">{{
@@ -125,7 +132,9 @@
                         <textarea id="Bio" class="form-control mb-3" formControlName="bio"
                             style="resize: none;"></textarea>
                         <label for="Location" class="form-label">Location</label>
-                        <input id="Location" type="text" class="form-control mb-3" formControlName="location">
+                        <select name="location" id="location" class="form-select mb-3" formControlName="location">
+                            <option [value]="country" *ngFor="let country of countries">{{ country }}</option>
+                        </select>
                         <label for="Website" class="form-label">Website</label>
                         <input id="Website" type="text" class="form-control mb-3" formControlName="website">
                         <label for="DOB" class="form-label">DOB</label>

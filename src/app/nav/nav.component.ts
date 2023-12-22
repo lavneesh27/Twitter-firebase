@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from '../shared/data.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class NavComponent implements OnInit {
 
   constructor(private router: Router, private toastr:ToastrService,private data:DataService) {}
   async ngOnInit()  {
-    let uid = sessionStorage.getItem('token') ?? sessionStorage.getItem('token');
+    let uid = sessionStorage.getItem('token') ?? localStorage.getItem('token');
     if(uid){
       this.user = await  this.data.getUser(uid);
     }

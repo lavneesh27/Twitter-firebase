@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
 
@@ -21,8 +20,6 @@ export class StartComponent {
   constructor(
     private modalService: NgbModal,
     private fb: FormBuilder,
-    private toastr: ToastrService,
-    private router: Router,
     private auth: AuthService
   ) {}
   ngOnInit(): void {
@@ -46,7 +43,7 @@ export class StartComponent {
       return;
     }
 
-    this.auth.login(this.loginForm.get('email')!.value, this.loginForm.get('pwd')!.value);
+    this.auth.login(this.loginForm.get('email')!.value, this.loginForm.get('pwd')!.value, false);
     this.loginForm.reset();
   }
 

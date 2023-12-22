@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   TemplateRef,
@@ -14,6 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { Chat } from '../models/chat.model';
 import { MainService } from '../shared/main.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-chat',
@@ -47,6 +47,7 @@ export class ChatComponent {
     private _location: Location,
     private route: Router,
     private service: MainService,
+    private toastr:ToastrService
   ) {}
   async ngOnInit() {
     this.messages = [];
@@ -54,7 +55,7 @@ export class ChatComponent {
       this.reciever = await this.data.getUser(params['uuid']);
     });
 
-    this.user = await this.data.getUser(sessionStorage.getItem('token')!);
+    this.user = await this.data.getUser(sessionStorage.getItem('token') || localStorage.getItem('token')!);
 
     if (!this.user) {
       this.route.navigate(['login']);
@@ -108,6 +109,7 @@ export class ChatComponent {
   }
   clear() {
     this.chatService.clearMessages(this.messages);
+    this.toastr.success('Chats Cleared!');
     this.modalService.dismissAll();
   }
   open(content: TemplateRef<any>) {

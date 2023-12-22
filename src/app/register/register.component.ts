@@ -5,9 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { User } from '../models/user.model';
-import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
 import { AuthService } from '../shared/auth.service';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -23,7 +21,6 @@ export class RegisterComponent implements OnInit {
   submitted: boolean = false;
   constructor(
     private fb: FormBuilder,
-    private toastr: ToastrService,
     private _location: Location,
     private auth: AuthService
   ) {}

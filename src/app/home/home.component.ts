@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   OnDestroy,
   OnInit,
@@ -7,7 +6,6 @@ import {
 import { Tweet } from '../models/tweet.model';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from '../shared/data.service';
@@ -40,7 +38,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   subscription: any;
   constructor(
     private router: Router,
-    private fb: FormBuilder,
     private toastr: ToastrService,
     private modalService: NgbModal,
     private dataService: DataService,
@@ -54,12 +51,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   async ngOnInit() {
     this.ngxService.start();
-    if (!sessionStorage.getItem('token')) {
+    if (!sessionStorage.getItem('token') && !localStorage.getItem('token')) {
       this.router.navigate(['login']);
       return;
     }
     let userToken =
-      sessionStorage.getItem('token') ?? sessionStorage.getItem('token');
+      sessionStorage.getItem('token') ?? localStorage.getItem('token');
     this.user = await this.dataService.getUser(userToken!);
 
     this.isLoading = true;
@@ -71,7 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           data.id = e.payload.doc.id;
           return data;
         },
-        (err: any) => {
+        () => {
           alert('Error while fetching tweets');
         }
       );

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tweet } from '../models/tweet.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../models/user.model';
 import {Location} from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../shared/data.service';
@@ -34,7 +33,7 @@ export class CreateComponent implements OnInit {
     private data:DataService
   ) {}
   ngOnInit(): void {
-    if(!sessionStorage.getItem('token')){
+    if(!sessionStorage.getItem('token')|| localStorage.getItem('token')){
       this.route.navigate(['login']);
       return;
     }
@@ -74,7 +73,7 @@ export class CreateComponent implements OnInit {
 
   upload() {
     this.tweet.content = this.uploadForm.get('content')?.value.toString();
-    this.tweet.userId = sessionStorage.getItem('token')!;
+    this.tweet.userId = sessionStorage.getItem('token') || localStorage.getItem('token')!;
     this.data.addTweet(this.tweet).then(()=>{
       this.route.navigate(["home"]);
       this.toastr.success('uploaded');

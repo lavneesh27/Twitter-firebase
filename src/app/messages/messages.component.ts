@@ -1,9 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DataService } from '../shared/data.service';
-import { ChatService } from '../shared/chat.service';
 import { Location } from '@angular/common';
 import { User } from '../models/user.model';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,12 +16,11 @@ export class MessagesComponent implements OnInit {
 
   constructor(
     private data: DataService,
-    private chat: ChatService,
     private _location: Location,
     private router: Router
   ) {}
   async ngOnInit() {
-    const userToken = sessionStorage.getItem('token');
+    const userToken = sessionStorage.getItem('token') || localStorage.getItem('token');
 
     if (userToken) {
       this.user = await this.data.getUser(userToken);
@@ -36,7 +33,7 @@ export class MessagesComponent implements OnInit {
 
               return data;
             },
-            (err: any) => {
+            () => {
               alert('Error while fetching users');
             }
           )
@@ -54,7 +51,7 @@ export class MessagesComponent implements OnInit {
 
             return data;
           },
-          (err: any) => {
+          () => {
             alert('Error while fetching users');
           }
         )

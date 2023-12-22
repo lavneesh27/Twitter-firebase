@@ -30,12 +30,14 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.auth.login(this.email, this.password);
+    this.auth.login(this.email, this.password, this.remember);
     this.email='';
     this.password=''
-
-    
   }
+
+  // forgot(){
+  //   this.auth.forgotPassword(this.email);
+  // }
 
   goBack() {
     this._location.back();

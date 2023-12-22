@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TwitterClone';
-  user = sessionStorage.getItem('token');
+  user = sessionStorage.getItem('token') || localStorage.getItem('token');
 }

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -21,11 +21,12 @@ import { StartComponent } from './start/start.component';
 import { FirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
-import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
-import { authInstance$ } from '@angular/fire/auth';
+import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { ChatComponent } from './chat/chat.component';
 import { CommonModule } from '@angular/common'
 import { MessagesComponent } from './messages/messages.component';
+import { VerifyComponent } from './verify/verify.component';
+import { ForgotComponent } from './forgot/forgot.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -73,7 +74,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     BookmarkComponent,
     StartComponent,
     ChatComponent,
-    MessagesComponent
+    MessagesComponent,
+    VerifyComponent,
+    ForgotComponent
     
   ],
   imports: [
@@ -91,7 +94,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NgbModalModule,
     AngularFireModule.initializeApp(environment.firebase),
     FirestoreModule,
-    CommonModule
+    CommonModule,
+    HttpClientJsonpModule
   ],
   providers: [ToastrService],
   bootstrap: [AppComponent],

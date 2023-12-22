@@ -12,10 +12,14 @@
       <label for="pwd" class="form-label">Password</label>
       <input type="password" class="form-control" id="pwd" name="password" [(ngModel)]="password" />
     </div>
-    <!-- <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="rem">
-      <label class="form-check-label" for="exampleCheck1" >Remember Me</label>
-    </div> -->
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="rem" name="remember"  [(ngModel)]="remember">  
+      <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+    </div>
+    <div class="mb-3">
+      <p for="pwd" class="form-label">Forgot Password? <a href="javascript:void(0)" [routerLink]="['/forgot']" routerLinkActive="router-link-active" >click here</a></p>
+    </div>
+
 
     <button type="submit" class="d-block mx-auto btn">
       Login

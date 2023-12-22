@@ -1,1 +1,9 @@
-<p>forgot works!</p>
+<div class="container col my-auto mx-auto shadow card h-50">
+    <!-- <i class='bx bxs-user-check text-center' style="font-size: 200px;"></i> -->
+    <i class='bx bx-revision text-center' style="font-size: 150px;"></i>
+    <h1 class="text-center">Enter your email</h1>
+    <form class="container px-4 text-center" (submit)="forgot()">
+        <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" />
+        <button type="submit" class="btn btn-success mt-3" [disabled]="email.length==0">Reset</button>
+    </form>
+</div>

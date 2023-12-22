@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from '../models/user.model';
 import { Tweet } from '../models/tweet.model';
 import { Location } from '@angular/common';
@@ -21,6 +21,7 @@ export class ProfileComponent {
   isAdmin: boolean = false;
   isLoading: boolean = true;
   loginUser: any;
+  countries: any;
   constructor(
     private _location: Location,
     private router: Router,
@@ -36,17 +37,23 @@ export class ProfileComponent {
     this.aRoute.params.subscribe(async (params) => {
       userId = params['uuid'];
 
-      const uid = userId || sessionStorage.getItem('token') || '';
+      const uid =
+        userId ||
+        sessionStorage.getItem('token') ||
+        localStorage.getItem('token') ||
+        '';
 
       if (!uid) {
         this.router.navigate(['login']);
         return;
       }
       this.loginUser = await this.data.getUser(
-        sessionStorage.getItem('token')!
+        sessionStorage.getItem('token') || localStorage.getItem('token')!
       );
       this.user = await this.data.getUser(uid);
-      this.isAdmin = userId == sessionStorage.getItem('token');
+      this.isAdmin =
+        userId ==
+        (sessionStorage.getItem('token') || localStorage.getItem('token')!);
       this.initializeForm();
 
       this.data.getAllTweets().subscribe((res: any) => {
@@ -57,7 +64,7 @@ export class ProfileComponent {
               data.id = e.payload.doc.id;
               return data;
             },
-            (err: any) => {
+            () => {
               alert('Error while fetching tweets');
             }
           )
@@ -73,6 +80,12 @@ export class ProfileComponent {
         this.isLoading = false;
       }, 500);
     });
+    fetch('./assets/files/countries.json')
+      .then((res) => res.json())
+      .then((json) => {
+        this.countries = Object.keys(json);
+        console.log(this.countries)
+      });
   }
   goBack() {
     this._location.back();
@@ -86,7 +99,6 @@ export class ProfileComponent {
     this.user.bio = this.updateForm.get('bio')?.value;
     this.user.location = this.updateForm.get('location')?.value;
     this.user.website = this.updateForm.get('website')?.value;
-
     try {
       this.data.updateUser(this.user);
       setTimeout(() => {

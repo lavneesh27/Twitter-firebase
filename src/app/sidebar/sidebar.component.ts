@@ -14,7 +14,7 @@ export class SidebarComponent implements OnInit {
   inputUser: string = '';
   user: any;
   async ngOnInit() {
-    const userToken = sessionStorage.getItem('token');
+    const userToken = sessionStorage.getItem('token')|| localStorage.getItem('token');
 
     if (userToken) {
       this.user = await this.data.getUser(userToken);
@@ -29,7 +29,7 @@ export class SidebarComponent implements OnInit {
 
                 return data;
               },
-              (err: any) => {
+              () => {
                 alert('Error while fetching users');
               }
             )
@@ -49,7 +49,7 @@ export class SidebarComponent implements OnInit {
 
             return data;
           },
-          (err: any) => {
+          () => {
             alert('Error while fetching users');
           }
         )

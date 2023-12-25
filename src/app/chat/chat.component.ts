@@ -20,15 +20,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
   selector: 'app-chat',
   standalone: false,
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.css',
-  animations: [
-    trigger('fade', [
-      transition(':enter, :leave', [
-        style({ opacity: 0, transform: 'translateY(2px)' }),
-        animate('600ms ease-in-out', style({ opacity: 1, transform: 'translateY(0)' })),
-      ]),
-    ]),
-  ],
+  styleUrl: './chat.component.css'
 })
 export class ChatComponent {
   private modalService = inject(NgbModal);

@@ -25,7 +25,7 @@ export class NavComponent implements OnInit {
       this.user = await this.data.getUser(uid);
     }
   }
-
+  
   logout() {
     sessionStorage.clear();
     localStorage.clear();
@@ -37,6 +37,7 @@ export class NavComponent implements OnInit {
       this.toastr.success('Logout Successful');
     });
   }
+
   login() {
     this.router.navigate(['/login']);
   }

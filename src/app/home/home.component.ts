@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Tweet } from '../models/tweet.model';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -150,5 +146,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.dataURL = gif.images.original.url;
 
     this.modalService.dismissAll();
+  }
+
+  navigateToProfile(userId: string): void {
+    this.router.navigate(['/profile', userId]);
   }
 }

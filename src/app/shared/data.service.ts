@@ -3,6 +3,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Tweet } from '../models/tweet.model';
 import { User } from '../models/user.model';
 import { Bookmark } from '../models/bookmark.model';
+import { Observable, } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -74,6 +76,9 @@ export class DataService {
   getAllUsers() {
     return this.afs.collection('/Users').snapshotChanges();
   }
+
+
+
   async getUser(id: string): Promise<any> {
     try {
       const doc = await this.afs.collection('/Users').doc(id).ref.get();

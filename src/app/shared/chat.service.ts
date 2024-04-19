@@ -27,6 +27,14 @@ export class ChatService {
   getMessages() {
     return this.db.collection('/messages').valueChanges();
   }
+  getDisplayMessage(receiverId: string, senderId: string) {
+    return this.db.collection('/messages', ref => 
+      ref.where('recieverId', '==', receiverId)
+         .where('senderId', '==', senderId)
+         .orderBy('createdAt', 'desc')
+         .limit(1)
+    ).valueChanges();
+  }
 
   clearMessages(chatArray:any) {
     chatArray.forEach((element:any) => {

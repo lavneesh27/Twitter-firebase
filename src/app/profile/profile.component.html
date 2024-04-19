@@ -1,3 +1,6 @@
+<button (click)="scrollToTop()" class="go-to-top" [ngClass]="{'show': showButton}">
+    <i class='bx bx-up-arrow-alt fs-4'></i>See new Tweets
+  </button>
 <div class="header d-flex align-items-center px-3">
     <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3'></i></a>
     <div>
@@ -8,10 +11,16 @@
 <div class="container profile ">
     <div class="flex flex-column">
         <div class="banner">
-            <img [src]='this.user?.banner'>
-            <div *ngIf="!this.user?.banner" style="background-color: #CFD9DE;width: 100%;"></div>
+            <img [src]='this.user?.banner' [attr.data-bs-toggle]="isAdmin ? 'modal' : null"
+            [attr.data-bs-target]="isAdmin ? '#staticBackdrop' : null"
+            [attr.data-bs-transition-duration]="isAdmin ? '500' : null">
+            <div *ngIf="!this.user?.banner" style="background-color: #CFD9DE;width: 100%;" [attr.data-bs-toggle]="isAdmin ? 'modal' : null"
+            [attr.data-bs-target]="isAdmin ? '#staticBackdrop' : null"
+            [attr.data-bs-transition-duration]="isAdmin ? '500' : null"></div>
             <div class="rounded-circle me-3 overflow-hidden text-center dp my-3"
-                style="width: 150px; height: 150px; border: 4px solid white; border-radius: 50%;">
+                style="width: 150px; height: 150px; border: 4px solid white; border-radius: 50%;" (click)="edit()" [attr.data-bs-toggle]="isAdmin ? 'modal' : null"
+                [attr.data-bs-target]="isAdmin ? '#staticBackdrop' : null"
+                [attr.data-bs-transition-duration]="isAdmin ? '500' : null">
                 <img *ngIf="user?.image" [src]="user.image" alt=""
                     style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;">
                 <span
@@ -30,7 +39,7 @@
                     alt="verified" title="verified"></h4>
             <h6 class="text-muted text-sm">&#64;{{user?.userName}}</h6>
             <h6>{{user?.bio}}</h6>
-            <div class="col text-muted mt-3 justify-content-around" style="height: 100px;">
+            <div class="col text-muted mt-3 justify-content-around my-3" style="height: auto">
                 <div class="col-2 d-flex align-items-center mb-2" *ngIf="user?.location">
                     <i class='bx bx-location-plus fs-5 me-1'></i>
                     <h6 class="text-sm mb-0">{{user?.location }}</h6>
@@ -81,8 +90,8 @@
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+    <div class="modal-dialog modal-lg" style="margin-top: 60px;">
+        <div class="modal-content" style="height: 600px">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit profile</h1>
                 <button type="button" class="btn-close me-2 p-3" data-bs-dismiss="modal" aria-label="Close"></button>

@@ -3,6 +3,7 @@ import { DataService } from '../shared/data.service';
 import { Location } from '@angular/common';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
+import { ChatService } from '../shared/chat.service';
 
 @Component({
   selector: 'app-messages',
@@ -17,10 +18,12 @@ export class MessagesComponent implements OnInit {
   constructor(
     private data: DataService,
     private _location: Location,
-    private router: Router
+    private router: Router,
+    private chat: ChatService
   ) {}
   async ngOnInit() {
-    const userToken = sessionStorage.getItem('token') || localStorage.getItem('token');
+    const userToken =
+      sessionStorage.getItem('token') || localStorage.getItem('token');
 
     if (userToken) {
       this.user = await this.data.getUser(userToken);
@@ -30,7 +33,6 @@ export class MessagesComponent implements OnInit {
             (e: any) => {
               const data = e.payload.doc.data();
               data.id = e.payload.doc.id;
-
               return data;
             },
             () => {

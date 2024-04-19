@@ -25,7 +25,6 @@ import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { ChatComponent } from './chat/chat.component';
 import { CommonModule } from '@angular/common'
 import { MessagesComponent } from './messages/messages.component';
-import { VerifyComponent } from './verify/verify.component';
 import { ForgotComponent } from './forgot/forgot.component';
 
 
@@ -75,7 +74,6 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     StartComponent,
     ChatComponent,
     MessagesComponent,
-    VerifyComponent,
     ForgotComponent
     
   ],

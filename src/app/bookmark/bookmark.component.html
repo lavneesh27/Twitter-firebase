@@ -2,7 +2,7 @@
     <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3 '></i></a>
     <h5>Bookmarks</h5>
 </div>
-<div class="container bookmark p-3">
+<div class="container bookmark ">
     <ul class="list-group d-flex justify-content-center" *ngIf="tweets?.length">
         <li class="list-group-item d-flex justify-content-center p-0" *ngFor="let tweet of tweets"><app-card
                 (likeEvent)="ngOnInit()" [tweet]="tweet"></app-card></li>

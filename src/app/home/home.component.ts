@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Tweet } from '../models/tweet.model';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -32,6 +32,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   user: any;
   gifs: any[] = [];
   subscription: any;
+  showButton: boolean = false;
+
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -68,6 +70,8 @@ export class HomeComponent implements OnInit, OnDestroy {
           alert('Error while fetching tweets');
         }
       );
+      console.log(this.user.following);
+      
       this.tweets = this.tweets.filter((tweet) => {
         return (
           this.user.following.includes(tweet.userId) ||
@@ -83,6 +87,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.isLoading = false;
     }, 500);
+
+    
   }
 
   onFileSelected(event: any) {
@@ -150,5 +156,17 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   navigateToProfile(userId: string): void {
     this.router.navigate(['/profile', userId]);
+  }
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (window.pageYOffset > 400) {
+      this.showButton = true;
+    } else {
+      this.showButton = false;
+    }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

@@ -101,3 +101,32 @@ li {
 .gif img {
   max-width: 100%; 
 }
+
+.go-to-top {
+  position: fixed;
+  bottom: 20px; 
+  right: 50%;
+  top:60px;
+  transform: translateX(50%);
+  background-color: #1d9bf0;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 10px;
+  width: auto;
+  height: 40px;
+  font-size: 15px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    z-index: 5;
+}
+
+.go-to-top.show {
+  opacity: 1;
+}

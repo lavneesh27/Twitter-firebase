@@ -2,7 +2,7 @@
   display: flex;
   position: fixed;
   bottom: 0;
-  width: 659px;
+  width: 660px;
   align-items: center;
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.6);
@@ -35,7 +35,7 @@
 }
 
 .header {
-  width: 659px;
+  width: 660px;
   height: 70px;
   position: fixed;
   top: 0;
@@ -60,7 +60,7 @@
 .body {
   position: absolute;
   top: 70px;
-  width: 659px;
+  width: 642px;
 }
 
 .chats {

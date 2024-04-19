@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { User } from '../models/user.model';
 import { Tweet } from '../models/tweet.model';
 import { Location } from '@angular/common';
@@ -22,6 +22,7 @@ export class ProfileComponent {
   isLoading: boolean = true;
   loginUser: any;
   countries: any;
+  showButton: boolean = false;
   constructor(
     private _location: Location,
     private router: Router,
@@ -186,5 +187,22 @@ export class ProfileComponent {
   }
   unFollow(userId: string) {
     this.data.unFollow(this.user.id, userId);
+  }
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (window.pageYOffset > 400) {
+      this.showButton = true;
+    } else {
+      this.showButton = false;
+    }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  edit(){
+    if(this.isAdmin){
+      
+    }
   }
 }

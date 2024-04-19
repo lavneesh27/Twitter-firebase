@@ -67,12 +67,22 @@
 .banner img {
   width: 642px;
   object-position: right top;
+  cursor: pointer;
+}
+.banner img:hover{
+  filter: brightness(70%);
+  transition: 0.3s all; 
 }
 
 .dp {
   position: absolute;
   top: 125px;
   left: 15px;
+  cursor: pointer;
+}
+.dp:hover{
+  filter: brightness(70%);
+  transition: 0.3s all;  
 }
 
 .info {
@@ -122,4 +132,32 @@
 
 li{
   border-radius: 0 !important;
+}
+.go-to-top {
+  position: fixed;
+  bottom: 20px; 
+  right: 50%;
+  top:60px;
+  transform: translateX(50%);
+  background-color: #1d9bf0;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 10px;
+  width: auto;
+  height: 40px;
+  font-size: 15px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    z-index: 5;
+}
+
+.go-to-top.show {
+  opacity: 1;
 }

@@ -10,7 +10,8 @@
   position: fixed;
   right:0;
   top:0;
-  width: 400px;
+  min-width: 400px;
+  max-width: 400px;
   padding-top: 5px;
   padding-left: 10px;
   padding-right: 10px;
@@ -65,3 +66,4 @@ img:hover{
 h6:hover{
   text-decoration: underline;
 }
+

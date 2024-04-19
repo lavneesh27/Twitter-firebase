@@ -19,7 +19,6 @@ export class AuthService {
   login(email: string, password: string, remember: boolean) {
     this.fireAuth.signInWithEmailAndPassword(email, password).then(
       (res) => {
-        if (res.user?.emailVerified == false) {
           this.router.navigate(['home']);
           remember
             ? localStorage.setItem('token', String(res.user?.uid))
@@ -27,9 +26,6 @@ export class AuthService {
           setTimeout(() => {
             window.location.reload();
           }, 80);
-        } else {
-          this.router.navigate(['/verify']);
-        }
       },
       (err) => {
         alert(err.message);
@@ -42,8 +38,6 @@ export class AuthService {
       .then(
         (res) => {
           this.toastr.success('Registration Successful');
-          this.router.navigate(['login']);
-          this.sendEmailVerification(res.user);
           user.id = res.user!.uid;
           user.createdAt = new Date().toLocaleDateString();
           this.data.addUser(user);
@@ -69,17 +63,6 @@ export class AuthService {
 
   googleSignIn() {
     return this.fireAuth.signInWithRedirect(new GoogleAuthProvider());
-  }
-
-  sendEmailVerification(user: any) {
-    user.sendEmailVerification().then(
-      () => {
-        this.router.navigate(['/verify']);
-      },
-      () => {
-        alert('Something went wrong');
-      }
-    );
   }
 
   forgotPassword(email: string) {

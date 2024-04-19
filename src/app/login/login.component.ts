@@ -35,10 +35,6 @@ export class LoginComponent implements OnInit {
     this.password=''
   }
 
-  // forgot(){
-  //   this.auth.forgotPassword(this.email);
-  // }
-
   goBack() {
     this._location.back();
   }

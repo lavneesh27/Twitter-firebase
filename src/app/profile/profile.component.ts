@@ -200,9 +200,7 @@ export class ProfileComponent {
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-  edit(){
-    if(this.isAdmin){
-      
-    }
+  redirect(id: string) {
+    this.router.navigate(['post', id]);
   }
 }

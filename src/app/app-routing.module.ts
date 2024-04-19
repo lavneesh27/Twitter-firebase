@@ -9,6 +9,7 @@ import { BookmarkComponent } from './bookmark/bookmark.component';
 import { ChatComponent } from './chat/chat.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ForgotComponent } from './forgot/forgot.component';
+import { PostComponent } from './post/post.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'bookmark', component: BookmarkComponent, title: 'Bookmark / Twitter' },
   { path: 'chat/:uuid', component: ChatComponent, title: 'Chat / Twitter' },
   { path: 'messages', component: MessagesComponent, title: 'Messages / Twitter' },
+  { path: 'post/:id', component: PostComponent, title: 'Post / Twitter' },
 ];
 
 @NgModule({

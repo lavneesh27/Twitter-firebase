@@ -16,10 +16,10 @@
       </div>
      
     </div>
-    <h6 class="card-text ms-4  my-2">{{tweet.content}}</h6>
+    <h6 class="card-text ms-4  my-2" (click)="redirect(tweet.id)">{{tweet.content}}</h6>
     <div class="img-container mb-3 ms-3" *ngIf="dataURL">
       <img class="img-thumbnail" [src]="dataURL" alt="image" (click)="onClick($event)" data-toggle="modal"
-        data-target="#myModal">
+        data-target="#myModal" (click)="redirect(tweet.id)">
     </div>
     <div class="d-flex justify-content-between px-4">
       <div class="d-flex align-items-center">

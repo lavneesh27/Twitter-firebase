@@ -26,6 +26,7 @@ import { ChatComponent } from './chat/chat.component';
 import { CommonModule } from '@angular/common'
 import { MessagesComponent } from './messages/messages.component';
 import { ForgotComponent } from './forgot/forgot.component';
+import { PostComponent } from './post/post.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -74,8 +75,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     StartComponent,
     ChatComponent,
     MessagesComponent,
-    ForgotComponent
-    
+    ForgotComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

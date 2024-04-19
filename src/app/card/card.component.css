@@ -31,6 +31,7 @@ input {
 .img-thumbnail {
   border-radius: 15px;
   border: none;
+  cursor: pointer;
 }
 
 .action {
@@ -66,4 +67,7 @@ img:hover {
 
 .name:hover {
   text-decoration: underline;
+}
+.card-text{
+  cursor: pointer;
 }

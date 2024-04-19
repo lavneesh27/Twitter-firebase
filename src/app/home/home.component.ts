@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       );
       console.log(this.user.following);
-      
+
       this.tweets = this.tweets.filter((tweet) => {
         return (
           this.user.following.includes(tweet.userId) ||
@@ -87,8 +87,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.isLoading = false;
     }, 500);
-
-    
   }
 
   onFileSelected(event: any) {
@@ -169,4 +167,5 @@ export class HomeComponent implements OnInit, OnDestroy {
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+  
 }

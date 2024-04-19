@@ -11,6 +11,7 @@ li app-card {
 
 li {
   border: none;
+  
 }
 .header {
   width: 642px;
@@ -55,6 +56,7 @@ li {
   align-items: center;
   width: 40px;
   height: 40px;
+  
 }
 
 .image:hover {

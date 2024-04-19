@@ -18,7 +18,7 @@
             [attr.data-bs-target]="isAdmin ? '#staticBackdrop' : null"
             [attr.data-bs-transition-duration]="isAdmin ? '500' : null"></div>
             <div class="rounded-circle me-3 overflow-hidden text-center dp my-3"
-                style="width: 150px; height: 150px; border: 4px solid white; border-radius: 50%;" (click)="edit()" [attr.data-bs-toggle]="isAdmin ? 'modal' : null"
+                style="width: 150px; height: 150px; border: 4px solid white; border-radius: 50%;"  [attr.data-bs-toggle]="isAdmin ? 'modal' : null"
                 [attr.data-bs-target]="isAdmin ? '#staticBackdrop' : null"
                 [attr.data-bs-transition-duration]="isAdmin ? '500' : null">
                 <img *ngIf="user?.image" [src]="user.image" alt=""
@@ -76,7 +76,7 @@
         <h5 class="mt-4">Tweets</h5>
         <ul *ngIf="tweets?.length" class="list-group d-flex justify-content-center mt-4">
             <li class="list-group-item d-flex justify-content-center p-0" *ngFor="let tweet of tweets"><app-card
-                    [tweet]="tweet"></app-card></li>
+                    [tweet]="tweet" (click)="redirect(tweet.id)"></app-card></li>
         </ul>
         <ngx-ui-loader [bgsPosition]="'bottom-center'"></ngx-ui-loader>
         <div class="no-data text-center" *ngIf="!isLoading && !tweets?.length">

@@ -86,5 +86,8 @@ export class CardComponent implements OnInit {
   navigateToProfile(userId: string): void {
     this.router.navigate(['/profile', userId]);
   }
+  redirect(id: string) {
+    this.router.navigate(['post', id]);
+  }
 
 }

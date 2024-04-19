@@ -14,7 +14,8 @@ export class SidebarComponent implements OnInit {
   inputUser: string = '';
   user: any;
   async ngOnInit() {
-    const userToken = sessionStorage.getItem('token')|| localStorage.getItem('token');
+    const userToken =
+      sessionStorage.getItem('token') ?? localStorage.getItem('token');
 
     if (userToken) {
       this.user = await this.data.getUser(userToken);
@@ -62,10 +63,15 @@ export class SidebarComponent implements OnInit {
         });
     });
   }
-  isFollower(user:User): boolean {
+  isFollower(user: User): boolean {
     const followers = user.followers;
-  
-    return !!followers && !!followers.length && !!this.user && followers.includes(this.user.id);
+
+    return (
+      !!followers &&
+      !!followers.length &&
+      !!this.user &&
+      followers.includes(this.user.id)
+    );
   }
   navigateToProfile(userId: string): void {
     this.router.navigate(['/profile', userId]);

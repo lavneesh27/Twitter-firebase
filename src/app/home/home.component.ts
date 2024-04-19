@@ -157,7 +157,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    if (window.pageYOffset > 400) {
+    if (window.scrollY > 400) {
       this.showButton = true;
     } else {
       this.showButton = false;

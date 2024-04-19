@@ -2,7 +2,7 @@
   <div class="card-body ">
     <div class="profile  d-flex align-items-center" >
       <div class="rounded-circle me-2 overflow-hidden" style="width:50px;height:50px;cursor: pointer;" (click)="navigateToProfile(user.id)">
-        <img *ngIf="user && user.image" [src]="user.image" style="width:100%;height:100%;object-fit: cover; border-radius: inherit; ">
+        <img *ngIf="user && user.image" [src]="user.image" style="width:100%;height:100%;object-fit: cover; border-radius: inherit; " alt="dp">
         <span *ngIf="!user || !user.image"
           class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light"
           style="width:50px;height:50px">
@@ -18,7 +18,7 @@
     </div>
     <h6 class="card-text ms-4  my-2" (click)="redirect(tweet.id)">{{tweet.content}}</h6>
     <div class="img-container mb-3 ms-3" *ngIf="dataURL">
-      <img class="img-thumbnail" [src]="dataURL" alt="image" (click)="onClick($event)" data-toggle="modal"
+      <img class="img-thumbnail" [src]="dataURL" alt="tweetThumb" (click)="onClick($event)" data-toggle="modal"
         data-target="#myModal" (click)="redirect(tweet.id)">
     </div>
     <div class="d-flex justify-content-between px-4">

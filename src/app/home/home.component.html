@@ -1,56 +1,106 @@
-<button (click)="scrollToTop()" class="go-to-top" [ngClass]="{'show': showButton}">
-  <i class='bx bx-up-arrow-alt fs-4'></i>See new Tweets
+<button
+  (click)="scrollToTop()"
+  class="go-to-top"
+  [ngClass]="{ show: showButton }"
+>
+  <i class="bx bx-up-arrow-alt fs-4"></i>See new Tweets
 </button>
-<div class="header d-flex align-items-center px-3 ">
- 
+<div class="header d-flex align-items-center px-3">
   <h5>Home</h5>
 </div>
 <div class="container home">
   <div class="my-3">
     <form (submit)="upload()">
       <div class="d-flex px-4">
-        <div class="rounded-circle me-3  overflow-hidden" style="width:50px;height:50px">
-          <img [src]="user.image" alt="" (click)="navigateToProfile(user.id)"  *ngIf="user && user.image" style="width: 100%; height: 100%;object-fit: cover; border-radius: inherit; cursor: pointer;">
-          <span class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-4"
-            style="width:45px;height:45px">{{ user?.firstName?.charAt(0) }}</span>
+        <div
+          class="rounded-circle me-3 overflow-hidden"
+          style="width: 50px; height: 50px"
+        >
+          <img
+            [src]="user.image"
+            alt=""
+            (click)="navigateToProfile(user.id)"
+            *ngIf="user && user.image"
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              border-radius: inherit;
+              cursor: pointer;
+            "
+          />
+          <span
+            class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-4"
+            style="width: 45px; height: 45px"
+            >{{ user?.firstName?.charAt(0) }}</span
+          >
         </div>
-        <input type="text" class="input" [(ngModel)]="uploadForm.content" id="content" name="content"
-          placeholder="What's happening?!" required>
+        <input
+          type="text"
+          class="input"
+          [(ngModel)]="uploadForm.content"
+          id="content"
+          name="content"
+          placeholder="What's happening?!"
+          required
+        />
       </div>
-      <!-- <hr class="line">   -->
       <div class="d-flex ps-5 justify-content-between align-items-center mt-4">
         <div class="row">
-          <label for="image" class='image'>
+          <label for="image" class="image">
             <i class="bx bx-image fs-5"></i>
           </label>
-          <input type="file" class="d-none" accept="image/*" [(ngModel)]="uploadForm.image" name="image" id="image"
-            (change)="onFileSelected($event)">
-          <div class='image ms-3' (click)="onImport(gifModal)">
+          <input
+            type="file"
+            class="d-none"
+            accept="image/*"
+            [(ngModel)]="uploadForm.image"
+            name="image"
+            id="image"
+            (change)="onFileSelected($event)"
+          />
+          <div class="image ms-3" (click)="onImport(gifModal)">
             <i class="bx bxs-file-gif fs-5"></i>
           </div>
         </div>
 
-        <button class="btn btn-primary tweet px-3 me-3" type="submit" [disabled]="uploadForm.content==''">
+        <button
+          class="btn btn-primary tweet px-3 me-3"
+          type="submit"
+          [disabled]="uploadForm.content == ''"
+        >
           Tweet
         </button>
       </div>
 
-      <div class="text-center" style="position: relative;">
-        <img *ngIf="dataURL" class="img-thumbnail my-4" [src]='dataURL' style="width: 300px; height: 300px;"
-          alt="image">
-        <i *ngIf="dataURL" (click)="clearImage()" class='cross bx bx-x-circle fs-3'></i>
+      <div class="text-center" style="position: relative">
+        <img
+          *ngIf="dataURL"
+          class="img-thumbnail my-4"
+          [src]="dataURL"
+          style="width: 300px; height: 300px"
+          alt="dp"
+        />
+        <i
+          *ngIf="dataURL"
+          (click)="clearImage()"
+          class="cross bx bx-x-circle fs-3"
+        ></i>
       </div>
     </form>
-
   </div>
   <ul *ngIf="tweets?.length" class="list-group d-flex justify-content-center">
-    <li class="list-group-item d-flex justify-content-center p-0" *ngFor="let tweet of tweets"><app-card
-        [tweet]="tweet" ></app-card></li>
+    <li
+      class="list-group-item d-flex justify-content-center p-0"
+      *ngFor="let tweet of tweets"
+    >
+      <app-card [tweet]="tweet"></app-card>
+    </li>
   </ul>
 </div>
 <ngx-ui-loader></ngx-ui-loader>
 <div class="no-data" *ngIf="!isLoading && !tweets?.length">
-  <i class='bx bx-unlink fs-1 mb-3'></i>
+  <i class="bx bx-unlink fs-1 mb-3"></i>
   <h4>No tweets to show</h4>
   <p>add some tweets</p>
 </div>
@@ -59,15 +109,29 @@
   <div id="gifModal" class="container my-3 text-center">
     <div class="modal-header">
       <h3>Choose a GIF</h3>
-      <button type="button" class="btn-close me-2" (click)="modal.dismiss()" aria-label="Close"></button>
+      <button
+        type="button"
+        class="btn-close me-2"
+        (click)="modal.dismiss()"
+        aria-label="Close"
+      ></button>
     </div>
     <div class="input">
-      <input type="text" class="form-control mb-3" #gif placeholder="Search for GIF"
-        (keyup.enter)="searchGif(gif.value)">
+      <input
+        type="text"
+        class="form-control mb-3"
+        #gif
+        placeholder="Search for GIF"
+        (keyup.enter)="searchGif(gif.value)"
+      />
     </div>
     <div class="gifs">
       <div class="gif" *ngFor="let gif of gifs">
-        <img [src]="gif.images.fixed_width_downsampled.url" (click)="selectGif(gif)" alt="image">
+        <img
+          [src]="gif.images.fixed_width_downsampled.url"
+          (click)="selectGif(gif)"
+          alt="gif"
+        />
       </div>
     </div>
   </div>

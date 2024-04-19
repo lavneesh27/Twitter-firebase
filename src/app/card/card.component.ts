@@ -1,8 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Tweet } from '../models/tweet.model';
 import { Bookmark } from '../models/bookmark.model';
 import { ToastrService } from 'ngx-toastr';
@@ -27,11 +23,11 @@ export class CardComponent implements OnInit {
     private toastr: ToastrService,
     private afs: DataService,
     private data: DataService,
-    private router:Router
-  
+    private router: Router
   ) {}
   async ngOnInit() {
-    const userToken = sessionStorage.getItem('token')|| localStorage.getItem('token');
+    const userToken =
+      sessionStorage.getItem('token') ?? localStorage.getItem('token');
     if (userToken) {
       this.loginUser = await this.data.getUser(userToken);
     }
@@ -44,15 +40,16 @@ export class CardComponent implements OnInit {
   isLiked(): boolean {
     const likes = this.tweet.likes;
     const loginUser = this.loginUser;
-  
-    return !!likes && !!likes.length && !!loginUser && likes.includes(loginUser.id);
+
+    return (
+      !!likes && !!likes.length && !!loginUser && likes.includes(loginUser.id)
+    );
   }
-  
+
   likesCount(): number {
     const likes = this.tweet.likes;
     return likes ? likes.length : 0;
   }
-  
 
   plusLike() {
     if (this.isLiked()) {
@@ -62,14 +59,16 @@ export class CardComponent implements OnInit {
     }
   }
   copy() {
-    navigator.clipboard.writeText(window.location.href+'/'+this.tweet.id).then(() => {
-      this.toastr.success('Copied to Clipboard');
-    });
+    navigator.clipboard
+      .writeText(window.location.href + '/' + this.tweet.id)
+      .then(() => {
+        this.toastr.success('Copied to Clipboard');
+      });
   }
   bookmark() {
     let bookmark: Bookmark = {
       id: '',
-      userId: this.loginUser!.id,
+      userId: this.loginUser.id,
       tweetId: this.tweet.id,
     };
     this.data.addBookmark(bookmark).then(() => {
@@ -78,8 +77,8 @@ export class CardComponent implements OnInit {
   }
 
   onClick(event: any) {
-    var target = event.target || event.srcElement || event.currentTarget;
-    var srcAttr = target.attributes.src;
+    let target = event.target || event.srcElement || event.currentTarget;
+    let srcAttr = target.attributes.src;
     this.imgSrc = srcAttr.nodeValue;
   }
 
@@ -89,5 +88,4 @@ export class CardComponent implements OnInit {
   redirect(id: string) {
     this.router.navigate(['post', id]);
   }
-
 }

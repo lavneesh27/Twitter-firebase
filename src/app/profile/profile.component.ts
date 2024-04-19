@@ -49,12 +49,12 @@ export class ProfileComponent {
         return;
       }
       this.loginUser = await this.data.getUser(
-        sessionStorage.getItem('token') || localStorage.getItem('token')!
+        sessionStorage.getItem('token') ?? localStorage.getItem('token')!
       );
       this.user = await this.data.getUser(uid);
       this.isAdmin =
         userId ==
-        (sessionStorage.getItem('token') || localStorage.getItem('token')!);
+        (sessionStorage.getItem('token') ?? localStorage.getItem('token')!);
       this.initializeForm();
 
       this.data.getAllTweets().subscribe((res: any) => {
@@ -190,7 +190,7 @@ export class ProfileComponent {
   }
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    if (window.pageYOffset > 400) {
+    if (window.scrollY > 400) {
       this.showButton = true;
     } else {
       this.showButton = false;

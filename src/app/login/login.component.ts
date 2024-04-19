@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthService } from '../shared/auth.service';
 
@@ -7,17 +7,11 @@ import { AuthService } from '../shared/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   remember: boolean = false;
   email: string = '';
   password: string = '';
-  constructor(
-    private _location: Location,
-    private auth: AuthService
-  ) {}
-  ngOnInit(): void {
-    
-  }
+  constructor(private _location: Location, private auth: AuthService) {}
 
   login() {
     if (this.email == '') {
@@ -31,8 +25,8 @@ export class LoginComponent implements OnInit {
     }
 
     this.auth.login(this.email, this.password, this.remember);
-    this.email='';
-    this.password=''
+    this.email = '';
+    this.password = '';
   }
 
   goBack() {

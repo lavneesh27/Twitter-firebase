@@ -16,11 +16,10 @@
   position: relative;
   top: 50px;
   width: 642px;
-  height: calc(100vh-50px);
-  /* border: 1px solid rgba(230, 230, 230, 0.5); */
+  height: calc(100vh - 50px);
   padding: 0;
 }
-.file{
+.file {
   position: absolute;
   top: 50px;
   left: 0;
@@ -39,7 +38,6 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  /* background-color: aquamarine; */
   transition: all 0.5s;
 }
 .back:hover {
@@ -69,9 +67,9 @@
   object-position: right top;
   cursor: pointer;
 }
-.banner img:hover{
+.banner img:hover {
   filter: brightness(70%);
-  transition: 0.3s all; 
+  transition: 0.3s all;
 }
 
 .dp {
@@ -80,9 +78,9 @@
   left: 15px;
   cursor: pointer;
 }
-.dp:hover{
+.dp:hover {
   filter: brightness(70%);
-  transition: 0.3s all;  
+  transition: 0.3s all;
 }
 
 .info {
@@ -95,7 +93,7 @@
   height: 700px;
 }
 .modal {
-  transition: opacity 0.3s  ;
+  transition: opacity 0.3s;
 }
 .edit-pic:hover {
   filter: brightness(80%);
@@ -109,20 +107,20 @@
   border: 1px solid rgba(175, 175, 175, 0.5);
 }
 
-.website a{
+.website a {
   text-decoration: none;
   color: #1d9bf0;
   white-space: nowrap;
   display: block;
   overflow: hidden;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   width: 200px;
-} 
-.website a:hover{
-  text-decoration:underline;
-} 
+}
+.website a:hover {
+  text-decoration: underline;
+}
 
-.chat-btn{
+.chat-btn {
   position: absolute;
   right: 100px;
   top: 230px;
@@ -130,14 +128,14 @@
   border: 1px solid rgba(145, 145, 145, 0.5);
 }
 
-li{
+li {
   border-radius: 0 !important;
 }
 .go-to-top {
   position: fixed;
-  bottom: 20px; 
+  bottom: 20px;
   right: 50%;
-  top:60px;
+  top: 60px;
   transform: translateX(50%);
   background-color: #1d9bf0;
   color: #fff;
@@ -155,7 +153,7 @@ li{
   align-items: center;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-    z-index: 5;
+  z-index: 5;
 }
 
 .go-to-top.show {

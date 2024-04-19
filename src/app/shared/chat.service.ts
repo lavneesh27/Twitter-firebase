@@ -18,7 +18,7 @@ export class ChatService {
   sendMessage(chat: Chat, reciever: string) {
     this.chat.text =chat.text;
     this.chat.id = this.db.createId();
-    this.chat.senderId = sessionStorage.getItem('token') || localStorage.getItem('token')!;
+    this.chat.senderId = sessionStorage.getItem('token') ?? localStorage.getItem('token')!;
     this.chat.recieverId = reciever;
     this.chat.createdAt = new Date().toString();
     this.chat.attachment = chat.attachment;

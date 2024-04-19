@@ -36,7 +36,6 @@ li {
 .line {
   border: 0.25px solid rgba(153, 153, 153, 0.6);
   outline: none;
-  /* width: 75%; */
   justify-content: center;
 }
 .tweet {

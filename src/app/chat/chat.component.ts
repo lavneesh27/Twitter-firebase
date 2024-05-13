@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  HostListener,
   TemplateRef,
   ViewChild,
   inject,
@@ -14,13 +15,12 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { Chat } from '../models/chat.model';
 import { MainService } from '../shared/main.service';
 import { ToastrService } from 'ngx-toastr';
-import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-chat',
   standalone: false,
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.css'
+  styleUrl: './chat.component.css',
 })
 export class ChatComponent {
   private modalService = inject(NgbModal);
@@ -36,10 +36,13 @@ export class ChatComponent {
     text: '',
     createdAt: '',
     attachment: '',
+    isRead: false
   };
   messages: any[] = [];
   reciever: any;
   user: any;
+  showButton: boolean = false;
+  
 
   constructor(
     private chatService: ChatService,
@@ -78,14 +81,16 @@ export class ChatComponent {
       });
       setTimeout(() => {
         if (this.myDiv) {
-          this.myDiv!.nativeElement.scrollTop =
-            this.myDiv!.nativeElement.scrollHeight;
+          this.scrollToBottom();
         }
+   this.chatService.updateMessages(this.messages, this.user.id);
+
       }, 50);
     });
     if (this.myInput) {
       this.myInput.nativeElement.focus();
     }
+
   }
 
   sendMessage() {
@@ -101,6 +106,7 @@ export class ChatComponent {
       text: '',
       createdAt: '',
       attachment: '',
+      isRead: false
     };
   }
   goBack() {
@@ -168,5 +174,22 @@ export class ChatComponent {
     this.message.attachment = gif.images.original.url;
     this.sendMessage();
     this.modalService.dismissAll();
+  }
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollPosition = window.scrollY;
+
+    if (scrollPosition + windowHeight >= documentHeight) {
+      this.showButton = false;
+    } else {
+      this.showButton = true;
+    }
+  }
+
+  scrollToBottom() {
+    this.myDiv!.nativeElement.scrollTop =
+      this.myDiv!.nativeElement.scrollHeight;
   }
 }

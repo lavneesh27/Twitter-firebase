@@ -1,9 +1,9 @@
-<div class="create container px-3">
-  <div class="header d-flex align-items-center">
-    <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3'></i></a>
-    <h5>Tweet</h5>
-  </div>
-  <form (submit)="upload()" [formGroup]="uploadForm" class="text-center">
+<div class="header d-flex align-items-center px-3 ">
+  <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3 '></i></a>
+  <h5>Create</h5>
+</div>
+<div class="create container">
+  <form (submit)="upload()" [formGroup]="uploadForm" class="text-center px-3">
     <div class="my-3">
       <textarea type="text" class="form-control" formControlName="content" id="content" aria-describedby="emailHelp"
         style="resize:none" placeholder="What's happening?"></textarea>

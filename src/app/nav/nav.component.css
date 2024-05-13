@@ -94,3 +94,8 @@ nav .nav-brand i {
 .logo:hover{
   background-color: rgb(230, 230, 230);
 }
+.unread{
+  color:  #3096db;
+  position: absolute;
+  right: 65px;
+}

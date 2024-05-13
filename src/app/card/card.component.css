@@ -7,7 +7,7 @@
 .card {
   border-radius: 0;
   border: 1px solid rgba(230, 230, 230, 0.5);
-  width: 600px;
+  width: 582px;
   margin: 0;
 }
 
@@ -64,10 +64,17 @@ img:hover {
   filter: brightness(70%);
   transition: 0.3s all;
 }
-
+.name{
+  font-size: 18px;
+  font-weight: bold;
+}
 .name:hover {
   text-decoration: underline;
 }
+.desc{
+  font-size: 18px;
+}
 .card-text{
   cursor: pointer;
+  font-size: 18px;
 }

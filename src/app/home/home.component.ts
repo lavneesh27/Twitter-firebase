@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from '../shared/data.service';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { MainService } from '../shared/main.service';
+import { ChatService } from '../shared/chat.service';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   tweets: Tweet[] = [];
   dataURL: string = '';
   isLoading: boolean = true;
+  isUnread:boolean = false;
   tweet: Tweet = {
     id: '',
     content: '',
@@ -40,7 +42,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private dataService: DataService,
     private ngxService: NgxUiLoaderService,
-    private service: MainService
+    private service: MainService,
+    private chat: ChatService
   ) {}
   ngOnDestroy(): void {
     if (this.subscription) {
@@ -70,7 +73,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           alert('Error while fetching tweets');
         }
       );
-      console.log(this.user.following);
 
       this.tweets = this.tweets.filter((tweet) => {
         return (
@@ -87,6 +89,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.isLoading = false;
     }, 500);
+
   }
 
   onFileSelected(event: any) {

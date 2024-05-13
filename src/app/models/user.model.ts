@@ -10,6 +10,8 @@ export interface User {
   image?:any;
   banner?:any;
   bio?:string;
+  recentMessage?:string;
+  recentMessageTime?:string;
   location?:string;
   website?:string;
   createdAt?:string;

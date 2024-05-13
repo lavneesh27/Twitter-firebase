@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from '../shared/data.service';
+import { ChatService } from '../shared/chat.service';
 
 @Component({
   selector: 'app-nav',
@@ -12,18 +13,25 @@ import { DataService } from '../shared/data.service';
 export class NavComponent implements OnInit {
   user?: any;
   imgUrl: any;
+  isUnread:boolean=false;
   private modalService = inject(NgbModal);
 
   constructor(
     private router: Router,
     private toastr: ToastrService,
-    private data: DataService
+    private data: DataService,
+    private chat:ChatService
   ) {}
   async ngOnInit() {
     let uid = sessionStorage.getItem('token') ?? localStorage.getItem('token');
     if (uid) {
       this.user = await this.data.getUser(uid);
     }
+      
+    this.chat.getUnreadMessagesObservable(this.user.id).subscribe((res:any)=>{
+      this.isUnread = res;
+      console.log(res);
+    })
   }
   
   logout() {

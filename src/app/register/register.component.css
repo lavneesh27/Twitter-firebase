@@ -2,7 +2,7 @@ form{
     width: 100%;
 }
 .register{
-    width: 660px;
+    width: 590px;
     border: 1px solid rgba(230, 230, 230,0.5);
     height: calc(100vh-50px);
 }
@@ -17,7 +17,7 @@ form{
     background-color: #3096DB !important;
 }
 .header{
-    width: 660px;
+    width: 590px;
     height: 50px;
     z-index: 3;
     /* align-items: center; */

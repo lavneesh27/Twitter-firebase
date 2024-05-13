@@ -1,8 +1,8 @@
 li app-card {
-  width: 600px;
+  width: 582px;
 }
 .home {
-  width: 642px;
+  width: 582px;
   border: 1px solid rgba(230, 230, 230, 0.5);
   padding: 0;
   position: relative;
@@ -14,7 +14,7 @@ li {
   
 }
 .header {
-  width: 642px;
+  width: 582px;
   height: 50px;
   position: fixed;
   top: 0;
@@ -22,7 +22,6 @@ li {
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   overflow: hidden;
-  border-right: 1px solid rgba(230, 230, 230, 0.5);
 }
 
 .input {

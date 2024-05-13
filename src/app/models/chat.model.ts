@@ -5,4 +5,5 @@ export interface Chat {
   text: string;
   createdAt: string;
   attachment: string;
+  isRead:boolean;
 }

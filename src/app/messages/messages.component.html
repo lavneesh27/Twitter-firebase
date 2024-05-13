@@ -1,28 +1,57 @@
 <div class="header d-flex align-items-center px-3">
-    <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3'></i></a>
-    <h5 class="m-0">Messages</h5>
+  <a href="javascript:void(0)" (click)="goBack()" class="back me-3"
+    ><i class="bx bx-left-arrow-alt fs-3"></i
+  ></a>
+  <h5 class="m-0">Messages</h5>
 </div>
 <div class="body message">
-    <ul #chatBody class="list-group ">
-        <li class="border-0 list-group-item" *ngFor="let u of users" style="cursor: pointer;"
-            (click)="navigateToChat(u.id)">
-            <div class="d-flex align-items-center profile">
-                <div class="rounded-circle me-4 overflow-hidden" style="width:60px;height:60px"><img *ngIf="u.image"
-                        [src]="u.image" alt=""
-                        style="width:100%;height:100%;object-fit: cover; border-radius: inherit;"> <span
-                        *ngIf="!u.image"
-                        class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-4"
-                        style="width:60px;height:60px;">{{
-                        u?.firstName?.charAt(0) }}</span></div>
-                <div class="d-flex flex-column">
-                    <h6 class="text-strong d-flex align-items-center">{{u.firstName}} <img
-                            *ngIf="u?.userName=='lavneesh27'"
-                            src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg"
-                            width="20px" alt="verified" title="verified">&nbsp; </h6>
-
-                    <p class="text-muted">Tap to Chat</p>
-                </div>
-            </div>
-        </li>
-    </ul>
+  <ul #chatBody class="list-group">
+    <li
+      class="border-0 list-group-item"
+      *ngFor="let u of displayUsers"
+      style="cursor: pointer"
+      (click)="navigateToChat(u.id)"
+    >
+      <div class="d-flex align-items-center profile">
+        <div class="rounded-circle me-4 overflow-hidden">
+          <img
+            *ngIf="u.image"
+            [src]="u.image"
+            alt=""
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              border-radius: inherit;
+            "
+          />
+          <span
+            *ngIf="!u.image"
+            class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-4"
+            style="width: 60px; height: 60px"
+            >{{ u?.firstName?.charAt(0) }}</span
+          >
+        </div>
+        <div class="d-flex flex-column">
+            <h6 class="text-strong d-flex align-items-center justify-content-between">
+              <div>
+                {{ u.firstName }}
+                <img
+                  *ngIf="u?.userName == 'lavneesh27'"
+                  src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg"
+                  width="20px"
+                  alt="verified"
+                  title="verified"
+                />&nbsp;
+              </div>
+          
+              <span class="time text-muted small">{{ u.recentMessageTime | date : "h:mm a" }}</span>
+            </h6>
+            <p class="text-muted recentMessage m-0">
+              {{ u.recentMessage }}
+            </p>
+          </div>
+      </div>
+    </li>
+  </ul>
 </div>

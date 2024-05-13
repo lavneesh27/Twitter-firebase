@@ -2,7 +2,7 @@
   display: flex;
   position: fixed;
   bottom: 0;
-  width: 660px;
+  width: 590px;
   align-items: center;
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.6);
@@ -35,7 +35,7 @@
 }
 
 .header {
-  width: 660px;
+  width: 590px;
   height: 70px;
   position: fixed;
   top: 0;
@@ -60,12 +60,13 @@
 .body {
   position: absolute;
   top: 70px;
-  width: 642px;
+  width: 590px;
 }
 
 .chats {
   list-style: none;
-  height:590px;
+  /* height:590px; */
+  margin-bottom: 58px;
   overflow-y: auto;
 }
 
@@ -80,6 +81,7 @@
   width: fit-content;
   max-width: 50%;
   word-wrap: break-word;
+  margin-bottom: 3px;
 }
 
 .right {
@@ -148,4 +150,31 @@
 
 .gif img {
   max-width: 100%; 
+}
+
+.scroll-to-bottom-btn {
+  position: fixed;
+  bottom: 80px;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: #1d9bf0;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px;
+  width: auto;
+  height: 40px;
+  font-size: 15px;
+  cursor: pointer;
+  opacity: 0;
+  display: flex;
+  transition: opacity 0.4s;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    z-index: 5;
+}
+.scroll-to-bottom-btn.show {
+  opacity: 1;
 }

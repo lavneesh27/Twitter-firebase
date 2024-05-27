@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, DocumentReference } from '@angular/fire/compat/firestore';
 import { Chat } from '../models/chat.model';
 import { combineLatest, distinctUntilChanged, map, Observable } from 'rxjs';
 
@@ -41,11 +41,19 @@ export class ChatService {
     );
   }
   updateMessages(chats: Chat[], receiver: string) {
+    const batch = this.db.firestore.batch();
+    
     chats.forEach(chat => {
-      const messageRef = this.db.collection('/messages').doc(chat.id);
-      if (chat.recieverId === receiver && chat.isRead===false) {
-        messageRef.update({ isRead: true });
+      if(chat.recieverId === receiver && chat.isRead === false) {
+        const messageRef: DocumentReference<any> = this.db.collection('/messages').doc(chat.id).ref;
+        batch.update(messageRef, { isRead: true });
       }
+    });
+  
+    batch.commit().then(() => {
+      console.log('Batch update successful');
+    }).catch(error => {
+      console.error('Batch update failed:', error);
     });
   }
   getDisplayMessage(receiverId: string, senderId: string) {

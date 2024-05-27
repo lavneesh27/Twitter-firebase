@@ -33,18 +33,7 @@ export class BookmarkComponent implements OnInit {
     this.ngxService.start();
 
     this.data.getAllBookmarks(this.user.id).subscribe((res: any) => {
-      res
-        .map(
-          (e: any) => {
-            const data = e.payload.doc.data();
-            data.id = e.payload.doc.id;
-            return data;
-          },
-          () => {
-            alert('Error while fetching tweets');
-          }
-        )
-        .forEach(async (element: any) => {
+      res.forEach(async (element: any) => {
           let tweet = await this.data.getTweet(element.tweetId);
           this.tweets.push(tweet);
         });

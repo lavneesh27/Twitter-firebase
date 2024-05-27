@@ -17,7 +17,7 @@ export class DataService {
     return this.afs.collection('/Tweets').doc(tweet.id).set(tweet);
   }
   getAllTweets() {
-    return this.afs.collection('/Tweets').snapshotChanges();
+    return this.afs.collection('/Tweets').valueChanges();
   }
   likeTweet(tweet: Tweet, userId: string) {
     const postRef = this.afs.collection('/Tweets').doc(tweet.id).ref;
@@ -72,7 +72,7 @@ export class DataService {
     return this.afs.collection('/Users').doc(user.id).set(user);
   }
   getAllUsers() {
-    return this.afs.collection('/Users').snapshotChanges();
+    return this.afs.collection('/Users').valueChanges();
   }
 
 
@@ -91,18 +91,23 @@ export class DataService {
       throw error; 
     }
   }
-  updateUser(user: User) {
-    this.afs.collection('/Users').doc(user.id).update({
+  updateUser(user: User): Promise<void> {
+    const userRef = this.afs.collection('/Users').doc(user.id);
+    return userRef.update({
       firstName: user.firstName,
       lastName: user.lastName,
-      bio:user.bio,
-      location:user.location,
-      website:user.website,
+      bio: user.bio,
+      location: user.location,
+      website: user.website,
       userName: user.userName,
       dob: user.dob,
-      image:user.image,
-      banner:user.banner
+      image: user.image,
+      banner: user.banner
     })
+    .catch(error => {
+      console.error('Error updating user:', error);
+      throw error;
+    });
   }
 
   follow(user1:string, user2:string){
@@ -159,6 +164,6 @@ export class DataService {
   getAllBookmarks(id: number) {
     return this.afs
       .collection('/Bookmarks', (ref) => ref.where('userId', '==', id))
-      .snapshotChanges();
+      .valueChanges();
   }
 }

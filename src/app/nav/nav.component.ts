@@ -20,7 +20,7 @@ export class NavComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private data: DataService,
-    private chat:ChatService
+    private chat: ChatService
   ) {}
   async ngOnInit() {
     let uid = sessionStorage.getItem('token') ?? localStorage.getItem('token');
@@ -30,7 +30,6 @@ export class NavComponent implements OnInit {
       
     this.chat.getUnreadMessagesObservable(this.user.id).subscribe((res:any)=>{
       this.isUnread = res;
-      console.log(res);
     })
   }
   

@@ -59,16 +59,16 @@ export class ProfileComponent {
 
       this.data.getAllTweets().subscribe((res: any) => {
         this.tweets = res
-          .map(
-            (e: any) => {
-              const data = e.payload.doc.data();
-              data.id = e.payload.doc.id;
-              return data;
-            },
-            () => {
-              alert('Error while fetching tweets');
-            }
-          )
+          // .map(
+          //   (e: any) => {
+          //     const data = e.payload.doc.data();
+          //     data.id = e.payload.doc.id;
+          //     return data;
+          //   },
+          //   () => {
+          //     alert('Error while fetching tweets');
+          //   }
+          // )
           .filter((tweet: Tweet) => {
             return tweet.userId == this.user.id;
           });

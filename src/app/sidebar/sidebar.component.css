@@ -7,7 +7,8 @@
   padding-right: 20px;
 }
 .sidebar{
-  position: fixed;
+  background: white;
+  position: sticky;
   right:0;
   top:0;
   min-width: 470px;
@@ -68,3 +69,10 @@ h6:hover{
   text-decoration: underline;
 }
 
+.text-strong{
+  font-weight: bold;
+}
+
+::ng-deep .form-control:focus {
+    box-shadow: 0 0 0 0.1rem rgba(29,155,240) !important;
+}

@@ -63,16 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.dataService.getAllTweets().subscribe((res: any) => {
       this.isLoading = false;
-      this.tweets = res.map(
-        (e: any) => {
-          const data = e.payload.doc.data();
-          data.id = e.payload.doc.id;
-          return data;
-        },
-        () => {
-          alert('Error while fetching tweets');
-        }
-      );
+      this.tweets = res;
 
       this.tweets = this.tweets.filter((tweet) => {
         return (

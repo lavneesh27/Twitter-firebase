@@ -32,6 +32,7 @@ input {
   border-radius: 15px;
   border: none;
   cursor: pointer;
+  padding: 0;
 }
 
 .action {
@@ -64,17 +65,22 @@ img:hover {
   filter: brightness(70%);
   transition: 0.3s all;
 }
-.name{
+.name {
   font-size: 18px;
   font-weight: bold;
 }
 .name:hover {
   text-decoration: underline;
 }
-.desc{
+.desc {
   font-size: 18px;
 }
-.card-text{
+.card-text {
   cursor: pointer;
-  font-size: 18px;
+}
+
+@media screen and (max-width: 992px) {
+  .card {
+    width: 540px;
+  }
 }

@@ -83,7 +83,7 @@ export class ChatComponent {
         if (this.myDiv) {
           this.scrollToBottom();
         }
-   this.chatService.updateMessages(this.messages, this.user.id);
+      this.chatService.updateMessages(this.messages, this.user.id);
 
       }, 50);
     });

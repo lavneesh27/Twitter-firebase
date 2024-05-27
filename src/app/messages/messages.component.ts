@@ -31,16 +31,16 @@ export class MessagesComponent implements OnInit {
       this.user = await this.data.getUser(userToken);
       this.data.getAllUsers().subscribe((res: any) => {
         this.users = res
-          .map(
-            (e: any) => {
-              const data = e.payload.doc.data();
-              data.id = e.payload.doc.id;
-              return data;
-            },
-            () => {
-              alert('Error while fetching users');
-            }
-          )
+          // .map(
+          //   (e: any) => {
+          //     const data = e.payload.doc.data();
+          //     data.id = e.payload.doc.id;
+          //     return data;
+          //   },
+          //   () => {
+          //     alert('Error while fetching users');
+          //   }
+          // )
           .filter((people: User) => people.userName !== this.user.userName);
         });
       }

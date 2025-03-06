@@ -173,7 +173,7 @@ export class ProfileComponent {
     });
   }
   isFollower(user: User): boolean {
-    const followers = user.followers;
+    const followers = user?.followers;
 
     return (
       !!followers &&

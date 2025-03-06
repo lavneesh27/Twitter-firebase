@@ -123,10 +123,12 @@
     <button
       id="edit"
       *ngIf="!isAdmin"
-      class="btn btn-dark rounded-pill px-3 edit-btn"
+      class="rounded-pill edit-btn"
+      [class]="isFollower(user)?'btn btn-outline-dark float-end unfollow':'btn btn-dark float-end'"
       style="cursor: pointer"
+      (click)="isFollower(user)?unFollow(user.id):follow(user.id)"
     >
-      Follow
+      {{isFollower(user)?'Unfollow':'Follow'}}
     </button>
     <button
       id="chat"

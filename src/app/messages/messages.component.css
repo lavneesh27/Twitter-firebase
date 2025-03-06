@@ -3,7 +3,7 @@
 }
 
 .header {
-  width: 590px;
+  width: 1000px;
   height: 50px;
   position: fixed;
   top: 0;
@@ -14,7 +14,7 @@
   border-bottom: 1px solid rgba(230, 230, 230, 0.5);;
 }
 .message{
-  width: 590px;
+  width: 1000px;
 }
 .back {
   text-decoration: none;
@@ -34,7 +34,7 @@
 .body {
   position: absolute;
   top: 50px;
-  width: 590px !important;
+  width: 1000px !important;
 }
 .rounded-circle{
   min-width: 60px;

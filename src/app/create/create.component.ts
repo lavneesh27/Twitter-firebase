@@ -33,7 +33,7 @@ export class CreateComponent implements OnInit {
     private data:DataService
   ) {}
   ngOnInit(): void {
-    if(!sessionStorage.getItem('token')|| localStorage.getItem('token')){
+    if(!(sessionStorage.getItem('token') || localStorage.getItem('token'))){
       this.route.navigate(['login']);
       return;
     }

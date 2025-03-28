@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { DataService } from '../shared/data.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,7 +10,7 @@ import { DataService } from '../shared/data.service';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
-  constructor(private router: Router, private data: DataService) {}
+  constructor(private router: Router, private data: DataService, private toastr: ToastrService) {}
   peoples: User[] = [];
   inputUser: string = '';
   user: any;
@@ -79,8 +80,10 @@ export class SidebarComponent implements OnInit {
 
   follow(userId: string) {
     this.data.follow(this.user.id, userId);
+    this.toastr.success('Follow Successull');
   }
   unFollow(userId: string) {
     this.data.unFollow(this.user.id, userId);
+    this.toastr.success('Unfollow Successull');
   }
 }

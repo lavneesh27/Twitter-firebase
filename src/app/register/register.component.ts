@@ -9,6 +9,7 @@ import { User } from '../models/user.model';
 import { Location } from '@angular/common';
 import { AuthService } from '../shared/auth.service';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private _location: Location,
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router,
   ) {}
   ngOnInit(): void {
     this.registerForm = this.fb.group(

@@ -189,7 +189,6 @@ export class ChatComponent {
   }
 
   scrollToBottom() {
-    this.myDiv!.nativeElement.scrollTop =
-      this.myDiv!.nativeElement.scrollHeight;
+    window.scrollTo({ top: this.myDiv!.nativeElement.scrollHeight, behavior: 'smooth' });
   }
 }

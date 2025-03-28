@@ -23,6 +23,7 @@ export class ProfileComponent {
   loginUser: any;
   countries: any;
   showButton: boolean = false;
+  uid: string = "";
   constructor(
     private _location: Location,
     private router: Router,
@@ -38,20 +39,20 @@ export class ProfileComponent {
     this.aRoute.params.subscribe(async (params) => {
       userId = params['uuid'];
 
-      const uid =
+      this.uid =
         userId ||
         sessionStorage.getItem('token') ||
         localStorage.getItem('token') ||
         '';
 
-      if (!uid) {
+      if (!this.uid) {
         this.router.navigate(['login']);
         return;
       }
       this.loginUser = await this.data.getUser(
         sessionStorage.getItem('token') ?? localStorage.getItem('token')!
       );
-      this.user = await this.data.getUser(uid);
+      this.user = await this.data.getUser(this.uid);
       this.isAdmin =
         userId ==
         (sessionStorage.getItem('token') ?? localStorage.getItem('token')!);
@@ -183,10 +184,16 @@ export class ProfileComponent {
     );
   }
   follow(userId: string) {
-    this.data.follow(this.user.id, userId);
+    this.data.follow(this.user.id, userId).then(async () => {
+      this.user = await this.data.getUser(this.uid);
+      this.toastr.success('Follow Successull');
+    });
   }
   unFollow(userId: string) {
-    this.data.unFollow(this.user.id, userId);
+    this.data.unFollow(this.user.id, userId).then(async () => {
+      this.user = await this.data.getUser(this.uid);
+      this.toastr.success('Unfollow Successull');
+    });
   }
   @HostListener('window:scroll', [])
   onWindowScroll() {

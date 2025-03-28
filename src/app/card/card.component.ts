@@ -60,7 +60,7 @@ export class CardComponent implements OnInit {
   }
   copy() {
     navigator.clipboard
-      .writeText(window.location.href + '/' + this.tweet.id)
+      .writeText('http://localhost:4200/post/' + this.tweet.id)
       .then(() => {
         this.toastr.success('Copied to Clipboard');
       });

@@ -41,6 +41,7 @@ export class AuthService {
           user.id = res.user!.uid;
           user.createdAt = new Date().toLocaleDateString();
           this.data.addUser(user);
+          this.router.navigate(['login']);
         },
         (err) => {
           alert(err.message);

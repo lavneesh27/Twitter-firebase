@@ -210,4 +210,11 @@ export class ProfileComponent {
   redirect(id: string) {
     this.router.navigate(['post', id]);
   }
+  copy() {
+    navigator.clipboard
+      .writeText('http://localhost:4200/profile/' + this.user.id)
+      .then(() => {
+        this.toastr.success('Copied to Clipboard');
+      });
+  }
 }

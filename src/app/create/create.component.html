@@ -1,6 +1,6 @@
 <div class="header d-flex align-items-center px-3 ">
   <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3 '></i></a>
-  <h5>Create</h5>
+  <h5>Post</h5>
 </div>
 <div class="create container">
   <form (submit)="upload()" [formGroup]="uploadForm" class="text-center px-3">
@@ -12,13 +12,13 @@
       Content should not be empty and atleast 5 characters in length
     </div>
     <div class="my-3">
-      <label for="image" class="btn btn-outline-primary w-25 d-flex justify-content-center">
+      <label for="image" class="btn-custom-outline w-25 d-flex justify-content-center">
         <i class="bx bx-upload"></i> &nbsp; Upload Image
       </label>
       <input type="file" class="d-none" accept="image/*" formControlName="image" id="image"
         (change)="onFileSelected($event)">
     </div>
-    <button type="submit" class="btn" [disabled]="uploadForm.invalid">Tweet</button>
+    <button type="submit" class="btn btn-custom" [disabled]="uploadForm.invalid">Tweet</button>
 
     <img *ngIf="dataURL" class="img-thumbnail my-4" [src]='dataURL' alt="image">
   </form>

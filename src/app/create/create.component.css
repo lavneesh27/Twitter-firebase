@@ -1,12 +1,10 @@
 .create{
     width:  1000px;
-    border: 1px solid rgba(230, 230, 230, 0.5);
     padding:0;
-    height: 100vh;
     margin: 0;
 }
 
-.btn{
+.btn-custom{
     border-radius: 50px;
     height: 50px;
     align-items: center;
@@ -17,8 +15,24 @@
     border:none;
     color: white;
 }
-.btn:hover{
+.btn-custom:hover{
     background-color: #3096DB !important;
+}
+.btn-custom-outline{
+    border-radius: 50px;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    color: #3096DB;
+    border: 1px solid #3096DB!important;
+    transition: all 0.5s;
+}
+.btn-custom-outline:hover{
+    background-color: #3096DB !important;
+    color: white;
+    
 }
 .header{
     width:  1000px;

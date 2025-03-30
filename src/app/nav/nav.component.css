@@ -75,11 +75,6 @@ nav .nav-brand i {
   transform: translateY(-10px);
 }
 
-.nav-item.dropup:hover .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
 .dark-modal .modal-content {
   background-color: #292b2c !important;
   color: white;

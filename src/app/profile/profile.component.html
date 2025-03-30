@@ -110,36 +110,53 @@
       </h6>
     </div>
 
-    <button
-      id="edit"
-      *ngIf="isAdmin"
-      class="btn btn-outline-dark rounded-pill edit-btn"
-      data-bs-toggle="modal"
-      data-bs-target="#staticBackdrop"
-      data-bs-transition-duration="500"
-    >
-      Edit Profile
-    </button>
-    <button
-      id="edit"
-      *ngIf="!isAdmin"
-      class="rounded-pill edit-btn"
-      [class]="isFollower(user)?'btn btn-outline-dark float-end unfollow':'btn btn-dark float-end'"
-      style="cursor: pointer"
-      (click)="isFollower(user)?unFollow(user.id):follow(user.id)"
-    >
-      {{isFollower(user)?'Unfollow':'Follow'}}
-    </button>
-    <button
-      id="chat"
-      *ngIf="user?.id != loginUser?.id"
-      class="btn btn-outline-dark rounded-pill px-3 chat-btn"
-      [routerLink]="['/chat', user?.id]"
-      routerLinkActive="router-link-active"
-      style="cursor: pointer"
-    >
-      Message
-    </button>
+    <div class="d-flex btn-grp-cstm gap-2">
+      <div class="d-flex gap-2">
+        <button id="more" *ngIf="user?.id != loginUser?.id" class="btn btn-outline-dark rounded-pill more-btn"
+          style="cursor: pointer">
+            <a class="text-reset" type="button" data-bs-toggle="dropdown" data-bs-toggle="dropdown"><i
+                class='bx bx-dots-horizontal-rounded'></i></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="copy()"><i class='bx bx-link'></i>&nbsp; Copy Link to Profile</a></li>
+            </ul>
+        </button>
+      
+        <button
+          id="chat"
+          *ngIf="user?.id != loginUser?.id"
+          class="btn btn-outline-dark rounded-pill px-3 chat-btn"
+          [routerLink]="['/chat', user?.id]"
+          routerLinkActive="router-link-active"
+          style="cursor: pointer"
+        >
+          <i class='bx bx-envelope'></i>
+        </button>
+      
+        <button
+          id="edit"
+          *ngIf="!isAdmin"
+          class="rounded-pill edit-btn"
+          [class]="isFollower(user)?'btn btn-outline-dark float-end unfollow':'btn btn-dark float-end'"
+          style="cursor: pointer"
+          (click)="isFollower(user)?unFollow(user.id):follow(user.id)"
+        >
+          {{isFollower(user)?'Unfollow':'Follow'}}
+        </button>
+      
+        <button
+          id="edit"
+          *ngIf="isAdmin"
+          class="btn btn-outline-dark rounded-pill edit-btn"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+          data-bs-transition-duration="500"
+        >
+          Edit Profile
+        </button>
+      </div>
+      
+    </div>
+    
   </div>
 
   <div class="px-3">
@@ -149,7 +166,7 @@
       class="list-group d-flex justify-content-center mt-4"
     >
       <li
-        class="list-group-item d-flex justify-content-center p-0"
+        class="list-group-item d-flex justify-content-center p-0 border-0"
         *ngFor="let tweet of tweets"
       >
         <app-card [tweet]="tweet"></app-card>

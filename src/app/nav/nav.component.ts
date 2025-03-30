@@ -28,7 +28,7 @@ export class NavComponent implements OnInit {
       this.user = await this.data.getUser(uid);
     }
       
-    this.chat.getUnreadMessagesObservable(this.user.id).subscribe((res:any)=>{
+    this.chat.getUnreadMessagesObservable(this.user?.id).subscribe((res:any)=>{
       this.isUnread = res;
       console.log(res);
     })
@@ -56,5 +56,16 @@ export class NavComponent implements OnInit {
       size: 'sm',
       windowClass: 'dark-modal',
     });
+  }
+  toggle() {
+    let ele = document.querySelector('.dropdown-menu') as HTMLElement;
+    if (ele) {
+      const isVisible = ele.classList.toggle('show');
+      Object.assign(ele.style, {
+        opacity: isVisible ? '1' : '0',
+        visibility: isVisible ? 'visible' : 'hidden',
+        transform: isVisible ? 'translateY(0)' : 'translateY(-10px)'
+      });
+    }  
   }
 }

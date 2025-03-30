@@ -101,9 +101,6 @@
 }
 
 .edit-btn {
-  position: absolute;
-  right: 0px;
-  top: 230px;
   font-weight: bold;
   border: 1px solid rgba(175, 175, 175, 0.5);
 }
@@ -122,9 +119,20 @@
 }
 
 .chat-btn {
-  position: absolute;
-  right: 100px;
-  top: 230px;
+  width: 37px;
+  height: 37px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  border: 1px solid rgba(145, 145, 145, 0.5);
+}
+.more-btn{
+  width: 37px;
+  height: 37px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: bold;
   border: 1px solid rgba(145, 145, 145, 0.5);
 }
@@ -169,4 +177,9 @@ li {
   border-color: #DC4C64;
   color:#DC4C64;
   background-color: transparent !important;
+}
+.btn-grp-cstm{
+  position: absolute;
+  top:240px;
+  right: 15px;
 }

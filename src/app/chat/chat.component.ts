@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   HostListener,
@@ -67,25 +68,20 @@ export class ChatComponent {
       this.route.navigate(['login']);
     }
     this.chatService.getMessages().subscribe((res) => {
-      this.messages = res;
-      this.messages.sort((a, b) =>
-        new Date(a.createdAt) < new Date(b.createdAt) ? -1 : 1
-      );
-
-      this.messages = this.messages.filter((msg) => {
-        return (
-          (msg.recieverId === this.reciever.id &&
-            msg.senderId === this.user.id) ||
-          (msg.recieverId === this.user.id && msg.senderId === this.reciever.id)
-        );
-      });
-      setTimeout(() => {
-        if (this.myDiv) {
-          this.scrollToBottom();
-        }
-   this.chatService.updateMessages(this.messages, this.user.id);
-
-      }, 50);
+      this.messages = res
+      .filter((msg: any) => 
+        (msg.recieverId === this.reciever.id && msg.senderId === this.user.id) ||
+        (msg.recieverId === this.user.id && msg.senderId === this.reciever.id)
+      )
+      .sort((a: any, b: any) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+      if(this.messages.length){
+        setTimeout(() => {
+          if (this.myDiv) {
+            this.scrollToBottom();
+          }
+          this.chatService.updateMessages(this.messages, this.user.id);
+        }, 300);
+      }
     });
     if (this.myInput) {
       this.myInput.nativeElement.focus();

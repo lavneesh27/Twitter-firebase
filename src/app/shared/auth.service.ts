@@ -39,7 +39,7 @@ export class AuthService {
         (res) => {
           this.toastr.success('Registration Successful');
           user.id = res.user!.uid;
-          user.createdAt = new Date().toLocaleDateString();
+          user.createdAt = new Date().toDateString();
           this.data.addUser(user);
           this.router.navigate(['login']);
         },

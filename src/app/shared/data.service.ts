@@ -12,9 +12,12 @@ export class DataService {
 
   //tweet
   addTweet(tweet: Tweet) {
-    tweet.createdAt = new Date().toLocaleString();
+    tweet.createdAt = new Date().toDateString();
     tweet.id = this.afs.createId();
     return this.afs.collection('/Tweets').doc(tweet.id).set(tweet);
+  }
+  removeTweet(tweetId: string) {
+    return this.afs.collection('/Tweets').doc(tweetId).delete();
   }
   getAllTweets() {
     return this.afs.collection('/Tweets').snapshotChanges();
@@ -105,6 +108,7 @@ export class DataService {
     })
   }
 
+  //user1 if following user2
   follow(user1:string, user2:string){
     const postRef = this.afs.collection('/Users').doc(user2).ref;
     const postRef2 = this.afs.collection('/Users').doc(user1).ref;
@@ -160,5 +164,40 @@ export class DataService {
     return this.afs
       .collection('/Bookmarks', (ref) => ref.where('userId', '==', id))
       .snapshotChanges();
+  }
+
+  clearBookmarks(userId: string) {
+    const bookmarksRef = this.afs.collection('/Bookmarks', ref => ref.where('userId', '==', userId));
+
+    return bookmarksRef.get().toPromise().then(snapshot => {
+      if (!snapshot || snapshot.empty) return;
+
+      const batch = this.afs.firestore.batch();
+
+      snapshot.forEach(doc => {
+        batch.delete(doc.ref);
+      });
+
+      return batch.commit();
+    }).catch(error => {
+      console.error("Error deleting bookmarks:", error);
+    });
+  }
+  isBookmark(tweetId: string, userId: string): Promise<boolean> {
+    return this.afs
+      .collection('/Bookmarks', (ref) => ref.where('userId', '==', userId).where('tweetId', '==', tweetId))
+      .get()
+      .toPromise()
+      .then((snapshot) => {
+        return !snapshot?.empty; // Returns true if the bookmark exists, otherwise false
+      })
+      .catch((error) => {
+        console.error("Error checking bookmark:", error);
+        return false;
+      });
+  }
+  removeBookmark(tweetId: string, userId: string): Promise<void> {
+    return this.afs.collection('/Bookmarks', ref => ref.where('tweetId', '==', tweetId).where('userId', '==', userId))
+      .get().toPromise().then(snapshot => !snapshot?.empty ? this.afs.collection('/Bookmarks').doc(snapshot?.docs[0]?.id).delete() : Promise.resolve());
   }
 }

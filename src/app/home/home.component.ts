@@ -61,6 +61,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.user = await this.dataService.getUser(userToken!);
 
     this.isLoading = true;
+    this.loadTweets();
+    this.ngxService.stop();
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 500);
+
+  }
+  loadTweets(){
     this.dataService.getAllTweets().subscribe((res: any) => {
       this.isLoading = false;
       this.tweets = res.map(
@@ -85,11 +93,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
       );
     });
-    this.ngxService.stop();
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 500);
-
   }
 
   onFileSelected(event: any) {
@@ -168,6 +171,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   scrollToTop() {
+    this.loadTweets();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   

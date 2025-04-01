@@ -14,6 +14,25 @@
         &nbsp;<img *ngIf="user?.userName=='lavneesh27'" src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" width="20px" alt="verified" title="verified"> <span class="text-muted fw-normal">&#64;{{user?.userName}} .
           {{tweet.createdAt | date:"dd MMM"}}</span>
       </div>
+      <div class="ms-auto">
+        <button id="more" class="btn rounded-pill more-btn" style="cursor: pointer">
+          <a class="text-reset text-decoration-none d-flex align-items-center justify-content-center" type="button"
+            data-bs-toggle="dropdown" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded'></i></a>
+          <ul class="dropdown-menu fw-normal">
+            <li *ngIf="loginUser?.id != user?.id">
+              <a class="dropdown-item d-flex align-items-center" (click)="unFollow(user?.id)">
+                <i class="bx bx-user-minus fs-4 me-2"></i>
+                  Unfollow &#64;{{ user?.userName }}
+              </a>
+            </li>
+            <li *ngIf="loginUser?.id == user?.id">
+              <a class="dropdown-item d-flex align-items-center text-danger" (click)="delete(tweet.id)">
+                <i class='bx bx-trash fs-5 me-2'></i> Delete
+              </a>
+            </li>
+          </ul>
+        </button>
+      </div>
      
     </div>
     <h6 class="card-text ms-4  my-2" (click)="redirect(tweet.id)">{{tweet.content}}</h6>
@@ -41,8 +60,9 @@
         <a class="btn p-0 me-2" type="button" data-bs-toggle="dropdown" data-bs-toggle="dropdown"><i
             class='bx bx-share action fs-5'></i></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" (click)="copy()"><i class='bx bx-link fs-5'></i>&nbsp; Copy Link to Tweet</a></li>
-          <li><a class="dropdown-item" (click)="bookmark()"><i class='bx bx-bookmark fs-5'></i>&nbsp; Bookmark</a></li>
+          <li><a class="dropdown-item d-flex align-items-center" (click)="copy()"><i class='bx bx-link fs-5'></i>&nbsp; Copy Link to Tweet</a></li>
+          <li *ngIf="bookmarkStatus"><a class="dropdown-item d-flex align-items-center" (click)="unBookmark()"><i class='bx bxs-bookmark-minus fs-5'></i>&nbsp; Remove Bookmark</a></li>
+          <li *ngIf="!bookmarkStatus"><a class="dropdown-item d-flex align-items-center" (click)="bookmark()"><i class='bx bx-bookmark fs-5'></i>&nbsp; Bookmark</a></li>
         </ul>
       </div>
     </div>

@@ -3,13 +3,18 @@
     <!-- <h5>Bookmarks</h5> -->
     <div>
         <h5 class="mb-0">Bookmarks</h5>
-        <small class="m-0 text-muted">&#64;{{ user.userName }}</small>
-      </div>
+        <small class="m-0 text-muted">&#64;{{ user?.userName }}</small>
+    </div>
+    <div *ngIf="tweets?.length" class="ms-auto">
+        <a href="javascript:void(0)" class="text-reset fs-5 bookmark-btn" (click)="clearBookmarks()">
+            <i class='bx bx-brush-alt' ></i>
+        </a>
+    </div>
 </div>
 <div class="container bookmark ">
     <ul class="list-group d-flex justify-content-center" *ngIf="tweets?.length">
         <li class="list-group-item d-flex justify-content-center p-0" *ngFor="let tweet of tweets"><app-card
-                (likeEvent)="ngOnInit()" [tweet]="tweet"></app-card></li>
+                (likeEvent)="ngOnInit()" [tweet]="tweet" (bookmarkTrigger)="getBookmarks()"></app-card></li>
         <ngx-ui-loader></ngx-ui-loader>
     </ul>
     <div class="no-data text-center" *ngIf="!isLoading && !tweets?.length">

@@ -5,7 +5,7 @@
   <h5 class="m-0">Messages</h5>
 </div>
 <div class="body message">
-  <ul #chatBody class="list-group">
+  <ul #chatBody class="list-group" *ngIf="!isMessagesLoading">
     <li
       class="border-0 list-group-item"
       *ngFor="let u of displayUsers"
@@ -22,7 +22,6 @@
               width: 100%;
               height: 100%;
               object-fit: cover;
-              border-radius: inherit;
             "
           />
           <span
@@ -54,4 +53,7 @@
       </div>
     </li>
   </ul>
+  <div *ngIf="isMessagesLoading">
+    <!-- <ngx-skeleton-loader class="h-3" count="8" appearance="line"></ngx-skeleton-loader> -->
+  </div>
 </div>

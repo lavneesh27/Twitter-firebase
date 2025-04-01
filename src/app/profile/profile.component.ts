@@ -58,25 +58,7 @@ export class ProfileComponent {
         (sessionStorage.getItem('token') ?? localStorage.getItem('token')!);
       this.initializeForm();
 
-      this.data.getAllTweets().subscribe((res: any) => {
-        this.tweets = res
-          .map(
-            (e: any) => {
-              const data = e.payload.doc.data();
-              data.id = e.payload.doc.id;
-              return data;
-            },
-            () => {
-              alert('Error while fetching tweets');
-            }
-          )
-          .filter((tweet: Tweet) => {
-            return tweet.userId == this.user.id;
-          });
-        this.tweets.sort((a, b) =>
-          new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
-        );
-      });
+      this.loadTweets();
       this.ngxService.stop();
       setTimeout(() => {
         this.isLoading = false;
@@ -87,6 +69,27 @@ export class ProfileComponent {
       .then((json) => {
         this.countries = Object.keys(json);
       });
+  }
+  loadTweets(){
+    this.data.getAllTweets().subscribe((res: any) => {
+      this.tweets = res
+        .map(
+          (e: any) => {
+            const data = e.payload.doc.data();
+            data.id = e.payload.doc.id;
+            return data;
+          },
+          () => {
+            alert('Error while fetching tweets');
+          }
+        )
+        .filter((tweet: Tweet) => {
+          return tweet.userId == this.user.id;
+        });
+      this.tweets.sort((a, b) =>
+        new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+      );
+    });
   }
   goBack() {
     this._location.back();
@@ -205,6 +208,7 @@ export class ProfileComponent {
   }
 
   scrollToTop() {
+    this.loadTweets();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   redirect(id: string) {

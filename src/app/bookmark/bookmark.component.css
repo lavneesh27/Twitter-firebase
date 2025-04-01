@@ -6,7 +6,7 @@ li app-card{
     top: 50px;
     width: 1000px;
     height: calc(100vh-50px);
-    border: 1px solid rgba(230, 230, 230,0.5);
+    border-top: 1px solid rgba(230, 230, 230,0.5);
     padding:0;
 }
 li{
@@ -25,7 +25,7 @@ li{
     overflow: hidden;
 }
 
-.back{
+.back, .bookmark-btn{
     text-decoration: none;
     color: black;
     border-radius: 100%;
@@ -37,7 +37,7 @@ li{
     /* background-color: aquamarine; */
     transition: all 0.5s;
 }
-.back:hover{
+.back:hover, .bookmark-btn:hover{
     background-color: rgb(230, 230, 230);
 }
 .no-data{

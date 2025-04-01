@@ -78,3 +78,10 @@ img:hover {
   cursor: pointer;
   font-size: 18px;
 }
+.more-btn{
+  width: 35px;
+  height: 35px;
+}
+.more-btn:hover{
+  background-color: rgb(230, 230, 230);
+}

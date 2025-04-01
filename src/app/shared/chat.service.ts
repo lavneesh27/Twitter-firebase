@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Chat } from '../models/chat.model';
-import { combineLatest, distinctUntilChanged, map, Observable } from 'rxjs';
+import { combineLatest, distinctUntilChanged, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -48,7 +48,7 @@ export class ChatService {
       }
     });
   }
-  getDisplayMessage(receiverId: string, senderId: string) {
+  getDisplayMessage(receiverId: string, senderId: string): Observable<unknown[]> {
     const query1 = this.db
       .collection('/messages', (ref) =>
         ref

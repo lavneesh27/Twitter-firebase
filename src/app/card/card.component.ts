@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Tweet } from '../models/tweet.model';
 import { Bookmark } from '../models/bookmark.model';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../shared/data.service';
 import { Router } from '@angular/router';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-card',
@@ -12,12 +13,14 @@ import { Router } from '@angular/router';
 })
 export class CardComponent implements OnInit {
   @Input() tweet!: Tweet;
+  @Output() bookmarkTrigger : EventEmitter<any> = new EventEmitter();
   user?: any;
   loginUser?: any;
   dataURL?: string;
   imgSrc: string = '';
   userURL?: string;
   like: boolean = false;
+  bookmarkStatus: boolean | null = null;
 
   constructor(
     private toastr: ToastrService,
@@ -36,6 +39,12 @@ export class CardComponent implements OnInit {
       this.dataURL = this.tweet.image;
     }
     this.like = this.isLiked();
+    this.checkBookmarkStatus();
+  }
+  checkBookmarkStatus(){
+    this.afs.isBookmark(this.tweet?.id, this.loginUser?.id).then((result) => {
+      this.bookmarkStatus = result;
+    });
   }
   isLiked(): boolean {
     const likes = this.tweet.likes;
@@ -73,6 +82,7 @@ export class CardComponent implements OnInit {
     };
     this.data.addBookmark(bookmark).then(() => {
       this.toastr.success('Bookmark Added');
+      this.checkBookmarkStatus();
     });
   }
 
@@ -87,5 +97,24 @@ export class CardComponent implements OnInit {
   }
   redirect(id: string) {
     this.router.navigate(['post', id]);
+  }
+  delete(postId: string) {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      this.afs.removeTweet(postId).then((res) => {
+        this.toastr.success('Tweet successfully deleted');
+      })
+    }
+  }
+  unFollow(userId: string){
+    this.afs.unFollow(this.loginUser?.id, userId).then(res=>{
+      this.toastr.success('Unfollowed Successfully');
+    })
+  }
+  unBookmark(){
+    this.data.removeBookmark(this.tweet?.id, this.loginUser?.id).then(() => {
+      this.toastr.success('Bookmark Removed');
+      this.checkBookmarkStatus();
+      this.bookmarkTrigger.emit(true);
+    });
   }
 }

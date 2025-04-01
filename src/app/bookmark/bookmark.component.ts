@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { DataService } from '../shared/data.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-bookmark',
@@ -18,7 +19,8 @@ export class BookmarkComponent implements OnInit {
     private router: Router,
     private _location: Location,
     private data: DataService,
-    private ngxService: NgxUiLoaderService
+    private ngxService: NgxUiLoaderService,
+    private toastr: ToastrService
   ) {}
   async ngOnInit() {
     const userToken =
@@ -32,6 +34,10 @@ export class BookmarkComponent implements OnInit {
 
     this.ngxService.start();
 
+    this.getBookmarks();
+  }
+  getBookmarks(){
+    this.tweets = [];
     this.data.getAllBookmarks(this.user.id).subscribe((res: any) => {
       res
         .map(
@@ -54,6 +60,15 @@ export class BookmarkComponent implements OnInit {
         this.isLoading = false;
       }, 100);
     });
+  }
+  clearBookmarks() {
+    if (window.confirm('Are you sure you want to clear all bookmarks?')) {
+      this.tweets = [];
+      this.data.clearBookmarks(this.user?.id).then(() => {
+        this.toastr.success('Bookmarks cleared successfully');
+        this.getBookmarks();
+      })
+    }
   }
   goBack() {
     this._location.back();

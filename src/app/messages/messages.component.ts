@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { ChatService } from '../shared/chat.service';
-import { map, Observable } from 'rxjs';
+import { forkJoin, map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-messages',
@@ -42,37 +42,32 @@ export class MessagesComponent implements OnInit {
             }
           )
           .filter((people: User) => people.userName !== this.user.userName);
+          this.getRecentForAllUsers();
         });
       }
-      // this.users.sort((a, b) =>
-      //   new Date(a.recentMessageTime!) < new Date(b.recentMessageTime!) ? 1 : -1
-      // );
-      setTimeout(() => {
-        this.getRecentForAllUsers(this.users);
-      }, 140);
-      
-     
   }
-  getRecentForAllUsers(data: any) {
-    for (let i = 0; i < data.length; i++) {
-      this.getRecentMessage(data[i].id).subscribe((msg: any) => {
-        data[i].recentMessage = msg?.text;
-        data[i].recentMessageTime = msg?.createdAt;
+  isMessagesLoading = true;
+  getRecentForAllUsers() {
+    this.isMessagesLoading = true;
+    for (let i = 0; i < this.users.length; i++) {
+      this.getRecentMessage(this.users[i].id).subscribe((msg: any) => {
+        this.users[i].recentMessage = msg?.text;
+        this.users[i].recentMessageTime = msg?.createdAt;
+        if (i == this.users.length - 1) {
+          this.displayUsers = this.users.filter(user => user.recentMessage).sort((a, b) => {
+            if (a.recentMessageTime && b.recentMessageTime) {
+              return new Date(b.recentMessageTime).getTime() - new Date(a.recentMessageTime).getTime();
+            } else if (a.recentMessageTime) {
+              return -1;
+            } else if (b.recentMessageTime) {
+              return 1;
+            }
+            return 0;
+          });
+          this.isMessagesLoading = false;
+        }
       });
     }
-    setTimeout(() => {
-      this.users.sort((a, b) => {
-        if (a.recentMessageTime && b.recentMessageTime) {
-          return new Date(b.recentMessageTime).getTime() - new Date(a.recentMessageTime).getTime();
-        } else if (a.recentMessageTime) {
-          return -1; 
-        } else if (b.recentMessageTime) {
-          return 1; 
-        }
-        return 0; 
-      });
-      this.displayUsers = this.users;
-    }, 100);
   }
   getRecentMessage(senderId: any): Observable<string> {
     return this.chat.getDisplayMessage(senderId, this.user.id).pipe(

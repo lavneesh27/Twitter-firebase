@@ -94,7 +94,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     AngularFireModule.initializeApp(environment.firebase),
     FirestoreModule,
     CommonModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
   ],
   providers: [ToastrService],
   bootstrap: [AppComponent],

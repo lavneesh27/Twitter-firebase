@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthService } from '../shared/auth.service';
+import { MainService } from '../shared/main.service';
+import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ export class LoginComponent {
   remember: boolean = false;
   email: string = '';
   password: string = '';
-  constructor(private _location: Location, private auth: AuthService) {}
+  constructor(private _location: Location, private auth: AuthService, private main: MainService, private data: DataService) {}
 
   login() {
     if (this.email == '') {
@@ -24,7 +26,11 @@ export class LoginComponent {
       return;
     }
 
-    this.auth.login(this.email, this.password, this.remember);
+    this.auth.login(this.email, this.password, this.remember).then(async token=>{
+      if (token) {
+        this.main.loginUserObject = await this.data.getUser(token);
+      }
+    })
     this.email = '';
     this.password = '';
   }

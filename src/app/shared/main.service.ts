@@ -16,7 +16,7 @@ export class MainService {
     Authorization: `Bearer ${this.userToken}`,
   });
   gifs= new BehaviorSubject<any>([]);
-
+  loginUserObject: User|undefined;
   constructor(private http: HttpClient) {}
 
   registerUser(user: User) {

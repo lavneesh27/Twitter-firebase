@@ -27,6 +27,7 @@ import { CommonModule } from '@angular/common'
 import { MessagesComponent } from './messages/messages.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { PostComponent } from './post/post.component';
+import { SkeletonComponent } from './skeleton/skeleton.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -48,7 +49,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   "logoUrl": "",
   "masterLoaderId": "master",
   "overlayBorderRadius": "0",
-  "overlayColor": "rgba(40,40,40,0)",
+  "overlayColor": "rgba(0, 0, 0, 0.8)",
   "pbColor": "#1d9bf0",
   "pbDirection": "ltr",
   "pbThickness": 3,
@@ -76,7 +77,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ChatComponent,
     MessagesComponent,
     ForgotComponent,
-    PostComponent
+    PostComponent,
+    SkeletonComponent
   ],
   imports: [
     BrowserModule,

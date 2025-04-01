@@ -1,0 +1,6 @@
+<div *ngFor="let _ of [].constructor(rows)">
+  <div 
+    class="skeleton-loader my-3" 
+    [ngStyle]="{ 'width': width, 'height': height, 'border-radius': shape === 'circle' ? '50%' : '4px' }">
+  </div>
+</div>

@@ -42,7 +42,8 @@ export class ChatComponent {
   reciever: any;
   user: any;
   showButton: boolean = false;
-  
+  isChatsLoading = true;
+  isRecieverLoading = true;
 
   constructor(
     private chatService: ChatService,
@@ -54,9 +55,11 @@ export class ChatComponent {
     private toastr: ToastrService
   ) {}
   async ngOnInit() {
+    this.isRecieverLoading = true;
     this.messages = [];
     this.aRoute.params.subscribe(async (params) => {
       this.reciever = await this.data.getUser(params['uuid']);
+      this.isRecieverLoading = false;
     });
 
     this.user = await this.data.getUser(
@@ -66,6 +69,7 @@ export class ChatComponent {
     if (!this.user) {
       this.route.navigate(['login']);
     }
+    this.isChatsLoading = true;
     this.chatService.getMessages().subscribe((res) => {
       this.messages = res
       .filter((msg: any) => 
@@ -73,6 +77,7 @@ export class ChatComponent {
         (msg.recieverId === this.user.id && msg.senderId === this.reciever.id)
       )
       .sort((a: any, b: any) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+      this.isChatsLoading = false;
       if(this.messages.length){
         setTimeout(() => {
           if (this.myDiv) {

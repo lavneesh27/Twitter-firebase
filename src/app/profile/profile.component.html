@@ -138,9 +138,11 @@
           class="rounded-pill edit-btn"
           [class]="isFollower(user)?'btn btn-outline-dark float-end unfollow':'btn btn-dark float-end'"
           style="cursor: pointer"
-          (click)="isFollower(user)?unFollow(user.id):follow(user.id)"
+          (mouseenter)="isFollower(user) ? hoverState = user.id : null" 
+          (mouseleave)="hoverState = null" 
+          (click)="isFollower(user)?unFollow(uid):follow(uid)"
         >
-          {{isFollower(user)?'Unfollow':'Follow'}}
+          {{isFollower(user)?(hoverState === user.id ? 'Unfollow' : 'Following'):'Follow'}}
         </button>
       
         <button

@@ -14,6 +14,8 @@ export class SidebarComponent implements OnInit {
   peoples: User[] = [];
   inputUser: string = '';
   user: any;
+  isPeoplesLoading: boolean = true;
+  hoverState: string | null = null;
   async ngOnInit() {
     const userToken =
       sessionStorage.getItem('token') ?? localStorage.getItem('token');
@@ -21,23 +23,23 @@ export class SidebarComponent implements OnInit {
     if (userToken) {
       this.user = await this.data.getUser(userToken);
 
-      if (this.user.id) {
-        this.data.getAllUsers().subscribe((res: any) => {
-          this.peoples = res
-            .map(
-              (e: any) => {
-                const data = e.payload.doc.data();
-                data.id = e.payload.doc.id;
+      this.isPeoplesLoading=true;
+      this.data.getAllUsers().subscribe((res: any) => {
+        this.peoples = res
+          .map(
+            (e: any) => {
+              const data = e.payload.doc.data();
+              data.id = e.payload.doc.id;
 
-                return data;
-              },
-              () => {
-                alert('Error while fetching users');
-              }
-            )
-            .filter((people: User) => people.userName !== this.user.userName);
-        });
-      }
+              return data;
+            },
+            () => {
+              alert('Error while fetching users');
+            }
+          )
+          .filter((people: User) => people.userName !== this.user.userName);
+          this.isPeoplesLoading=false;
+      });
     }
   }
 

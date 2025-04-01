@@ -24,6 +24,7 @@ export class ProfileComponent {
   countries: any;
   showButton: boolean = false;
   uid: string = "";
+  hoverState: string | null = null;
   constructor(
     private _location: Location,
     private router: Router,
@@ -183,17 +184,17 @@ export class ProfileComponent {
       !!followers &&
       !!followers.length &&
       !!this.user &&
-      followers.includes(this.user.id)
+      followers.includes(this.loginUser.id)
     );
   }
   follow(userId: string) {
-    this.data.follow(this.user.id, userId).then(async () => {
+    this.data.follow(this.loginUser.id, userId).then(async () => {
       this.user = await this.data.getUser(this.uid);
       this.toastr.success('Follow Successull');
     });
   }
   unFollow(userId: string) {
-    this.data.unFollow(this.user.id, userId).then(async () => {
+    this.data.unFollow(this.loginUser.id, userId).then(async () => {
       this.user = await this.data.getUser(this.uid);
       this.toastr.success('Unfollow Successull');
     });

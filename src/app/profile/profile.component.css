@@ -112,7 +112,7 @@
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 200px;
+  max-width: 400px;
 }
 .website a:hover {
   text-decoration: underline;

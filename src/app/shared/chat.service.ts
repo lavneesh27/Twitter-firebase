@@ -15,7 +15,6 @@ export class ChatService {
     text: '',
     createdAt: '',
     attachment: '',
-    isRead: false
   };
   sendMessage(chat: Chat, reciever: string) {
     this.chat.text = chat.text;
@@ -25,28 +24,10 @@ export class ChatService {
     this.chat.recieverId = reciever;
     this.chat.createdAt = new Date().toString();
     this.chat.attachment = chat.attachment;
-    this.chat.isRead = false;
     this.db.collection('/messages').doc(this.chat.id).set(this.chat);
   }
   getMessages() {
     return this.db.collection('/messages').valueChanges();
-  }
-  getUnreadMessagesObservable(reciever:string): Observable<boolean> {
-    return this.getMessages().pipe(
-      map(messages => {
-        const unreadMessagesExist = messages.some((message:any) => message.isRead === false && message.recieverId===reciever);
-        return unreadMessagesExist;
-      }),
-      distinctUntilChanged()
-    );
-  }
-  updateMessages(chats: Chat[], receiver: string) {
-    chats.forEach(chat => {
-      const messageRef = this.db.collection('/messages').doc(chat.id);
-      if (chat.recieverId === receiver && chat.isRead===false) {
-        messageRef.update({ isRead: true });
-      }
-    });
   }
   getDisplayMessage(receiverId: string, senderId: string): Observable<unknown[]> {
     const query1 = this.db

@@ -37,7 +37,6 @@ export class ChatComponent {
     text: '',
     createdAt: '',
     attachment: '',
-    isRead: false
   };
   messages: any[] = [];
   reciever: any;
@@ -79,7 +78,6 @@ export class ChatComponent {
           if (this.myDiv) {
             this.scrollToBottom();
           }
-          this.chatService.updateMessages(this.messages, this.user.id);
         }, 300);
       }
     });
@@ -102,7 +100,6 @@ export class ChatComponent {
       text: '',
       createdAt: '',
       attachment: '',
-      isRead: false
     };
   }
   goBack() {

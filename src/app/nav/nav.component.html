@@ -25,7 +25,7 @@
         
         <li class="nav-item mb-3" *ngIf="user">
           <a class="nav-link d-flex align-items-center" aria-current="page" [routerLink]="['/messages']"
-            routerLinkActive="active"><i class='bx bxs-envelope fs-3'></i>&nbsp; Messages <i *ngIf="isUnread" class="bx bxs-circle unread"></i></a>
+            routerLinkActive="active"><i class='bx bxs-envelope fs-3'></i>&nbsp; Messages</a>
         </li>
         <li class="nav-item mb-3" *ngIf="user">
           <a class="nav-link d-flex" aria-current="page" [routerLink]="['/profile', user.id]"

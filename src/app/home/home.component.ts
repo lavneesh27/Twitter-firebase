@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   tweets: Tweet[] = [];
   dataURL: string = '';
   isLoading: boolean = true;
-  isUnread:boolean = false;
   tweet: Tweet = {
     id: '',
     content: '',

@@ -13,7 +13,6 @@ import { ChatService } from '../shared/chat.service';
 export class NavComponent implements OnInit {
   user?: any;
   imgUrl: any;
-  isUnread:boolean=false;
   private modalService = inject(NgbModal);
 
   constructor(
@@ -27,11 +26,6 @@ export class NavComponent implements OnInit {
     if (uid) {
       this.user = await this.data.getUser(uid);
     }
-      
-    this.chat.getUnreadMessagesObservable(this.user?.id).subscribe((res:any)=>{
-      this.isUnread = res;
-      console.log(res);
-    })
   }
   
   logout() {

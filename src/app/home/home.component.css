@@ -38,7 +38,7 @@ li {
   justify-content: center;
 }
 .tweet {
-  background-color: #1d9bf0 !important;
+  background-color: var(--twitter-primary) !important;
   border-radius: 50px;
   border: none;
 }
@@ -46,7 +46,7 @@ li {
 .image {
   text-decoration: none;
   display: flex;
-  color: #1d9bf0 !important;
+  color: var(--twitter-primary) !important;
   cursor: pointer;
   padding: 5px;
   border-radius: 50%;
@@ -59,7 +59,7 @@ li {
 
 .image:hover {
   text-decoration: none;
-  color: #3096db !important;
+  color: var(--twitter-secondary) !important;
   background-color: rgb(230, 230, 230);
 }
 .cross {
@@ -108,7 +108,7 @@ li {
   right: 50%;
   top:60px;
   transform: translateX(50%);
-  background-color: #1d9bf0;
+  background-color: var(--twitter-primary);
   color: #fff;
   border: none;
   border-radius: 30px;

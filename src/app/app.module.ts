@@ -25,7 +25,6 @@ import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { ChatComponent } from './chat/chat.component';
 import { CommonModule } from '@angular/common'
 import { MessagesComponent } from './messages/messages.component';
-import { ForgotComponent } from './forgot/forgot.component';
 import { PostComponent } from './post/post.component';
 import { SkeletonComponent } from './skeleton/skeleton.component';
 
@@ -49,7 +48,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   "logoUrl": "",
   "masterLoaderId": "master",
   "overlayBorderRadius": "0",
-  "overlayColor": "rgba(0, 0, 0, 0.8)",
+  "overlayColor": "rgba(0, 0, 0, 0.6)",
   "pbColor": "#1d9bf0",
   "pbDirection": "ltr",
   "pbThickness": 3,
@@ -76,7 +75,6 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     StartComponent,
     ChatComponent,
     MessagesComponent,
-    ForgotComponent,
     PostComponent,
     SkeletonComponent
   ],

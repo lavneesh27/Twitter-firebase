@@ -93,7 +93,8 @@ export class RegisterComponent implements OnInit {
       image: this.image ? this.image : '',
       createdAt: '',
       followers:[],
-      following:[]
+      following:[],
+      defaultPrimaryColor: ''
     };
     const storage = getStorage();
     const storageRef = ref(storage, 'images/' + 'solid-color-image.png');

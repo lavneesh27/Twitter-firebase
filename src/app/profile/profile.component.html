@@ -114,7 +114,7 @@
       <div class="d-flex gap-2">
         <button id="more" *ngIf="user?.id != loginUser?.id" class="btn btn-outline-dark rounded-pill more-btn"
           style="cursor: pointer">
-            <a class="text-reset" type="button" data-bs-toggle="dropdown" data-bs-toggle="dropdown"><i
+            <a class="text-reset" type="button" data-bs-toggle="dropdown" data-bs-toggle="dropdown" title="More"><i
                 class='bx bx-dots-horizontal-rounded'></i></a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" (click)="copy()"><i class='bx bx-link'></i>&nbsp; Copy Link to Profile</a></li>
@@ -128,6 +128,7 @@
           [routerLink]="['/chat', user?.id]"
           routerLinkActive="router-link-active"
           style="cursor: pointer"
+          title="Message"
         >
           <i class='bx bx-envelope'></i>
         </button>

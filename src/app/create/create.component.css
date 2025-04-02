@@ -11,12 +11,12 @@
     display: flex;
     margin-left: auto;
     margin-right: auto;
-    background-color: #1D9BF0 !important;
+    background-color: var(--twitter-primary) !important;
     border:none;
     color: white;
 }
 .btn-custom:hover{
-    background-color: #3096DB !important;
+    background-color: var(--twitter-secondary) !important;
 }
 .btn-custom-outline{
     border-radius: 50px;
@@ -25,12 +25,12 @@
     display: flex;
     margin-left: auto;
     margin-right: auto;
-    color: #3096DB;
-    border: 1px solid #3096DB!important;
+    color: var(--twitter-secondary);
+    border: 1px solid var(--twitter-secondary)!important;
     transition: all 0.5s;
 }
 .btn-custom-outline:hover{
-    background-color: #3096DB !important;
+    background-color: var(--twitter-secondary) !important;
     color: white;
     
 }

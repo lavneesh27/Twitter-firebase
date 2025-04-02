@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from '../shared/data.service';
-import { ChatService } from '../shared/chat.service';
+import { MainService } from '../shared/main.service';
+import { colors } from '../models/user.model';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-nav',
@@ -14,17 +16,24 @@ export class NavComponent implements OnInit {
   user?: any;
   imgUrl: any;
   private modalService = inject(NgbModal);
+  colors: any[] = colors;
 
   constructor(
     private router: Router,
     private toastr: ToastrService,
     private data: DataService,
-    private chat:ChatService
+    private ngxService: NgxUiLoaderService
   ) {}
   async ngOnInit() {
     let uid = sessionStorage.getItem('token') ?? localStorage.getItem('token');
     if (uid) {
       this.user = await this.data.getUser(uid);
+
+      if (this.user?.defaultPrimaryColor) {
+        const { color, secColor } = JSON.parse(this.user.defaultPrimaryColor);
+        document.documentElement.style.setProperty('--twitter-primary', color);
+        document.documentElement.style.setProperty('--twitter-secondary', secColor);
+      }
     }
   }
   
@@ -43,11 +52,11 @@ export class NavComponent implements OnInit {
   login() {
     this.router.navigate(['/login']);
   }
-  open(content: TemplateRef<any>) {
+  open(content: TemplateRef<any>, type: string) {
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       centered: true,
-      size: 'sm',
+      size: type == 'logout' ? 'sm' : 'md',
       windowClass: 'dark-modal',
     });
   }
@@ -61,5 +70,14 @@ export class NavComponent implements OnInit {
         transform: isVisible ? 'translateY(0)' : 'translateY(-10px)'
       });
     }  
+  }
+  changeColor(colorObj: any) {
+    this.user.defaultPrimaryColor = JSON.stringify(colorObj);
+
+    document.documentElement.style.setProperty('--twitter-primary', colorObj.color);
+    document.documentElement.style.setProperty('--twitter-secondary', colorObj.secColor);
+
+    this.data.updateUser(this.user);
+    this.toastr.success('Color set Successfully');
   }
 }

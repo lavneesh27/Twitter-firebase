@@ -22,11 +22,11 @@ nav .nav-item:hover {
 }
 
 nav .nav-brand i {
-  color: #1d9bf0;
+  color: var(--twitter-primary);
 }
 
 .tweet:hover {
-  background-color: #3096db;
+  background-color: var(--twitter-secondary);
 }
 
 .tweet {
@@ -34,7 +34,7 @@ nav .nav-brand i {
   height: 50px;
   border-radius: 100px;
   font-size: 20px;
-  background-color: #1d9bf0;
+  background-color: var(--twitter-primary);
   align-items: center;
   justify-content: center;
   display: flex;
@@ -88,4 +88,20 @@ nav .nav-brand i {
 
 .logo:hover{
   background-color: rgb(230, 230, 230);
+}
+.nav-link{
+  cursor: pointer;
+}
+.color-container{
+  background: #F7F9F9;
+  border-radius: 1rem;
+}
+.clr-circle{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.clr-circle:hover{
+  outline: 3px solid rgba(150, 150, 150, .5);
 }

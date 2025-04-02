@@ -16,6 +16,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { Chat } from '../models/chat.model';
 import { MainService } from '../shared/main.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-chat',
@@ -52,7 +53,8 @@ export class ChatComponent {
     private _location: Location,
     private route: Router,
     private service: MainService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private ngxService: NgxUiLoaderService
   ) {}
   async ngOnInit() {
     this.isRecieverLoading = true;
@@ -69,6 +71,7 @@ export class ChatComponent {
     if (!this.user) {
       this.route.navigate(['login']);
     }
+    this.ngxService.start();
     this.isChatsLoading = true;
     this.chatService.getMessages().subscribe((res) => {
       this.messages = res
@@ -84,6 +87,7 @@ export class ChatComponent {
             this.scrollToBottom();
           }
         }, 300);
+        this.ngxService.stop();
       }
     });
     if (this.myInput) {

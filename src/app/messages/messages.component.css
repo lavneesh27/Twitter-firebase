@@ -85,3 +85,12 @@ ul::-webkit-scrollbar-track {
 ul:hover::-webkit-scrollbar-thumb {
   background-color: #777;
 }
+
+.no-user {
+  text-align: center;      
+  align-items: center;     
+  width: 100%;            
+  font-size: 1.25rem;     
+  margin-top: 1rem;       
+  color: #6c757d;        
+}

@@ -86,7 +86,7 @@
 
 .right {
   margin-left: auto;
-  background-color: #1d9bf0;
+  background-color: var(--twitter-primary);
   border-radius: 20px 20px 0px 20px;
   color: white;
 }
@@ -157,7 +157,7 @@
   bottom: 80px;
   right: 50%;
   transform: translateX(50%);
-  background-color: #1d9bf0;
+  background-color: var(--twitter-primary);
   color: white;
   border: none;
   border-radius: 30px;

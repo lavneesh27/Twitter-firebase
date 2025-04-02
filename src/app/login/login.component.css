@@ -8,12 +8,12 @@ form{
 }
 .btn{
     border-radius: 50px;
-    background-color: #1D9BF0 !important;
+    background-color: var(--twitter-primary) !important;
     border:none;
     color: white;
 }
 .btn:hover{
-    background-color: #3096DB !important;
+    background-color: var(--twitter-secondary) !important;
 }
 .header{
     width: 1000px;

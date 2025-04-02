@@ -1,7 +1,8 @@
 <div class="card">
   <div class="card-body ">
     <div class="profile  d-flex align-items-center" >
-      <div class="rounded-circle me-2 overflow-hidden" style="width:50px;height:50px;cursor: pointer;" (click)="navigateToProfile(user.id)">
+      <div class="rounded-circle me-2 overflow-hidden" style="width:50px;height:50px;cursor: pointer;" (click)="navigateToProfile(user.id)"
+      >
         <img *ngIf="user && user.image" [src]="user.image" style="width:100%;height:100%;object-fit: cover; border-radius: inherit; " alt="dp">
         <span *ngIf="!user || !user.image"
           class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light"
@@ -17,7 +18,7 @@
       <div class="ms-auto">
         <button id="more" class="btn rounded-pill more-btn" style="cursor: pointer">
           <a class="text-reset text-decoration-none d-flex align-items-center justify-content-center" type="button"
-            data-bs-toggle="dropdown" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded'></i></a>
+            data-bs-toggle="dropdown" data-bs-toggle="dropdown" title="More"><i class='bx bx-dots-horizontal-rounded'></i></a>
           <ul class="dropdown-menu fw-normal">
             <li *ngIf="loginUser?.id != user?.id">
               <a class="dropdown-item d-flex align-items-center" (click)="unFollow(user?.id)">
@@ -41,23 +42,16 @@
         data-target="#myModal" (click)="redirect(tweet.id)">
     </div>
     <div class="d-flex justify-content-between px-4">
-      <div class="d-flex align-items-center">
         <a class="btn p-0 me-2 action" href="javascript:void(0)" style="cursor: not-allowed;"><i class='bx bx-comment fs-5'></i></a>
-        <span>{{1}}</span>
-      </div>
-      <div class="d-flex align-items-center">
         <a class="btn p-0 me-2 action" href="javascript:void(0)" style="cursor: not-allowed;"><i
             class='bx bx-git-compare fs-5'></i></a>
-        <span>{{2}}</span>
-    
-      </div>
       <div class="d-flex align-items-center">
-        <input id="like" type="checkbox" name="like" [(ngModel)]="like" (change)="plusLike()" class="action"
+        <input id="like" type="checkbox" name="like" title="Like" [(ngModel)]="like" (change)="plusLike()" class="action"
           [class]="like==false?'form-control bx bx-heart fs-5':'form-control bx bxs-heart fs-5'">
           <span  style="cursor: pointer;">{{tweet.likes.length?tweet.likes.length:''}}</span>
       </div>    
       <div class="dropdown">
-        <a class="btn p-0 me-2" type="button" data-bs-toggle="dropdown" data-bs-toggle="dropdown"><i
+        <a class="btn p-0 me-2" type="button" data-bs-toggle="dropdown" data-bs-toggle="dropdown" title="Share"><i
             class='bx bx-share action fs-5'></i></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item d-flex align-items-center" (click)="copy()"><i class='bx bx-link fs-5'></i>&nbsp; Copy Link to Tweet</a></li>

@@ -104,7 +104,8 @@ export class DataService {
       userName: user.userName,
       dob: user.dob,
       image:user.image,
-      banner:user.banner
+      banner:user.banner,
+      defaultPrimaryColor: user.defaultPrimaryColor
     })
   }
 

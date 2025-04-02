@@ -6,7 +6,7 @@
         <small class="m-0 text-muted">&#64;{{ user?.userName }}</small>
     </div>
     <div *ngIf="tweets?.length" class="ms-auto">
-        <a href="javascript:void(0)" class="text-reset fs-5 bookmark-btn" (click)="clearBookmarks()">
+        <a href="javascript:void(0)" class="text-reset fs-5 bookmark-btn" title="Clear Bookmarks" (click)="clearBookmarks()">
             <i class='bx bx-brush-alt' ></i>
         </a>
     </div>

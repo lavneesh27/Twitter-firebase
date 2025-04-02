@@ -31,8 +31,6 @@ export class LoginComponent {
         this.main.loginUserObject = await this.data.getUser(token);
       }
     })
-    this.email = '';
-    this.password = '';
   }
 
   goBack() {

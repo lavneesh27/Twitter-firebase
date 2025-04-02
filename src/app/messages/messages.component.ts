@@ -5,6 +5,7 @@ import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { ChatService } from '../shared/chat.service';
 import { forkJoin, map, Observable } from 'rxjs';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-messages',
@@ -21,13 +22,15 @@ export class MessagesComponent implements OnInit {
     private data: DataService,
     private _location: Location,
     private router: Router,
-    private chat: ChatService
+    private chat: ChatService,
+    private ngxService: NgxUiLoaderService
   ) {}
   async ngOnInit() {
     const userToken =
       sessionStorage.getItem('token') || localStorage.getItem('token');
 
     if (userToken) {
+      this.ngxService.start();
       this.user = await this.data.getUser(userToken);
       this.data.getAllUsers().subscribe((res: any) => {
         this.users = res
@@ -65,6 +68,7 @@ export class MessagesComponent implements OnInit {
             return 0;
           });
           this.isMessagesLoading = false;
+          this.ngxService.stop();
         }
       });
     }

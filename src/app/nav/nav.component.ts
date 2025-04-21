@@ -53,6 +53,16 @@ export class NavComponent implements OnInit {
     this.router.navigate(['/login']);
   }
   open(content: TemplateRef<any>, type: string) {
+    if(type=='lg'){
+      this.modalService.open(content, {
+        ariaLabelledBy: 'modal-basic-title',
+        centered: true,
+        size: type,
+        windowClass: 'create-modal'
+      });
+
+      return;
+    }
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       centered: true,

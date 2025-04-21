@@ -101,3 +101,6 @@ body:hover::-webkit-scrollbar-thumb {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
+.modal-content{
+  overflow: hidden;
+}

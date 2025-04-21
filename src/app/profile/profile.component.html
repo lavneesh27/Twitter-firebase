@@ -19,17 +19,12 @@
     <div class="banner">
       <img
         [src]="this.user?.banner"
-        [attr.data-bs-toggle]="isAdmin ? 'modal' : null"
-        [attr.data-bs-target]="isAdmin ? '#staticBackdrop' : null"
-        [attr.data-bs-transition-duration]="isAdmin ? '500' : null"
+        (click)="showCoverImage=true"
         alt="banner"
       />
       <div
         *ngIf="!this.user?.banner"
         style="background-color: #cfd9de; width: 100%"
-        [attr.data-bs-toggle]="isAdmin ? 'modal' : null"
-        [attr.data-bs-target]="isAdmin ? '#staticBackdrop' : null"
-        [attr.data-bs-transition-duration]="isAdmin ? '500' : null"
       ></div>
       <div
         class="rounded-circle me-3 overflow-hidden text-center dp my-3"
@@ -39,9 +34,6 @@
           border: 4px solid white;
           border-radius: 50%;
         "
-        [attr.data-bs-toggle]="isAdmin ? 'modal' : null"
-        [attr.data-bs-target]="isAdmin ? '#staticBackdrop' : null"
-        [attr.data-bs-transition-duration]="isAdmin ? '500' : null"
       >
         <img
           *ngIf="user?.image"
@@ -53,6 +45,7 @@
             object-fit: cover;
             border-radius: inherit;
           "
+          (click)="showProfileImage=true"
         />
         <span
           class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light fs-1"
@@ -97,7 +90,7 @@
         </div>
         <div class="col d-flex align-items-center me-4">
           <i class="bx bx-calendar fs-5 me-1"></i>
-          <h6 class="text-sm mb-0">
+          <h6 class="text-sm mb-0" [title]="user?.createdAt | date">
             Joined {{ user?.createdAt | date : "MMMM yyyy" }}
           </h6>
         </div>
@@ -379,3 +372,14 @@
     </div>
   </div>
 </div>
+
+<ng-container *ngIf="showProfileImage">
+  <div class="image-viewer-overlay" (click)="showProfileImage = false">
+    <img [src]="user?.image" alt="img" class="image-viewer-img-circle" (click)="$event.stopPropagation()">
+  </div>
+</ng-container>
+<ng-container *ngIf="showCoverImage">
+  <div class="image-viewer-overlay" (click)="showCoverImage = false">
+    <img [src]="user?.banner" alt="img" class="image-viewer-img" (click)="$event.stopPropagation()">
+  </div>
+</ng-container>

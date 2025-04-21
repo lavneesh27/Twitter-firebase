@@ -13,7 +13,7 @@
       <div (click)="navigateToProfile(user.id)" style="cursor: pointer;" class="d-flex align-items-center">
         <span class="fs-6 name">{{user?.firstName}} {{user?.lastName}}</span>
         &nbsp;<img *ngIf="user?.userName=='lavneesh27'" src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" width="20px" alt="verified" title="verified"> <span class="text-muted fw-normal">&#64;{{user?.userName}} .
-          {{tweet.createdAt | date:"dd MMM"}}</span>
+          <span [title]="tweet.createdAt | date">{{tweet.createdAt | date:"dd MMM"}}</span></span>
       </div>
       <div class="ms-auto">
         <button id="more" class="btn rounded-pill more-btn" style="cursor: pointer">
@@ -39,7 +39,7 @@
     <h6 class="card-text ms-4  my-2" (click)="redirect(tweet.id)">{{tweet.content}}</h6>
     <div class="img-container mb-3 ms-3" *ngIf="dataURL">
       <img class="img-thumbnail" [src]="dataURL" alt="tweetThumb" (click)="onClick($event)" data-toggle="modal"
-        data-target="#myModal" (click)="redirect(tweet.id)">
+        data-target="#myModal" (click)="showImage=true">
     </div>
     <div class="d-flex justify-content-between px-4">
         <a class="btn p-0 me-2 action" href="javascript:void(0)" style="cursor: not-allowed;"><i class='bx bx-comment fs-5'></i></a>
@@ -64,3 +64,8 @@
   </div>
 </div>
 
+<ng-container *ngIf="showImage">
+  <div class="image-viewer-overlay" (click)="showImage = false">
+    <img [src]="dataURL" alt="img" class="image-viewer-img" (click)="$event.stopPropagation()">
+  </div>
+</ng-container>

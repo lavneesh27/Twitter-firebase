@@ -40,7 +40,8 @@
   position: fixed;
   top: 0;
   z-index: 3;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
 }
 .back {
   text-decoration: none;
@@ -75,7 +76,7 @@
   height: auto;
   white-space: pre-line;
   background-color: rgb(230, 230, 230);
-  border-radius: 20px 20px 20px 0px;
+  border-radius: 20px 20px 20px 5px;
   margin: 10px;
   color: black;
   width: fit-content;
@@ -87,7 +88,7 @@
 .right {
   margin-left: auto;
   background-color: var(--twitter-primary);
-  border-radius: 20px 20px 0px 20px;
+  border-radius: 20px 20px 5px 20px;
   color: white;
 }
 .chats::-webkit-scrollbar {

@@ -25,6 +25,8 @@ export class ProfileComponent {
   showButton: boolean = false;
   uid: string = "";
   hoverState: string | null = null;
+  showProfileImage: boolean = false;
+  showCoverImage: boolean = false;
   constructor(
     private _location: Location,
     private router: Router,

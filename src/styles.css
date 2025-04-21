@@ -45,3 +45,32 @@ body::-webkit-scrollbar-track {
 body:hover::-webkit-scrollbar-thumb {
   background-color: #777;
 }
+.image-viewer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  cursor: zoom-out;
+}
+
+.image-viewer-img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 1rem;
+  cursor: auto;
+}
+.image-viewer-img-circle {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 50%;
+  overflow: hidden;
+  display: block;
+}
+

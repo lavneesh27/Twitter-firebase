@@ -21,6 +21,7 @@ export class CardComponent implements OnInit {
   userURL?: string;
   like: boolean = false;
   bookmarkStatus: boolean | null = null;
+  showImage: boolean = false;
 
   constructor(
     private toastr: ToastrService,

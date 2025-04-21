@@ -16,20 +16,6 @@
 .message{
   width: 1000px;
 }
-.back {
-  text-decoration: none;
-  color: black;
-  border-radius: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  transition: all 0.5s;
-}
-.back:hover {
-  background-color: rgb(230, 230, 230);
-}
 
 .body {
   position: absolute;

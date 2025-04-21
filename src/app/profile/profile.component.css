@@ -30,20 +30,6 @@
   font-size: 15px;
   font-weight: 400;
 }
-.back {
-  text-decoration: none;
-  color: black;
-  border-radius: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  transition: all 0.5s;
-}
-.back:hover {
-  background-color: rgb(230, 230, 230);
-}
 
 .no-data {
   height: 40vh;
@@ -92,9 +78,6 @@
   outline: none;
   border-radius: 20px;
   height: 1000px;
-}
-.modal {
-  transition: opacity 0.3s;
 }
 .edit-pic:hover {
   filter: brightness(80%);
